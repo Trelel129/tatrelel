@@ -25,3 +25,13 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.head_text{
+  @apply mt-5 text-5xl
+  font-extrabold leading-[1.15] text-black sm:text-6xl;
+}
+
+.sub_text{
+  @apply mt-5 text-2xl
+  font-bold leading-[1.15] text-black sm:text-2xl;
+}
