@@ -15,8 +15,8 @@ module.exports = {
       colors: {
         'first-blue': '#3366FF',
         'second-blue': '#AEDFF7',
-      }
+      },
     },
   },
   plugins: [],
-}
+};
