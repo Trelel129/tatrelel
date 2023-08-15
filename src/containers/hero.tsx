@@ -35,12 +35,7 @@ function Hero() {
             </Link>
           </div>
           <div className='hidden lg:mt-0 lg:col-span-5 lg:flex'>
-            <Image
-              src='/group 2260.png'
-              width={500}
-              height={500}
-              alt='ibuibu'
-            />
+            <Image src='/group2260.png' width={500} height={500} alt='ibuibu' />
           </div>
         </div>
       </section>

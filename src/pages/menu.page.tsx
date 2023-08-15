@@ -1,4 +1,4 @@
-import Header from '@/components/navbar';
+import Header from '@/containers/navbar';
 
 export default function Menu() {
   return (

@@ -26,23 +26,7 @@ module.exports = {
           700: 'rgb(var(--tw-color-primary-700) / <alpha-value>)',
           800: 'rgb(var(--tw-color-primary-800) / <alpha-value>)',
           900: 'rgb(var(--tw-color-primary-900) / <alpha-value>)',
-        },
-        secondary: {
-          50: '#EFF9F8',
-          //* Background
-          100: '#E8F4F3',
-          200: '#E0F3F1',
-          //* Complement
-          300: '#D0EDEB',
-          400: '#A2DBD7',
-          //* Default
-          500: '#40A69F',
-          //* Hovered
-          600: '#3B9993',
-          //* Active
-          700: '#2F7A75',
-          800: '#235C58',
-          900: '#173D3A',
+          950: 'rgb(var(--tw-color-primary-950) / <alpha-value>)',
         },
         typo: {
           DEFAULT: '#1F1F1F',

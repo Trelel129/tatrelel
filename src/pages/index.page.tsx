@@ -1,9 +1,9 @@
-import Features from '@/components/features';
-import Footer from '@/components/footer';
-import Hero from '@/components/hero';
-import Leaderboard from '@/components/leaderboard';
-import Map_Prev from '@/components/map_prev';
-import Header from '@/components/navbar';
+import Features from '@/containers/features';
+import Footer from '@/containers/footer';
+import Hero from '@/containers/hero';
+import Leaderboard from '@/containers/leaderboard';
+import Map_Prev from '@/containers/map_prev';
+import Header from '@/containers/navbar';
 
 export default function Home() {
   return (
