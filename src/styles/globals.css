@@ -31,49 +31,94 @@
 
 @layer base {
   /* #region  /**=========== Fonts =========== */
-  @font-face {
-    font-family: 'AvertaStd';
-    font-style: normal;
-    font-weight: 400;
-    font-display: optional;
-    src: url('/fonts/AvertaStd/AvertaStd-Regular.woff2') format('woff2');
+  html {
+    scroll-behavior: smooth !important;
+    /* With scroll padding, the text will scroll 1 rem below the navigation bar and banner (which total height is 64px + 4rem). */
+    scroll-padding: calc(4.5rem + 3.25rem + 1rem);
   }
+
   @font-face {
-    font-family: 'AvertaStd';
-    font-style: italic;
-    font-weight: 400;
-    font-display: optional;
-    src: url('/fonts/AvertaStd/AvertaStd-RegularItalic.woff2') format('woff2');
-  }
-  @font-face {
-    font-family: 'AvertaStd';
+    font-family: 'Cal-Sans';
     font-style: normal;
     font-weight: 600;
     font-display: optional;
-    src: url('/fonts/AvertaStd/AvertaStd-Semibold.woff2') format('woff2');
+    src: url('/fonts/Cal-Sans/CalSans-SemiBold.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Matter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: optional;
+    src: url('/fonts/Matter/Matter-Regular.woff2') format('woff2');
   }
   @font-face {
-    font-family: 'AvertaStd';
+    font-family: 'Matter';
+    font-style: italic;
+    font-weight: 400;
+    font-display: optional;
+    src: url('/fonts/Matter/Matter-RegularItalic.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Matter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: optional;
+    src: url('/fonts/Matter/Matter-Medium.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Matter';
+    font-style: italic;
+    font-weight: 500;
+    font-display: optional;
+    src: url('/fonts/Matter/Matter-MediumItalic.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Matter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: optional;
+    src: url('/fonts/Matter/Matter-SemiBold.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Matter';
     font-style: italic;
     font-weight: 600;
     font-display: optional;
-    src: url('/fonts/AvertaStd/AvertaStd-SemiboldItalic.woff2') format('woff2');
+    src: url('/fonts/Matter/Matter-SemiBoldItalic.woff2') format('woff2');
   }
+
   @font-face {
-    font-family: 'AvertaStd';
+    font-family: 'Matter';
     font-style: normal;
     font-weight: 700;
     font-display: optional;
-    src: url('/fonts/AvertaStd/AvertaStd-Bold.woff2') format('woff2');
+    src: url('/fonts/Matter/Matter-Bold.woff2') format('woff2');
   }
   @font-face {
-    font-family: 'AvertaStd';
+    font-family: 'Matter';
     font-style: italic;
     font-weight: 700;
     font-display: optional;
-    src: url('/fonts/AvertaStd/AvertaStd-BoldItalic.woff2') format('woff2');
+    src: url('/fonts/Matter/Matter-BoldItalic.woff2') format('woff2');
   }
-  /* #endregion  /**======== Fonts =========== */
+
+  @font-face {
+    font-family: 'Matter';
+    font-style: normal;
+    font-weight: 900;
+    font-display: optional;
+    src: url('/fonts/Matter/Matter-Heavy.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Matter';
+    font-style: italic;
+    font-weight: 900;
+    font-display: optional;
+    src: url('/fonts/Matter/Matter-Heavy.woff2') format('woff2');
+  }
 
   .cursor-newtab {
     cursor:
@@ -83,55 +128,69 @@
 
   /* #region  /**=========== Typography =========== */
   .j1 {
-    @apply font-averta text-4xl font-bold;
+    @apply font-heading text-5xl font-semibold;
   }
   .j2 {
-    @apply font-averta text-3xl font-bold;
+    @apply font-heading text-4xl font-semibold;
   }
+  .j3 {
+    @apply font-heading text-3xl font-semibold;
+  }
+
+  h1,
   .h1 {
-    @apply font-averta text-2xl font-semibold;
+    @apply font-heading text-2xl font-semibold;
   }
+  h2,
   .h2 {
-    @apply font-averta text-xl font-semibold;
+    @apply font-heading text-xl font-semibold;
   }
+  h3,
   .h3 {
-    @apply font-averta text-lg font-semibold;
+    @apply font-heading text-lg font-semibold;
   }
+  h4,
   .h4 {
-    @apply font-averta text-base font-bold;
+    @apply font-body text-lg font-bold;
   }
+  h5,
   .h5 {
-    @apply font-averta text-base font-semibold;
+    @apply font-heading text-base font-semibold;
   }
+  h6,
   .h6 {
-    @apply font-averta text-sm font-semibold;
+    @apply font-heading text-sm font-semibold;
   }
+
   .s1 {
-    @apply font-averta text-lg font-medium;
+    @apply font-body text-lg font-medium;
   }
   .s2 {
-    @apply font-averta text-base font-medium;
+    @apply font-body text-base font-medium;
   }
   .s3 {
-    @apply font-averta text-sm font-medium;
+    @apply font-body text-sm font-medium;
   }
-  .s4 {
-    @apply font-averta text-xs font-medium;
-  }
+
   .b1 {
-    @apply font-averta text-lg;
+    @apply font-body text-lg font-normal;
   }
   .b2 {
-    @apply font-averta text-base;
+    @apply font-body text-base font-normal;
   }
   .b3 {
-    @apply font-averta text-sm font-normal;
+    @apply font-body text-sm font-normal;
   }
+
   .c1 {
-    @apply font-averta text-xs;
+    @apply font-body text-xs font-normal;
   }
   .c2 {
-    @apply font-averta text-[11px] leading-[14px];
+    @apply font-body text-[11px] font-normal leading-[14px];
+  }
+
+  body {
+    @apply font-body text-typo text-base;
   }
   /* #endregion  /**======== Typography =========== */
 
@@ -148,10 +207,6 @@
   /* Class to adjust with sticky footer */
   .min-h-main {
     @apply min-h-[calc(100vh-56px)];
-  }
-
-  body {
-    @apply font-averta;
   }
 }
 

@@ -1,23 +1,29 @@
 import { Head, Html, Main, NextScript } from 'next/document';
 
-const fonts = [
-  '/fonts/AvertaStd/AvertaStd-Regular.woff2',
-  '/fonts/AvertaStd/AvertaStd-RegularItalic.woff2',
-  '/fonts/AvertaStd/AvertaStd-Semibold.woff2',
-  '/fonts/AvertaStd/AvertaStd-SemiboldItalic.woff2',
-  '/fonts/AvertaStd/AvertaStd-Bold.woff2',
-  '/fonts/AvertaStd/AvertaStd-BoldItalic.woff2',
+const preloadFont = [
+  '/fonts/Cal-Sans/CalSans-SemiBold.woff2',
+
+  '/fonts/Matter/Matter-Regular.woff2',
+  '/fonts/Matter/Matter-RegularItalic.woff2',
+  '/fonts/Matter/Matter-Medium.woff2',
+  '/fonts/Matter/Matter-MediumItalic.woff2',
+  '/fonts/Matter/Matter-SemiBold.woff2',
+  '/fonts/Matter/Matter-SemiBoldItalic.woff2',
+  '/fonts/Matter/Matter-Bold.woff2',
+  '/fonts/Matter/Matter-BoldItalic.woff2',
+  '/fonts/Matter/Matter-Heavy.woff2',
+  '/fonts/Matter/Matter-Heavy.woff2',
 ];
 
 export default function Document() {
   return (
     <Html lang='en'>
       <Head>
-        {fonts.map((font) => (
+        {preloadFont.map((link) => (
           <link
-            key={font}
             rel='preload'
-            href={font}
+            key={link}
+            href={link}
             as='font'
             type='font/woff2'
             crossOrigin='anonymous'

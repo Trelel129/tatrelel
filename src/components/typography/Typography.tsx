@@ -5,6 +5,7 @@ import clsxm from '@/lib/clsxm';
 const TypographyVariant = [
   'j1',
   'j2',
+  'j3',
   'h1',
   'h2',
   'h3',
@@ -14,7 +15,6 @@ const TypographyVariant = [
   's1',
   's2',
   's3',
-  's4',
   'b1',
   'b2',
   'b3',
@@ -29,9 +29,10 @@ const TypographyColor = [
   'secondary',
   'tertiary',
   'danger',
-  'white',
+  'black',
+  'purple-gradient',
 ] as const;
-const TypographyFont = ['averta', 'inter'] as const;
+const TypographyFont = ['heading', 'body'] as const;
 
 type TypographyProps<T extends React.ElementType> = {
   /** @default <p> tag */
@@ -41,23 +42,23 @@ type TypographyProps<T extends React.ElementType> = {
   /**
    * | Variant | Size Class | Font Size | Font Weight |
    * | :------ | :--------- | :-------- | :---------- |
-   * | j1      | text-4xl   | 36px      | 700         |
-   * | j2      | text-3xl   | 30px      | 700         |
-   * | h1      | text-2xl   | 24px      | 600         |
-   * | h2      | text-xl    | 20px      | 600         |
-   * | h3      | text-lg    | 18px      | 600         |
-   * | h4      | text-base  | 16px      | 700         |
-   * | h5      | text-base  | 16px      | 600         |
-   * | h6      | text-sm    | 14px      | 600         |
-   * | s1      | text-lg    | 18px      | 500         |
-   * | s2      | text-base  | 16px      | 500         |
-   * | s3      | text-sm    | 14px      | 500         |
-   * | s4      | text-xs    | 12px      | 500         |
-   * | b1      | text-lg    | 18px      | 400         |
-   * | b2      | text-base  | 16px      | 400         |
-   * | b3      | text-sm    | 14px      | 400         |
-   * | c1      | text-xs    | 12px      | 400         |
-   * | c2      | -          | 11px      | 400         |
+   * | j1      | text-5xl   | 48px      | semibold    |
+   * | j2      | text-4xl   | 36px      | semibold    |
+   * | j3      | text-3xl   | 30px      | semibold    |
+   * | h1      | text-2xl   | 24px      | semibold    |
+   * | h2      | text-xl    | 20px      | semibold    |
+   * | h3      | text-lg    | 18px      | semibold    |
+   * | h4      | text-lg    | 18px      | bold        |
+   * | h5      | text-base  | 16px      | semibold    |
+   * | h6      | text-sm    | 14px      | semibold    |
+   * | s1      | text-lg    | 18px      | medium      |
+   * | s2      | text-base  | 16px      | medium      |
+   * | s3      | text-sm    | 14px      | medium      |
+   * | b1      | text-lg    | 18px      | normal      |
+   * | b2      | text-base  | 16px      | normal      |
+   * | b3      | text-sm    | 14px      | normal      |
+   * | c1      | text-xs    | 12px      | normal      |
+   * | c2      | -          | 11px      | normal      |
    */
   variant?: (typeof TypographyVariant)[number];
   font?: (typeof TypographyFont)[number];
@@ -89,23 +90,29 @@ const Typography: TypographyComponent = React.forwardRef(
         className={clsxm(
           //#region  //*=========== Variants ===========
           [
-            variant === 'j1' && ['font-averta text-4xl font-bold'],
-            variant === 'j2' && ['font-averta text-3xl font-bold'],
-            variant === 'h1' && ['font-averta text-2xl font-semibold'],
-            variant === 'h2' && ['font-averta text-xl font-semibold'],
-            variant === 'h3' && ['font-averta text-lg font-semibold'],
-            variant === 'h4' && ['font-averta text-base font-bold'],
-            variant === 'h5' && ['font-averta text-base font-semibold'],
-            variant === 'h6' && ['font-averta text-sm font-semibold'],
-            variant === 's1' && ['text-lg font-medium'],
-            variant === 's2' && ['text-base font-medium'],
-            variant === 's3' && ['text-sm font-medium'],
-            variant === 's4' && ['text-xs font-medium'],
-            variant === 'b1' && ['text-lg'],
-            variant === 'b2' && ['text-base'],
-            variant === 'b3' && ['text-sm font-normal'],
-            variant === 'c1' && ['text-xs'],
-            variant === 'c2' && ['text-[11px] leading-[14px]'],
+            variant === 'j1' && ['font-heading text-5xl font-semibold'],
+            variant === 'j2' && ['font-heading text-4xl font-semibold'],
+            variant === 'j3' && ['font-heading text-3xl font-semibold'],
+
+            variant === 'h1' && ['font-heading text-2xl font-semibold'],
+            variant === 'h2' && ['font-heading text-xl font-semibold'],
+            variant === 'h3' && ['font-heading text-lg font-semibold'],
+            variant === 'h4' && ['font-body text-lg font-bold'],
+            variant === 'h5' && ['font-heading text-base font-semibold'],
+            variant === 'h6' && ['font-heading text-sm font-semibold'],
+
+            variant === 's1' && ['font-body text-lg font-medium'],
+            variant === 's2' && ['font-body text-base font-medium'],
+            variant === 's3' && ['font-body text-sm font-medium'],
+
+            variant === 'b1' && ['font-body text-lg font-normal'],
+            variant === 'b2' && ['font-body text-base font-normal'],
+            variant === 'b3' && ['font-body text-sm font-normal'],
+
+            variant === 'c1' && ['font-body text-xs font-normal'],
+            variant === 'c2' && [
+              'font-body text-[11px] font-normal leading-[14px]',
+            ],
           ],
           //#endregion  //*======== Variants ===========
           //#region  //*=========== Color ===========
@@ -113,14 +120,18 @@ const Typography: TypographyComponent = React.forwardRef(
             color === 'primary' && ['text-typo'],
             color === 'secondary' && ['text-typo-secondary'],
             color === 'tertiary' && ['text-typo-tertiary'],
-            color === 'danger' && ['text-red-500'],
-            color === 'white' && ['text-white'],
+            color === 'danger' && ['text-error'],
+            color === 'black' && ['text-black'],
+            color === 'purple-gradient' && [
+              'bg-gradient-to-r bg-clip-text text-transparent',
+              ' from-[#69EACB] via-[#EACCF8] to-[#6654F1]',
+            ],
           ],
           //#endregion  //*======== Color ===========
           //#region  //*=========== Font ===========
           [
-            font === 'averta' && ['font-averta'],
-            font === 'inter' && ['font-primary'],
+            font === 'heading' && ['font-heading'],
+            font === 'body' && ['font-primary'],
           ],
           //#endregion  //*======== Font ===========
           className,

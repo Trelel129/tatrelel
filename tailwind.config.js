@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { fontFamily } = require('tailwindcss/defaultTheme');
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        averta: ['AvertaStd', ...fontFamily.sans],
+        heading: ['Cal-Sans', ...defaultTheme.fontFamily.sans],
+        body: ['Matter', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         primary: {

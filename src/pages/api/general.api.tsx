@@ -3,8 +3,12 @@ import { ImageResponse } from '@vercel/og';
 import clsx from 'clsx';
 import { NextRequest } from 'next/server';
 
-export const font = fetch(
-  new URL('../../assets/AvertaStd-Semibold.woff2', import.meta.url),
+export const fontHeading = fetch(
+  new URL('../../assets/CalSans-SemiBold.ttf', import.meta.url),
+).then((res) => res.arrayBuffer());
+
+export const fontBody = fetch(
+  new URL('../../assets/Matter-Regular.ttf', import.meta.url),
 ).then((res) => res.arrayBuffer());
 
 export const config = {
@@ -12,7 +16,8 @@ export const config = {
 };
 
 export default async function handler(req: NextRequest) {
-  const Averta = await font;
+  const calSans = await fontHeading;
+  const matter = await fontBody;
 
   const { searchParams } = new URL(req.url);
 
@@ -24,8 +29,11 @@ export default async function handler(req: NextRequest) {
   const query = {
     siteName: siteName ?? 'Site Name',
     description: description ?? 'Description',
-    theme: theme ?? 'dark',
-    logo: `https://siphalal.vercel.app/assets/icons/siphalal-logo.svg`,
+    theme: theme ?? 'light',
+    logo:
+      theme === 'black'
+        ? `https://siphalal.vercel.app/images/logo.png`
+        : `https://siphalal.vercel.app/images/logo-black.png`,
     templateTitle,
     logoWidth: 64,
     logoHeight: 64,
@@ -55,7 +63,7 @@ export default async function handler(req: NextRequest) {
               alt='Favicon'
             />
             <p
-              style={{ fontFamily: 'Averta' }}
+              style={{ fontFamily: 'Cal-Sans' }}
               tw={clsx(
                 'text-6xl font-semibold',
                 query.theme === 'dark' ? 'text-white' : 'text-zinc-800',
@@ -65,10 +73,10 @@ export default async function handler(req: NextRequest) {
             </p>
           </div>
           <p
-            style={{ fontFamily: 'Averta' }}
+            style={{ fontFamily: 'Matter' }}
             tw={clsx(
               'text-3xl font-normal',
-              query.theme === 'dark' ? 'text-indigo-400' : 'text-indigo-700',
+              query.theme === 'dark' ? 'text-blue-400' : 'text-blue-700',
             )}
           >
             siphalal.com
@@ -77,16 +85,16 @@ export default async function handler(req: NextRequest) {
 
         <div tw='flex flex-col gap-8'>
           <h1
-            style={{ fontFamily: 'Averta' }}
+            style={{ fontFamily: 'Cal-Sans' }}
             tw={clsx(
               'text-8xl font-semibold',
               query.theme === 'dark' ? 'text-white' : 'text-black',
             )}
           >
-            {query.templateTitle ? query.templateTitle : 'SIPHALAL'}
+            {query.templateTitle ? query.templateTitle : 'SIPHalal'}
           </h1>
           <p
-            style={{ fontFamily: 'Averta' }}
+            style={{ fontFamily: 'Matter' }}
             tw={clsx(
               'text-3xl font-normal',
               query.theme === 'dark' ? 'text-zinc-300' : 'text-zinc-800',
@@ -103,8 +111,13 @@ export default async function handler(req: NextRequest) {
       emoji: 'twemoji',
       fonts: [
         {
-          name: 'Averta',
-          data: Averta,
+          name: 'Matter',
+          data: matter,
+          weight: 400,
+        },
+        {
+          name: 'Cal-Sans',
+          data: calSans,
           weight: 600,
         },
       ],
