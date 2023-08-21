@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import BaseDialog from '@/components/dialog/BaseDialog';
+import Footer from '@/components/layout/Footer';
 
 import useDialogStore from '@/store/useDialogStore';
 
@@ -15,6 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       {children}
+      <Footer />
       <BaseDialog
         onClose={handleClose}
         onSubmit={handleSubmit}

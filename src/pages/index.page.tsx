@@ -1,19 +1,23 @@
-import Features from '@/containers/features';
-import Footer from '@/containers/footer';
-import Hero from '@/containers/hero';
-import Leaderboard from '@/containers/leaderboard';
-import Map_Prev from '@/containers/map_prev';
-import Header from '@/containers/navbar';
+import * as React from 'react';
 
-export default function Home() {
+import Layout from '@/components/layout/Layout';
+import Seo from '@/components/Seo';
+import Typography from '@/components/typography/Typography';
+
+export default function IndexPage() {
   return (
-    <>
-      <Header />
-      <Hero />
-      <Map_Prev />
-      <Leaderboard />
-      <Features />
-      <Footer />
-    </>
+    <Layout>
+      <Seo templateTitle='Index' />
+
+      <main>
+        <section className=''>
+          <div className='layout py-20 min-h-screen'>
+            <Typography as='h1' variant='j1'>
+              Test
+            </Typography>
+          </div>
+        </section>
+      </main>
+    </Layout>
   );
 }
