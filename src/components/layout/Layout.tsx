@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import BaseDialog from '@/components/dialog/BaseDialog';
 import Footer from '@/components/layout/Footer';
+import Header from '@/components/layout/Header';
 
 import useDialogStore from '@/store/useDialogStore';
 
@@ -15,6 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div>
+      <Header />
       {children}
       <Footer />
       <BaseDialog

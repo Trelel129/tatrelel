@@ -19,10 +19,10 @@ export default function MacCardPage() {
                   <Typography variant='b2'>Hello</Typography>
                 </div>
                 <div className='rounded-lg bg-white p-3'>
-                  <Typography variant='s2' font='averta'>
+                  <Typography variant='s2' font='body'>
                     Telepon Langsung
                   </Typography>
-                  <Typography variant='b2' color='tertiary' font='averta'>
+                  <Typography variant='b2' color='tertiary' font='body'>
                     Hello
                   </Typography>
                 </div>

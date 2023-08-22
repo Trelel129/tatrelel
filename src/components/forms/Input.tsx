@@ -68,7 +68,7 @@ export default function Input({
         {LeftIcon && (
           <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
             {typeof LeftIcon === 'string' ? (
-              <Typography variant='s4'>{LeftIcon}</Typography>
+              <Typography variant='s3'>{LeftIcon}</Typography>
             ) : (
               <LeftIcon size='1em' className='text-xl text-typo' />
             )}

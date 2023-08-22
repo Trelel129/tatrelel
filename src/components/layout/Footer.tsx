@@ -19,9 +19,8 @@ export default function Footer() {
         <div className='grid gap-x-8 gap-y-12 md:grid-cols-[2fr_1fr]'>
           <div className='flex flex-col gap-8'>
             <Logo />
-            <Typography variant='b2'>
+            <Typography variant='b2' className='max-w-md'>
               Bergabunglah dengan Pahlawan SIP, Lawan Kabut Jahat Syubhat dan
-              <br />
               Bangun Dunia Kuliner yang Halal dan Bersih!
             </Typography>
             <div className='flex items-center gap-8'>

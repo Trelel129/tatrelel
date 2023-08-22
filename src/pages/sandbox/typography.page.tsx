@@ -50,9 +50,6 @@ export default function TypographyPage() {
               <Typography variant='s3'>
                 Subtitle 3 <span className='italic'>Subtitle 3</span>
               </Typography>
-              <Typography variant='s4'>
-                Subtitle 4 <span className='italic'>Subtitle 4</span>
-              </Typography>
               <Typography variant='b1'>
                 Body 1 <span className='italic'>Body 1</span>
               </Typography>

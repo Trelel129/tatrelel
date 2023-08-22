@@ -206,7 +206,7 @@
 
   /* Class to adjust with sticky footer */
   .min-h-main {
-    @apply min-h-[calc(100vh-56px)];
+    @apply min-h-[calc(100vh-4rem)];
   }
 }
 

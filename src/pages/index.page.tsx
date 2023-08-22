@@ -7,13 +7,12 @@ import Typography from '@/components/typography/Typography';
 export default function IndexPage() {
   return (
     <Layout>
-      <Seo templateTitle='Index' />
-
+      <Seo />
       <main>
         <section className=''>
-          <div className='layout py-20 min-h-screen'>
+          <div className='layout py-20 min-h-main '>
             <Typography as='h1' variant='j1'>
-              Test
+              Landing Page
             </Typography>
           </div>
         </section>
