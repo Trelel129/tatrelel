@@ -4,9 +4,13 @@ import {
   QueryOptions,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import nProgress from 'nprogress';
+import * as React from 'react';
+import { ParallaxProvider } from 'react-scroll-parallax';
+import 'atropos/css';
 
 import '@/styles/nprogress.css';
 import '@/styles/globals.css';
@@ -32,14 +36,16 @@ const queryClient = new QueryClient({
   },
 });
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <div>
-        <DismissableToast />
-        <Component {...pageProps} />
-        <ReactQueryDevtools />
-      </div>
+      <ParallaxProvider>
+        <AnimatePresence mode='wait'>
+          <DismissableToast />
+          <Component key={router.route} {...pageProps} />
+          <ReactQueryDevtools />
+        </AnimatePresence>
+      </ParallaxProvider>
     </QueryClientProvider>
   );
 }

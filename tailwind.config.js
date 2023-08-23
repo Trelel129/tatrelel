@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        heading: ['Cal-Sans', ...defaultTheme.fontFamily.sans],
+        heading: ['Cal-Sans', 'Matter', ...defaultTheme.fontFamily.sans],
         body: ['Matter', ...defaultTheme.fontFamily.sans],
       },
       colors: {
@@ -71,6 +71,22 @@ module.exports = {
           },
           '100%': {
             backgroundPosition: '700px 0',
+          },
+        },
+        float: {
+          '0%, 100%': {
+            transform: 'translateY(25%)',
+          },
+          '50%': {
+            transform: 'translateY(-25%)',
+          },
+        },
+        'float-reverse': {
+          '0%, 100%': {
+            transform: 'translateY(-25%)',
+          },
+          '50%': {
+            transform: 'translateY(25%)',
           },
         },
       },

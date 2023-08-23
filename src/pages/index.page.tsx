@@ -2,20 +2,23 @@ import * as React from 'react';
 
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
-import Typography from '@/components/typography/Typography';
+
+import AboutSection from '@/pages/landing/AboutSection';
+import BenefitSection from '@/pages/landing/BenefitSection';
+import FeatureSection from '@/pages/landing/FeatureSection';
+import HomeSection from '@/pages/landing/HomeSection';
+import SloganSection from '@/pages/landing/SloganSection';
 
 export default function IndexPage() {
   return (
     <Layout>
       <Seo />
       <main>
-        <section className=''>
-          <div className='layout py-20 min-h-main '>
-            <Typography as='h1' variant='j1'>
-              Landing Page
-            </Typography>
-          </div>
-        </section>
+        <HomeSection />
+        <AboutSection />
+        <FeatureSection />
+        <BenefitSection />
+        <SloganSection />
       </main>
     </Layout>
   );
