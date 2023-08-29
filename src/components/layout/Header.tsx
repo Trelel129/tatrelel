@@ -7,7 +7,7 @@ import HeaderLink from '@/components/layout/header/HeaderLink';
 import Logo from '@/components/layout/logo/Logo';
 import UnstyledLink from '@/components/links/UnstyledLink';
 
-import { LINKS } from '@/content/header';
+import { AUTH_LINKS, LINKS } from '@/content/header';
 
 export default function Header() {
   //#region  //*=========== Mobile Navigation ===========
@@ -39,13 +39,15 @@ export default function Header() {
             ))}
           </ul>
           <ul className=' gap-4 items-center list-none h-full hidden md:flex'>
-            <HeaderLink href='sign-in'>Sign In</HeaderLink>
+            <HeaderLink href={AUTH_LINKS.login.href}>
+              {AUTH_LINKS.login.label}
+            </HeaderLink>
             <div className='w-[1px] h-4  bg-typo-divider' />
             <HeaderLink
-              href='/register'
+              href={AUTH_LINKS.register.href}
               className='text-secondary-400 group-hover:text-secondary-600 '
             >
-              Register
+              {AUTH_LINKS.register.label}
             </HeaderLink>
           </ul>
         </React.Fragment>
@@ -89,14 +91,14 @@ export default function Header() {
               >
                 <Dialog.Panel className='w-full transform overflow-hidden text-left align-middle shadow-xl transition-all'>
                   <UnstyledLink
-                    href='#login'
+                    href='#menu'
                     className='bg-white relative -mb-1 block h-12 w-full rounded-t-full sm:h-16 lg:hidden'
                   >
                     <div className='bg-gray-300 absolute left-1/2 top-2 h-2 w-16 -translate-x-1/2 rounded-full'>
                       &nbsp;
                     </div>
                   </UnstyledLink>
-                  <div className='bg-white min-h-[50vh]'>
+                  <div id='menu' className='bg-white min-h-[50vh]'>
                     <div
                       className='px-6 pt-3 pb-12 divide-y divide-typo-divider'
                       ref={containerRef}
@@ -114,12 +116,20 @@ export default function Header() {
                         ))}
                       </ul>
                       <ul className='gap-4 list-none flex flex-col mt-6 pt-6'>
-                        <HeaderLink href='sign-in' size='lg' icon={LogIn}>
-                          Sign In
+                        <HeaderLink
+                          href={AUTH_LINKS.login.href}
+                          size='lg'
+                          icon={LogIn}
+                        >
+                          {AUTH_LINKS.login.label}
                         </HeaderLink>
 
-                        <HeaderLink href='/register' size='lg' icon={User2}>
-                          Register
+                        <HeaderLink
+                          href={AUTH_LINKS.register.href}
+                          size='lg'
+                          icon={User2}
+                        >
+                          {AUTH_LINKS.register.label}
                         </HeaderLink>
                       </ul>
                     </div>
