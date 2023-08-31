@@ -14,6 +14,8 @@ type ModalProps = {
   children: React.ReactNode;
   /** Use sm:max-w-xx to adjust max-width */
   modalContainerClassName?: string;
+  childrenClassName?: string;
+
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title: React.ReactNode;
@@ -23,6 +25,7 @@ type ModalProps = {
 export function ModalRoot({
   className,
   children,
+  childrenClassName,
   modalContainerClassName,
   open,
   setOpen,
@@ -81,7 +84,12 @@ export function ModalRoot({
                 modalContainerClassName,
               )}
             >
-              <div className='w-full divide-y divide-typo-divider'>
+              <div
+                className={clsxm([
+                  'w-full divide-y divide-typo-divider',
+                  childrenClassName,
+                ])}
+              >
                 <header className='flex items-center justify-between py-4 px-4 sm:px-6'>
                   <Typography
                     as={Dialog.Title}

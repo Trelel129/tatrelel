@@ -3,11 +3,29 @@ import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
-import { User } from 'lucide-react';
+import { Info, User } from 'lucide-react';
 import * as React from 'react';
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
+import { useDraggable } from 'react-use-draggable-scroll';
 
+import { getPercentage } from '@/lib/helper';
+
+import Button from '@/components/buttons/Button';
+import IconButton from '@/components/buttons/IconButton';
 import UnstyledLink from '@/components/links/UnstyledLink';
+import Modal from '@/components/modal/Modal';
+import NextImage from '@/components/NextImage';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/popover/Popover';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/Tooltip';
 import Typography from '@/components/typography/Typography';
 
 type HeaderProps = {
@@ -36,14 +54,95 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
             <span className='sr-only'>Open sidebar</span>
             <HiOutlineMenuAlt2 className='h-6 w-6' aria-hidden='true' />
           </button>
-          <div className='flex flex-1 items-center justify-between'>
-            <div className='flex flex-1 px-2 md:px-0'>
+          <div className='flex flex-1 items-center justify-between '>
+            <div className=' flex-1 px-2 md:px-0  flex'>
               <Typography variant='b3' color='secondary'>
                 {format(new Date(), 'PPPP', {
                   locale: id,
                 })}
               </Typography>
             </div>
+
+            {/* Level and XP Bar */}
+            <ExampleModal>
+              {({ openModal }) => (
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <button
+                        onClick={openModal}
+                        className={clsx([
+                          'border border-typo-outline bg-white hover:bg-gray-50 px-5 py-1 rounded-full',
+                          'flex items-center gap-4',
+                        ])}
+                      >
+                        <div className='hidden md:flex flex-col gap-0.5'>
+                          <div className='flex justify-between items-center'>
+                            <Typography
+                              variant='s3'
+                              className='text-primary-600'
+                            >
+                              Level 5
+                            </Typography>
+                            <Typography variant='s3' color='secondary'>
+                              <span className='text-yellow-500'>
+                                + 400 SIP Koin
+                              </span>{' '}
+                              di Level 6
+                            </Typography>
+                          </div>
+                          <div className='flex items-center gap-3'>
+                            <Typography variant='c1' color='secondary'>
+                              XP
+                            </Typography>
+                            <div className='w-full min-w-[12rem] relative h-2 overflow-hidden rounded-full bg-light shadow-inner'>
+                              <span
+                                title='2500'
+                                className={clsx([
+                                  'bg-gradient-to-r from-primary-400 to-primary-700',
+                                  'absolute left-0 h-2 shrink-0 rounded-r-full',
+                                ])}
+                                style={{
+                                  width: `${getPercentage(2500, 10000)}%`,
+                                }}
+                              >
+                                &nbsp;
+                              </span>
+                            </div>
+                            <Typography
+                              variant='c1'
+                              color='secondary'
+                              className='whitespace-nowrap'
+                            >
+                              2.500 / 10.000
+                            </Typography>
+                          </div>
+                        </div>
+                        <div className='flex items-center gap-2'>
+                          <div className='p-0.5 bg-white shadow rounded-full'>
+                            <NextImage
+                              src='/images/icon/koin-sip.png'
+                              width={120}
+                              height={120}
+                              className='w-4'
+                              imgClassName='w-full'
+                              alt='Koin SIP'
+                            />
+                          </div>
+                          <Typography variant='s2'>342.673.428</Typography>
+                        </div>
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <Typography variant='c1'>
+                        Klik untuk melihat lebih detail
+                      </Typography>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              )}
+            </ExampleModal>
+
             <div className='flex items-center  md:ml-6'>
               {/* Profile dropdown */}
               <Menu as='div' className='relative ml-3 '>
@@ -110,6 +209,255 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+type ModalReturnType = {
+  openModal: () => void;
+};
+
+function ExampleModal({
+  children,
+}: {
+  children: (props: ModalReturnType) => JSX.Element;
+}) {
+  const [open, setOpen] = React.useState(false);
+  const modalReturn: ModalReturnType = {
+    openModal: () => setOpen(true),
+  };
+
+  return (
+    <>
+      {children(modalReturn)}
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        title=''
+        childrenClassName='divide-y-0'
+      >
+        <Modal.Section className='py-1 sm:py-1'>
+          <TooltipProvider delayDuration={100}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className='bg-white  absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 soft-shadow rounded-full p-3 mx-auto w-[8rem]'>
+                  <NextImage
+                    src='/images/rank/explorer.svg'
+                    width={100}
+                    height={100}
+                    className='w-full'
+                    imgClassName='w-full'
+                    alt='explorer'
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side='left'>
+                <Typography variant='c1'>
+                  Rank Kamu <span className='text-primary-600'>Novice</span>
+                </Typography>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <div className='text-center flex flex-col justify-center items-center'>
+            <Typography as='h3' variant='h3'>
+              Kurnia Cahya Febryanto
+            </Typography>
+            <div className='flex gap-2 justify-center items-center'>
+              <div className='bg-primary-900 px-3 py-0.5 rounded-full'>
+                <Typography variant='s3' className='text-white'>
+                  Novice
+                </Typography>
+              </div>
+              <Typography variant='s3' color='secondary'>
+                <span className='text-primary-600'>2 Level</span> lagi menuju
+                Explorer
+              </Typography>
+            </div>
+          </div>
+          <div className='w-full flex flex-col gap-0.5 mt-8 md:mt-4'>
+            <div className='flex justify-between items-center'>
+              <Typography variant='s3' className='text-primary-600'>
+                Level 5
+              </Typography>
+              <Typography variant='s3' color='secondary'>
+                <span className='text-yellow-500'>+ 400 SIP Koin</span> di Level
+                6
+              </Typography>
+            </div>
+            <div className='flex items-center gap-3'>
+              <Typography variant='c1' color='secondary'>
+                XP
+              </Typography>
+              <div className='w-full min-w-[12rem] relative h-2 overflow-hidden rounded-full bg-light shadow-inner'>
+                <TooltipProvider delayDuration={100}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <span
+                        className={clsx([
+                          'bg-gradient-to-r from-primary-400 to-primary-700',
+                          'absolute left-0 h-2 shrink-0 rounded-r-full',
+                        ])}
+                        style={{
+                          width: `${getPercentage(2500, 10000)}%`,
+                        }}
+                      >
+                        &nbsp;
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent side='bottom'>
+                      <Typography variant='c1'>2500 XP</Typography>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+              <Typography
+                variant='c1'
+                color='secondary'
+                className='whitespace-nowrap'
+              >
+                <span className='text-primary-600'>2.500</span> / 10.000
+              </Typography>
+            </div>
+          </div>
+          <div className='flex gap-8 md:justify-end items-start mt-8  md:mt-4'>
+            <div className='flex items-center gap-2'>
+              <div className='p-2 bg-white shadow rounded-full'>
+                <NextImage
+                  src='/images/icon/koin-sip.png'
+                  width={120}
+                  height={120}
+                  className='w-5'
+                  imgClassName='w-full'
+                  alt='Koin SIP'
+                />
+              </div>
+              <div>
+                <Typography variant='c1' className='whitespace-nowrap'>
+                  Koin SIP
+                </Typography>
+                <Typography variant='s2'>342.673.428</Typography>
+              </div>
+            </div>
+            <div className='flex items-center gap-2'>
+              <div className='p-2 bg-white shadow rounded-full'>
+                <NextImage
+                  src='/images/icon/kios.png'
+                  width={120}
+                  height={120}
+                  className='w-5'
+                  imgClassName='w-full'
+                  alt='Kios'
+                />
+              </div>
+              <div>
+                <Typography variant='c1' className='whitespace-nowrap'>
+                  Banyak Kios
+                </Typography>
+                <Typography variant='s2'>30</Typography>
+              </div>
+            </div>
+          </div>
+          <div className='flex flex-col gap-2 mt-8 md:mt-0'>
+            <Typography variant='c1'>Badges Kamu</Typography>
+            <BadgesCarousel />
+          </div>
+          <div className='flex justify-end'>
+            <Button onClick={() => setOpen(false)} className='translate-y-1/2'>
+              Tutup
+            </Button>
+          </div>
+        </Modal.Section>
+      </Modal>
+    </>
+  );
+}
+
+const SAMPLE_BADGE_IMAGE = [
+  {
+    url: '/images/badge/gold.jpg',
+    isActive: true,
+  },
+  {
+    url: '/images/badge/silver.jpg',
+    isActive: true,
+  },
+  {
+    url: '/images/badge/silver.jpg',
+    isActive: false,
+  },
+  {
+    url: '/images/badge/silver.jpg',
+    isActive: false,
+  },
+  {
+    url: '/images/badge/silver.jpg',
+    isActive: false,
+  },
+];
+
+function BadgesCarousel() {
+  //#region  //*=========== Drag ===========
+  const element =
+    React.useRef<HTMLDivElement>() as React.MutableRefObject<HTMLInputElement>;
+  const { events: scrollEvent } = useDraggable(element, {
+    applyRubberBandEffect: true,
+  });
+  //#endregion  //*======== Drag ===========
+
+  return (
+    <div
+      className={clsx([
+        'scrollbar-hide overflow-x-scroll cursor-grab',
+        'flex items-center gap-4 ',
+        'p-3 bg-gray-50 rounded-3xl',
+      ])}
+      {...scrollEvent}
+      ref={element}
+    >
+      {SAMPLE_BADGE_IMAGE.map((image, i) => (
+        <div
+          key={i}
+          className={clsx([
+            'relative shadow-md aspect-[4/6] min-w-[40%] md:min-w-[20%] rounded-2xl overflow-hidden',
+          ])}
+        >
+          <NextImage
+            src={image.url}
+            layout='fill'
+            sizes='(max-width: 768px) 100vw,(max-width: 1200px) 50vw'
+            alt='Badge'
+            className={clsx([
+              'absolute inset-0 w-full',
+              !image.isActive && 'blur-sm',
+            ])}
+            imgClassName='object-cover w-full h-full'
+          />
+          {!image.isActive && (
+            <Popover>
+              <PopoverTrigger
+                asChild
+                className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+              >
+                <IconButton
+                  variant='outline'
+                  size='sm'
+                  className='rounded-full'
+                  icon={Info}
+                />
+              </PopoverTrigger>
+              <PopoverContent className='w-fit p-2'>
+                <Typography variant='c1'>
+                  Misi{' '}
+                  <span className='text-primary-600'>
+                    Membantu 10 UMKM Roti
+                  </span>
+                </Typography>
+              </PopoverContent>
+            </Popover>
+          )}
+        </div>
+      ))}
     </div>
   );
 }

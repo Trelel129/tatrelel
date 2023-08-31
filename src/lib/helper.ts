@@ -33,3 +33,11 @@ export function getFromSessionStorage(key: string): string | null {
   }
   return null;
 }
+
+export function getPercentage(partialValue?: number, totalValue?: number) {
+  if (!partialValue || !totalValue) return 0;
+
+  if (totalValue === 0) return 0;
+
+  return (100 * partialValue) / totalValue;
+}

@@ -64,11 +64,8 @@ function FAQContent({ data }: { data: FAQContentType }) {
               'border border-gray-100',
               'focus:outline-none focus-visible:border focus-visible:border-primary-500',
               ' hover:bg-gray-50',
+              'soft-shadow',
             ])}
-            style={{
-              boxShadow:
-                '0px 12px 24px 0px rgba(20, 20, 43, 0.04), 0px -2px 4px 0px rgba(20, 20, 43, 0.02), 0px 3px 14px 0px rgba(74, 58, 255, 0.03)',
-            }}
           >
             <span className='inline-flex items-center gap-4'>
               <span className='md:self-auto self-start inline-flex p-1 w-8 h-8 justify-center rounded-lg items-center bg-primary-50  text-primary-600'>
@@ -119,14 +116,10 @@ function FAQItem({ data }: { data: FAQItemType }) {
       {({ open }) => (
         <div
           className={clsx([
-            'rounded-2xl bg-white border-2',
+            'rounded-2xl bg-white border-2 soft-shadow',
 
             open ? 'border-primary-600' : 'border-gray-100 hover:bg-gray-50',
           ])}
-          style={{
-            boxShadow:
-              '0px 12px 24px 0px rgba(20, 20, 43, 0.04), 0px -2px 4px 0px rgba(20, 20, 43, 0.02), 0px 3px 14px 0px rgba(74, 58, 255, 0.03)',
-          }}
         >
           <Disclosure.Button
             className={clsx([
