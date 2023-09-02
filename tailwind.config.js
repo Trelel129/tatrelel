@@ -94,6 +94,11 @@ module.exports = {
         flicker: 'flicker 3s linear infinite',
         shimmer: 'shimmer 1.3s linear infinite',
       },
+      backgroundImage: () => ({
+        'hero-pattern': "url('/img/hero-pattern.svg')",
+
+        'footer-texture': "url('/img/footer-texture.png')",
+      }),
     },
   },
   plugins: [
