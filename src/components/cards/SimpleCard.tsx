@@ -19,8 +19,8 @@ export default function SimpleCard({
       className={clsxm(
         'bg-white shadow-sm',
         [
-          size === 'sm' && ['p-4', 'rounded-lg'],
-          size === 'base' && ['p-5', 'rounded-xl'],
+          size === 'sm' && ['p-4', 'rounded-2xl'],
+          size === 'base' && ['p-6', 'rounded-3xl'],
         ],
         className,
       )}
