@@ -5,11 +5,16 @@ import * as React from 'react';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
-import Layout from '@/components/layout/Layout';
+import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
+import ButtonLink from '@/components/links/ButtonLink';
+import NextImage from '@/components/NextImage';
 import Seo from '@/components/Seo';
+import Typography from '@/components/typography/Typography';
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
   ssr: false,
 });
+
+const HEIGHTFIT = 250;
 
 // console.log('Sketch:', Sketch);
 export default function SurgapagePage() {
@@ -69,7 +74,7 @@ export default function SurgapagePage() {
   ) => {
     // p5.js setup function
     // ...
-    p.createCanvas(size.width, size.height).parent(canvasParentRef);
+    p.createCanvas(size.width, size.height - HEIGHTFIT).parent(canvasParentRef);
 
     p.frameRate(60);
     p.textSize(20);
@@ -181,7 +186,7 @@ export default function SurgapagePage() {
       // ...
       function draw_grid() {
         x_start = size.width / 4 - TILE_WIDTH / 4;
-        y_start = 50;
+        y_start = size.height / 4 - HEIGHTFIT - TILE_HEIGHT / 4;
         for (let i = 0; i < GRID_SIZE; i++) {
           for (let j = 0; j < GRID_SIZE; j++) {
             // if(cursor.x == j && cursor.y == i) {
@@ -728,17 +733,50 @@ export default function SurgapagePage() {
   // }, []);
 
   return (
-    <Layout>
+    <DashboardLayout>
       <Seo templateTitle='Surga.page' />
-
       <main>
-        <section className=''>
-          <div className='layout py-20 min-h-screen'>
-            {JSON.stringify(size)}
+        <section>
+          <div className='layout py-2'>
+            {/* {JSON.stringify(size)} */}
             {size.height && size.width && <Sketch setup={setup} draw={draw} />}
           </div>
         </section>
+        <div className='flex layout gap-4'>
+          <ButtonLink
+            href='../coba'
+            variant='ghost'
+            className='rounded shadow-lg lainnya'
+          >
+            <Typography variant='h3' className='text-center'>
+              <NextImage
+                className='flex'
+                src='/images/ornamen/StoreIcon.png'
+                alt='ornamen'
+                width={25}
+                height={25}
+              />
+              Ornamen Tersedia
+            </Typography>
+          </ButtonLink>
+          <ButtonLink
+            href='../purchaseornamen'
+            variant='ghost'
+            className='rounded shadow-lg lainnya'
+          >
+            <Typography variant='h3' className='text-center'>
+              <NextImage
+                className='flex'
+                src='/images/ornamen/StoreIcon.png'
+                alt='ornamen'
+                width={25}
+                height={25}
+              />
+              Toko Ornamen
+            </Typography>
+          </ButtonLink>
+        </div>
       </main>
-    </Layout>
+    </DashboardLayout>
   );
 }

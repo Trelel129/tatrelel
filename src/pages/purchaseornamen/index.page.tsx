@@ -1,11 +1,148 @@
-import Image from 'next/image';
+import clsx from 'clsx';
 import * as React from 'react';
 
 import Button from '@/components/buttons/Button';
-import Layout from '@/components/layout/Layout';
+import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import ButtonLink from '@/components/links/ButtonLink';
+import NextImage from '@/components/NextImage';
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
+
+type OptionType = {
+  title: string;
+  color?: string;
+};
+//#region  //*=========== Constant ===========
+const RARITY_OPTIONS: OptionType[] = [
+  {
+    title: 'Biasa',
+    color: 'bg-black',
+  },
+  {
+    title: 'Tidak Biasa',
+    color: 'bg-green-500',
+  },
+  {
+    title: 'Langka',
+    color: 'bg-cyan-500',
+  },
+  {
+    title: 'Unik',
+    color: 'bg-purple-500',
+  },
+  {
+    title: 'Legenda',
+    color: 'bg-orange-500',
+  },
+  {
+    title: 'Mistik',
+    color: 'bg-red-500',
+  },
+];
+
+const TYPE_OPTIONS: OptionType[] = [
+  {
+    title: 'Lahan',
+  },
+  {
+    title: 'Bangunan',
+  },
+];
+
+const OPTIONS = [
+  <FilterSelection title='Semua' key='all' />,
+
+  RARITY_OPTIONS.map((rarity, i) => (
+    <FilterSelection key={i} title={rarity.title} color={rarity.color} />
+  )),
+
+  TYPE_OPTIONS.map((type, i) => <FilterSelection key={i} title={type.title} />),
+];
+
+const ORNAMENTS = [
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '1',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '2',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '3',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '4',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '5',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '6',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '7',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '8',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput Rumput liar yang kau biarkan berserakan',
+    amount: 'x1',
+    price: '10',
+    id: '9',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    color: 'common',
+    name: 'Rumput',
+    amount: 'x1',
+    price: '10',
+    id: '10',
+  },
+];
+//#endregion  //*======== Constant ===========
+
 export default function CobapagePage() {
   // const {data, isLoading} = useQuery(['https://jsonplaceholder.typicode.com/todos/'])
 
@@ -14,7 +151,7 @@ export default function CobapagePage() {
   // }
 
   return (
-    <Layout>
+    <DashboardLayout>
       <Seo templateTitle='Coba.page' />
 
       <main>
@@ -34,319 +171,22 @@ export default function CobapagePage() {
             <Typography variant='s1' className='coin'>
               1000
             </Typography>
-            <div className='flexc'>
-              <input type='checkbox' className='round round shadow-lg' />
-              <Typography variant='s3' className='text'>
-                Semua
-              </Typography>
-            </div>
-            <div className='flexc'>
-              <input type='checkbox' className='round round shadow-lg' />
-              <div className='circle common' />
-              <Typography variant='s3' className='text rarity'>
-                Biasa
-              </Typography>
-              <input type='checkbox' className='round round shadow-lg' />
-              <div className='circle uncommon' />
-              <Typography variant='s3' className='text rarity'>
-                Tidak Biasa
-              </Typography>
-              <input type='checkbox' className='round round shadow-lg' />
-              <div className='circle rare' />
-              <Typography variant='s3' className='text rarity'>
-                Langka
-              </Typography>
-              <input type='checkbox' className='round round shadow-lg' />
-              <div className='circle unique' />
-              <Typography variant='s3' className='text rarity'>
-                Unik
-              </Typography>
-              <input type='checkbox' className='round round shadow-lg' />
-              <div className='circle legend' />
-              <Typography variant='s3' className='text rarity'>
-                Legenda
-              </Typography>
-              <input type='checkbox' className='round round shadow-lg' />
-              <div className='circle mythic' />
-              <Typography variant='s3' className='text rarity'>
-                Mistik
-              </Typography>
-            </div>
-            <div className='flexc'>
-              <input type='checkbox' className='round round shadow-lg' />
-              <Typography variant='s3' className='text category'>
-                Lahan
-              </Typography>
-              <input type='checkbox' className='round round shadow-lg' />
-              <Typography variant='s3' className='text category'>
-                Bangunan
-              </Typography>
-            </div>
-            <div className='flexc'>
-              <div className='grid'>
-                {/* import image from internet using src */}
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/1'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/2'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/3'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/4'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/5'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/6'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/7'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/8'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/9'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common' />
-                    Rumput Rumput liar yang kau biarkan berserakan
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
-                <ButtonLink
-                  variant='ghost'
-                  href='purchaseornamen/10'
-                  className='rounded shadow-lg'
-                >
-                  <Image
-                    src='/images/ornamen/grass.jpg'
-                    width='100'
-                    height='100'
-                    alt='ornamen'
-                    className='rounded-t-lg'
-                  />
-                  <Typography variant='b2' className='text category numgrid'>
-                    <div className='circle common itemcenter' />
-                    Rumput
-                  </Typography>
-                  <Typography variant='b1' className='text category numgrid'>
-                    x1
-                  </Typography>
-                  <Typography
-                    variant='b1'
-                    className='text category numgrid price'
-                  >
-                    10 KOIN
-                  </Typography>
-                </ButtonLink>
+
+            {OPTIONS.map((option, i) => (
+              <div
+                key={i}
+                className='flex layout items-center justify-center gap-4'
+              >
+                {option}
               </div>
+            ))}
+
+            <div className='layout items-center gap-4 grid grid-cols-5'>
+              {ORNAMENTS.map((ornament, i) => (
+                <OrnamentDisplay key={i} {...ornament} />
+              ))}
             </div>
+
             <div className='gridcolumn pagin'>
               <Typography variant='s3' className='text-center grid-flow-col'>
                 <Button variant='outline' size='base'>
@@ -368,9 +208,13 @@ export default function CobapagePage() {
             <Typography variant='s3' className='text padding-lihat'>
               LIHAT LAINNYA
             </Typography>
-            <div className='rounded shadow-lg lainnya'>
+            <ButtonLink
+              href='../coba'
+              variant='ghost'
+              className='rounded shadow-lg lainnya'
+            >
               <Typography variant='h3' className='text-center'>
-                <Image
+                <NextImage
                   className='flex'
                   src='/images/ornamen/StoreIcon.png'
                   alt='ornamen'
@@ -379,10 +223,62 @@ export default function CobapagePage() {
                 />
                 Ornamen Tersedia
               </Typography>
-            </div>
+            </ButtonLink>
           </div>
         </div>
       </main>
-    </Layout>
+    </DashboardLayout>
+  );
+}
+// 1
+function FilterSelection({ title, color }: { title: string; color?: string }) {
+  return (
+    <div className='flex items-center gap-1'>
+      <input type='checkbox' className='round round shadow-lg' />
+      {color && <div className={clsx(['w-4 h-4 rounded-full', color])}></div>}
+      <Typography variant='s3'>{title}</Typography>
+    </div>
+  );
+}
+
+function OrnamentDisplay({
+  image,
+  color,
+  name,
+  amount,
+  price,
+  id,
+}: {
+  image: string;
+  color: string;
+  name: string;
+  amount: string;
+  price: string;
+  id: string;
+}) {
+  return (
+    <ButtonLink
+      variant='ghost'
+      href={`purchaseornamen/${id}`}
+      className='rounded-xl border border-typo-outline shadow-lg flex flex-col'
+    >
+      <NextImage
+        src={image}
+        width='100'
+        height='100'
+        alt='ornamen'
+        className='rounded-t-lg'
+      />
+      <Typography variant='b2' className='text category numgrid'>
+        <div className={clsx(['circle', color])} />
+        {name}
+      </Typography>
+      <Typography variant='b1' className='text category numgrid'>
+        {amount}
+      </Typography>
+      <Typography variant='b1' className='text category numgrid price'>
+        {price} KOIN
+      </Typography>
+    </ButtonLink>
   );
 }
