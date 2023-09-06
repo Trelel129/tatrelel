@@ -351,7 +351,6 @@ html {
   border: 2px solid #000;
 }
 .coin {
-  padding-left: 1rem;
   color: #fdaa40;
 }
 .details {
@@ -391,16 +390,7 @@ html {
   margin-right: 20px;
 }
 
-.category {
-  margin-right: 20px;
-}
-
 .cancel {
-  margin: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  width: 400px;
   border-radius: 30px;
   background-color: #ef4444;
 
@@ -408,11 +398,6 @@ html {
 }
 
 .confirm {
-  margin: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  width: 400px;
   border-radius: 30px;
   background-color: #84cc16;
 

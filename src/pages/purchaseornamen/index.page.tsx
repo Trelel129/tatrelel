@@ -155,17 +155,17 @@ export default function CobapagePage() {
       <Seo templateTitle='Coba.page' />
 
       <main>
-        <div className='background-purchase'>
-          <div className='flexl'>
+        <div className='background-purchase layout border border-spacing-5 '>
+          <div className='flex flex-col gap-4'>
             {/* {JSON.stringify(data)}*/}
-            <Typography variant='j2' className='text'>
+            <Typography variant='j2' className='ml-8'>
               Toko Ornamen
             </Typography>
-            <Typography variant='b3' className='text'>
+            <Typography variant='h3' className='ml-4'>
               List ornamen yang dijual
             </Typography>
 
-            <Typography variant='h6' className='text details'>
+            <Typography variant='h6' className='details'>
               KOIN ANDA SAAT INI
             </Typography>
             <Typography variant='s1' className='coin'>
@@ -205,13 +205,13 @@ export default function CobapagePage() {
                 {/* tab */} <b>15</b> <b>20</b>
               </Typography>
             </div>
-            <Typography variant='s3' className='text padding-lihat'>
+            <Typography variant='s3' className='text padding-lihat ml-4'>
               LIHAT LAINNYA
             </Typography>
             <ButtonLink
               href='../coba'
               variant='ghost'
-              className='rounded shadow-lg lainnya'
+              className='shadow rounded-xl w-40 ml-4'
             >
               <Typography variant='h3' className='text-center'>
                 <NextImage

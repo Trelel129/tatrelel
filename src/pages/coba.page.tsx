@@ -142,13 +142,13 @@ export default function CobapagePage() {
     <DashboardLayout>
       <Seo templateTitle='Coba.page' />
       <main>
-        <div className='background-purchase'>
-          <div className='flexl'>
+        <div className='background-purchase layout border border-spacing-5'>
+          <div className='flex flex-col gap-4'>
             {/* {JSON.stringify(data)}*/}
-            <Typography variant='j2' className='text-center'>
+            <Typography variant='j2' className='ml-8'>
               Ornamen Tersedia
             </Typography>
-            <Typography variant='h3' className='text-center'>
+            <Typography variant='h3' className='ml-4'>
               List ornamen yang anda miliki
             </Typography>
 
@@ -185,14 +185,14 @@ export default function CobapagePage() {
                 {/* tab */} <b>15</b> <b>20</b>
               </Typography>
             </div>
-            <Typography variant='s3' className='text-center padding-lihat'>
+            <Typography variant='s3' className='ml-4'>
               LIHAT LAINNYA
             </Typography>
 
             <ButtonLink
               href='/purchaseornamen'
               variant='ghost'
-              className='rounded shadow-lg lainnya'
+              className='shadow rounded-xl w-40 ml-4'
             >
               <Typography variant='h3' className='text-center'>
                 <Image
@@ -246,11 +246,11 @@ function OrnamentDisplay({
         alt='ornamen'
         className='rounded-t-lg'
       />
-      <Typography variant='b2' className='text category numgrid'>
+      <Typography variant='b2' className='text category'>
         <div className={clsx(['circle', color])} />
         {name}
       </Typography>
-      <Typography variant='b1' className='text category numgrid'>
+      <Typography variant='b1' className='text category'>
         {amount}
       </Typography>
     </Button>

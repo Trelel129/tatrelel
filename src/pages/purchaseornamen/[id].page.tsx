@@ -75,24 +75,24 @@ export default function CobapagePage() {
     <DashboardLayout>
       <Seo templateTitle='Coba.page' />
       <main>
-        <div className='background-purchase'>
-          <div className='flexl'>
+        <div className='background-purchase layout border border-spacing-5'>
+          <div className='flex flex-col gap-4'>
             {/* {JSON.stringify(data)}*/}
-            <Typography variant='j2' className='text'>
+            <Typography variant='j2' className='text ml-8'>
               Toko Ornamen
             </Typography>
-            <Typography variant='b3' className='text'>
+            <Typography variant='h3' className='text ml-4'>
               List ornamen yang dijual
             </Typography>
 
             <Typography variant='h6' className='text details'>
               KOIN ANDA SAAT INI
             </Typography>
-            <Typography variant='s1' className='coin'>
+            <Typography variant='s1' className='coin ml-4'>
               1000
             </Typography>
             <div className='flex flex-row self-center item-center gap-3 layout'>
-              <div className='shadow-lg flex flex-col self-center'>
+              <div className='rounded-xl border shadow-lg flex flex-col self-center items-center'>
                 <NextImage
                   src='/images/ornamen/grass.jpg'
                   width='100'
@@ -100,11 +100,11 @@ export default function CobapagePage() {
                   alt='ornamen'
                   className='rounded-t-lg'
                 />
-                <Typography variant='b2' className='text category numgrid'>
+                <Typography variant='b2' className='text'>
                   <div className='circle common' />
                   Rumput
                 </Typography>
-                <Typography variant='b1' className='text category numgrid'>
+                <Typography variant='b1' className='text '>
                   x1
                 </Typography>
               </div>
@@ -128,16 +128,16 @@ export default function CobapagePage() {
                   </ul>
                 </Typography>
               </div>
-              <div className='gridpurchase'>
-                <div className='items-center gap-4 grid grid-cols-5'>
+              <div className=''>
+                <div className='gap-4 grid grid-cols-5 items-center justify-center'>
                   {ORNAMENTS.map((ornament, i) => (
                     <OrnamentDisplay key={i} {...ornament} />
                   ))}
                 </div>
               </div>
             </div>
-            <div className='flex flex-row justify-center'>
-              <ButtonLink className='confirm' href='../invoice'>
+            <div className='flex flex-row justify-center gap-x-40'>
+              <ButtonLink className='confirm w-3/12 h-5/6' href='/invoice'>
                 <Typography variant='s1' className='ctext'>
                   <NextImage
                     src='/images/ornamen/check_indicator.png'
@@ -149,7 +149,10 @@ export default function CobapagePage() {
                   Beli
                 </Typography>
               </ButtonLink>
-              <ButtonLink className='cancel' href='../purchaseornamen'>
+              <ButtonLink
+                className='cancel w-3/12 h-5/6'
+                href='/purchaseornamen'
+              >
                 <Typography variant='s1' className='ctext'>
                   <NextImage
                     src='/images/ornamen/cross_indicator.png'
@@ -162,13 +165,13 @@ export default function CobapagePage() {
                 </Typography>
               </ButtonLink>
             </div>
-            <Typography variant='s3' className='text'>
+            <Typography variant='s3' className='ml-4'>
               LIHAT LAINNYA
             </Typography>
             <ButtonLink
               href='../coba'
               variant='ghost'
-              className='rounded shadow-lg lainnya'
+              className='shadow rounded-xl w-40 ml-4'
             >
               <Typography variant='h3' className='text-center'>
                 <NextImage
@@ -207,8 +210,8 @@ function OrnamentDisplay({
         className='rounded-t-lg'
         id={id}
       />
-      <Typography variant='b1' className='text category numgrid'>
-        {amount}
+      <Typography variant='b1' className='text category numgrid text-center'>
+        x{amount}
       </Typography>
     </div>
   );
