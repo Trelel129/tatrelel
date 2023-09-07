@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
+import Button from '@/components/buttons/Button';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import ButtonLink from '@/components/links/ButtonLink';
 import NextImage from '@/components/NextImage';
@@ -13,6 +14,64 @@ import Typography from '@/components/typography/Typography';
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
   ssr: false,
 });
+
+const ORNAMENTS = [
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '1',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '2',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '3',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '4',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '5',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '6',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '7',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '8',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '9',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '10',
+  },
+  {
+    image: '/images/ornamen/grass.jpg',
+    amount: '10',
+    id: '11',
+  },
+];
 
 const HEIGHTFIT = 250;
 
@@ -737,14 +796,38 @@ export default function SurgapagePage() {
       <Seo templateTitle='Surga.page' />
       <main>
         <section>
-          <div className='layout py-2'>
-            {/* {JSON.stringify(size)} */}
-            {size.height && size.width && <Sketch setup={setup} draw={draw} />}
+          <div className='flex flex-row layout gap-4 items-center justify-center'>
+            <div className='layout py-2'>
+              {/* {JSON.stringify(size)} */}
+              {size.height && size.width && (
+                <Sketch setup={setup} draw={draw} />
+              )}
+            </div>
+            <Button className='h-3'>
+              <Typography
+                variant='h3'
+                className='text-center relative'
+                data-modal-target='inventory'
+                data-modal-toggle='inventory'
+              >
+                Inventory
+              </Typography>
+            </Button>
+            <div
+              className='gap-4 grid grid-cols-5 items-center justify-center w-11/12'
+              id='inventory'
+              tabIndex={-1}
+              aria-hidden='true'
+            >
+              {ORNAMENTS.map((ornament, i) => (
+                <OrnamentDisplay key={i} {...ornament} />
+              ))}
+            </div>
           </div>
         </section>
         <div className='flex layout gap-4'>
           <ButtonLink
-            href='../coba'
+            href='/coba'
             variant='ghost'
             className='rounded shadow-lg lainnya'
           >
@@ -760,7 +843,7 @@ export default function SurgapagePage() {
             </Typography>
           </ButtonLink>
           <ButtonLink
-            href='../purchaseornamen'
+            href='/purchaseornamen'
             variant='ghost'
             className='rounded shadow-lg lainnya'
           >
@@ -778,5 +861,31 @@ export default function SurgapagePage() {
         </div>
       </main>
     </DashboardLayout>
+  );
+}
+
+function OrnamentDisplay({
+  image,
+  amount,
+  id,
+}: {
+  image: string;
+  amount: string;
+  id: string;
+}) {
+  return (
+    <div className='rounded-xl border border-typo-outline shadow-lg flex flex-col'>
+      <NextImage
+        src={image}
+        width='100'
+        height='100'
+        alt='ornamen'
+        className='rounded-t-lg'
+        id={id}
+      />
+      <Typography variant='b1' className='text category numgrid text-center'>
+        x{amount}
+      </Typography>
+    </div>
   );
 }

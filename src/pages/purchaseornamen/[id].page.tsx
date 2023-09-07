@@ -169,7 +169,7 @@ export default function CobapagePage() {
               LIHAT LAINNYA
             </Typography>
             <ButtonLink
-              href='../coba'
+              href='/coba'
               variant='ghost'
               className='shadow rounded-xl w-40 ml-4'
             >

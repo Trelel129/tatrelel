@@ -209,7 +209,7 @@ export default function CobapagePage() {
               LIHAT LAINNYA
             </Typography>
             <ButtonLink
-              href='../coba'
+              href='/coba'
               variant='ghost'
               className='shadow rounded-xl w-40 ml-4'
             >
@@ -259,7 +259,7 @@ function OrnamentDisplay({
   return (
     <ButtonLink
       variant='ghost'
-      href={`purchaseornamen/${id}`}
+      href={`/purchaseornamen/${id}`}
       className='rounded-xl border border-typo-outline shadow-lg flex flex-col'
     >
       <NextImage
