@@ -1,14 +1,15 @@
-export type ApiResponse<T> = {
-  code: string;
-  data: T;
-};
+export type ApiResponse<T> = T;
 
 export type ApiError = {
   message: string;
+  error: string;
+  statusCode: number;
 };
 
 export type UninterceptedApiError = {
   message: string | Record<string, string[]>;
+  error: string;
+  statusCode: number;
 };
 
 export interface PaginatedApiResponse<T> {

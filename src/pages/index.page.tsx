@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import withAuth from '@/components/hoc/withAuth';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
@@ -9,7 +10,8 @@ import FeatureSection from '@/pages/landing/FeatureSection';
 import HomeSection from '@/pages/landing/HomeSection';
 import SloganSection from '@/pages/landing/SloganSection';
 
-export default function IndexPage() {
+export default withAuth('optional')(IndexPage);
+function IndexPage() {
   return (
     <Layout>
       <Seo />

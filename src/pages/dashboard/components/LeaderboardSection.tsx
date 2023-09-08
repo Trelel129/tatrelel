@@ -5,6 +5,8 @@ import NextImage from '@/components/NextImage';
 import Tag from '@/components/tag/Tag';
 import Typography from '@/components/typography/Typography';
 
+import useAuthStore from '@/store/useAuthStore';
+
 type LeaderboardContentType = {
   image: string;
   name: string;
@@ -75,6 +77,7 @@ const LEADERBOARD_CONTENT: LeaderboardContentType[] = [
 ];
 
 export default function LeaderboardSection() {
+  const user = useAuthStore.useUser();
   return (
     <SimpleCard className='flex flex-col w-full max-h-[30rem] md:max-h-[40rem]'>
       <div className='flex flex-col items-center'>
@@ -94,7 +97,7 @@ export default function LeaderboardSection() {
           </Tag>
         </div>
         <div className='text-center flex flex-col gap-1 mt-2'>
-          <Typography variant='s1'>Kurnia Cahya Febryanto</Typography>
+          <Typography variant='s1'>{user?.name}</Typography>
           <Typography variant='s3' color='secondary'>
             <span className='text-primary-600'>10.000 XP</span> ke peringkat
             selanjutnya!

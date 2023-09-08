@@ -28,6 +28,8 @@ import {
 } from '@/components/Tooltip';
 import Typography from '@/components/typography/Typography';
 
+import useAuthStore from '@/store/useAuthStore';
+
 type HeaderProps = {
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -38,6 +40,8 @@ const userNavigation = [
 ];
 
 export default function Header({ setSidebarOpen }: HeaderProps) {
+  const user = useAuthStore.useUser();
+  const logout = useAuthStore.useLogout();
   return (
     <div className='sticky top-0 z-20 bg-white shadow'>
       <div className='dashboard-layout relative z-10'>
@@ -64,7 +68,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
             </div>
 
             {/* Level and XP Bar */}
-            <ExampleModal>
+            <GamificationModal>
               {({ openModal }) => (
                 <TooltipProvider delayDuration={100}>
                   <Tooltip>
@@ -141,7 +145,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                   </Tooltip>
                 </TooltipProvider>
               )}
-            </ExampleModal>
+            </GamificationModal>
 
             <div className='flex items-center  md:ml-6'>
               {/* Profile dropdown */}
@@ -156,8 +160,8 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                   >
                     <span className='sr-only'>Open user menu</span>
                     <div className='hidden min-w-0  flex-col items-end sm:flex'>
-                      <Typography variant='b2'>Nama</Typography>
-                      <Typography variant='b3'>(Email)</Typography>
+                      <Typography variant='b2'>{user?.name}</Typography>
+                      <Typography variant='b3'>@{user?.username}</Typography>
                     </div>
                     <div className='flex h-10 w-10 items-center justify-center rounded-full bg-primary-50'>
                       <User className='text-primary-600' />
@@ -192,6 +196,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                     <Menu.Item>
                       {({ active }) => (
                         <button
+                          onClick={logout}
                           data-cy='logout'
                           className={clsx(
                             active ? 'bg-gray-100' : '',
@@ -217,11 +222,12 @@ type ModalReturnType = {
   openModal: () => void;
 };
 
-function ExampleModal({
+function GamificationModal({
   children,
 }: {
   children: (props: ModalReturnType) => JSX.Element;
 }) {
+  const user = useAuthStore.useUser();
   const [open, setOpen] = React.useState(false);
   const modalReturn: ModalReturnType = {
     openModal: () => setOpen(true),
@@ -261,7 +267,7 @@ function ExampleModal({
 
           <div className='text-center flex flex-col justify-center items-center'>
             <Typography as='h3' variant='h3'>
-              Kurnia Cahya Febryanto
+              {user?.name}
             </Typography>
             <div className='flex gap-2 justify-center items-center'>
               <div className='bg-primary-900 px-3 py-0.5 rounded-full'>

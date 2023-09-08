@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import logger from '@/lib/logger';
-
 import Button from '@/components/buttons/Button';
+import DevelopmentCard from '@/components/cards/DevelopmentCard';
 import Input from '@/components/forms/Input';
 import PasswordInput from '@/components/forms/PasswordInput';
+import withAuth from '@/components/hoc/withAuth';
 import Layout from '@/components/layout/Layout';
 import PrimaryLink from '@/components/links/PrimaryLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
@@ -15,13 +15,15 @@ import Typography from '@/components/typography/Typography';
 
 import { AUTH_LINKS } from '@/content/header';
 import AuthSection from '@/pages/auth/components/AuthSection';
+import { useLoginMutation } from '@/pages/auth/masuk/hooks/useLoginMutation';
 
 type LoginForm = {
   email: string;
   password: string;
 };
 
-export default function LoginPage() {
+export default withAuth('auth')(LoginPage);
+function LoginPage() {
   //#region  //*=========== Form ===========
   const methods = useForm<LoginForm>({
     mode: 'onTouched',
@@ -30,10 +32,9 @@ export default function LoginPage() {
   //#endregion  //*======== Form ===========
 
   //#region  //*=========== Form Submit ===========
-
+  const { mutateAsync: login, isLoading } = useLoginMutation();
   const onSubmit = (data: LoginForm) => {
-    // !TODO: connect to API's
-    logger({ data });
+    login(data);
   };
   //#endregion  //*======== Form Submit ===========
 
@@ -95,9 +96,24 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <Button className='w-full justify-center' type='submit'>
+              <Button
+                isLoading={isLoading}
+                className='w-full justify-center'
+                type='submit'
+              >
                 Masuk
               </Button>
+
+              <DevelopmentCard>
+                <Button
+                  onClick={() => {
+                    methods.setValue('email', 'winatungmiharja@gmail.com');
+                    methods.setValue('password', 'test123');
+                  }}
+                >
+                  Populate Login
+                </Button>
+              </DevelopmentCard>
 
               <div className='flex gap-2 justify-center flex-wrap'>
                 <Typography variant='b3'>Belum Punya Akun?</Typography>

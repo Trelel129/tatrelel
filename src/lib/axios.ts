@@ -1,9 +1,11 @@
 import axios, { AxiosError } from 'axios';
 
+import { getToken } from '@/lib/cookie';
+
 import { UninterceptedApiError } from '@/types/api';
 
 const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api/v1',
+  baseURL: 'https://siphalal-u9en3.ondigitalocean.app',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -11,7 +13,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use(function (config) {
-  const token = localStorage.getItem('token');
+  const token = getToken();
   if (config.headers) {
     config.headers.Authorization = token ? `Bearer ${token}` : '';
   }

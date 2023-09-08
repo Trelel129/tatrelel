@@ -157,7 +157,7 @@ export default function TablePage() {
 
             <PaginatedTable
               columns={columns}
-              data={unpaginatedData?.data ?? []}
+              data={unpaginatedData ?? []}
               withFilter
             />
 
@@ -170,7 +170,7 @@ export default function TablePage() {
 
             <Table
               columns={columns}
-              data={unpaginatedData?.data.slice(0, 20) ?? []}
+              data={unpaginatedData?.slice(0, 20) ?? []}
               withFilter
             />
           </div>

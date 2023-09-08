@@ -3,13 +3,15 @@ import clsx from 'clsx';
 import { ChevronRight } from 'lucide-react';
 import * as React from 'react';
 
+import withAuth from '@/components/hoc/withAuth';
 import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
 
 import { FAQ_CONTENT, FAQContentType, FAQItemType } from '@/content/faq';
 
-export default function FaqPage() {
+export default withAuth('optional')(FaqPage);
+function FaqPage() {
   return (
     <Layout>
       <Seo templateTitle='FAQ' />

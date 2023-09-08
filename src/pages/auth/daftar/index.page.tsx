@@ -1,12 +1,21 @@
+import { useRouter } from 'next/router';
 import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 import { validatePassword } from '@/lib/form-utils';
+import { generateOptions } from '@/lib/generate-options';
 import logger from '@/lib/logger';
+import {
+  useGetJawaTimurCities,
+  useGetSubdistricts,
+} from '@/hooks/query/location';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/forms/Input';
 import PasswordInput from '@/components/forms/PasswordInput';
+import SearchableSelectInput from '@/components/forms/SearchableSelectInput';
+import withAuth, { LOGIN_ROUTE } from '@/components/hoc/withAuth';
 import Layout from '@/components/layout/Layout';
 import PrimaryLink from '@/components/links/PrimaryLink';
 import NextImage from '@/components/NextImage';
@@ -16,31 +25,79 @@ import Typography from '@/components/typography/Typography';
 import REGEX from '@/constant/regex';
 import { AUTH_LINKS } from '@/content/header';
 import AuthSection from '@/pages/auth/components/AuthSection';
+import {
+  RegisterBody,
+  useRegisterMutation,
+} from '@/pages/auth/daftar/hooks/useRegisterMutation';
 
-type LoginForm = {
-  name: string;
+type RegisterForm = {
   username: string;
+  name: string;
   email: string;
   password: string;
   repeat_password: string;
+  city_id: string;
+  subdistrict_id: string;
 };
-
-export default function LoginPage() {
+export default withAuth('auth')(LoginPage);
+function LoginPage() {
+  const router = useRouter();
   //#region  //*=========== Form ===========
-  const methods = useForm<LoginForm>({
+  const methods = useForm<RegisterForm>({
     mode: 'onTouched',
   });
-  const { handleSubmit, watch } = methods;
+  const { handleSubmit, watch, setValue } = methods;
+
   const password = watch('password');
+  const city_id = watch('city_id');
   //#endregion  //*======== Form ===========
 
-  //#region  //*=========== Form Submit ===========
+  //#region  //*=========== Cities Data ===========
+  const { data: cities, isLoading: isCitiesLoading } = useGetJawaTimurCities();
 
-  const onSubmit = (data: LoginForm) => {
-    // !TODO: connect to API's
-    logger({ data });
+  const citiesOptions = generateOptions({
+    data: cities,
+    key: { value: 'id', label: 'nama' },
+  });
+  //#endregion  //*======== Cities Data ===========
+
+  //#region  //*=========== Subdistrict Data ===========
+  const { data: subdsitricts, isLoading: isSubdistrictsLoading } =
+    useGetSubdistricts(city_id);
+
+  const subdistrictsOptions = generateOptions({
+    data: subdsitricts,
+    key: { value: 'id', label: 'nama' },
+  });
+  //#endregion  //*======== Subdistrict Data ===========
+
+  //#region  //*=========== Form Submit ===========
+  const { mutateAsync: register, isLoading } = useRegisterMutation();
+  const onSubmit = (data: RegisterForm) => {
+    const body: RegisterBody = {
+      username: data.username,
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      region_city:
+        citiesOptions.find((city) => city.value === data.city_id)?.label ?? '',
+      region_kecamatan:
+        subdistrictsOptions.find(
+          (subdistrict) => subdistrict.value === data.subdistrict_id,
+        )?.label ?? '',
+    };
+    logger({ body }, 'Register');
+    register(body).then(() => {
+      toast.success('Harap masuk dengan akun yang telah dibuat');
+      router.push(LOGIN_ROUTE);
+    });
   };
   //#endregion  //*======== Form Submit ===========
+
+  React.useEffect(() => {
+    setValue('subdistrict_id', '');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [city_id]);
 
   return (
     <Layout>
@@ -82,7 +139,15 @@ export default function LoginPage() {
                 <Input
                   id='username'
                   label='Username'
-                  validation={{ required: 'Username wajib diisi' }}
+                  validation={{
+                    required: 'Username wajib diisi',
+                    pattern: {
+                      value: REGEX.USERNAME,
+                      message:
+                        'Username tidak boleh mangandung karakter selain huruf, angka, dan garis bawah',
+                    },
+                  }}
+                  helperText='Username hanya boleh mengandung huruf, angka, dan garis bawah. Contoh : user123_'
                   placeholder='Masukkan Username'
                 />
 
@@ -98,6 +163,29 @@ export default function LoginPage() {
                   }}
                   placeholder='Masukkan Alamat Email'
                 />
+                <div className='grid grid-cols-2 gap-6'>
+                  <SearchableSelectInput
+                    id='city_id'
+                    label='Kabupaten/Kota'
+                    options={citiesOptions}
+                    isLoading={isCitiesLoading}
+                    placeholder='Pilih kabupaten/kota'
+                    validation={{
+                      required: 'Kabupaten/Kota harus diisi',
+                    }}
+                  />
+                  <SearchableSelectInput
+                    id='subdistrict_id'
+                    label='Kecamatan'
+                    options={subdistrictsOptions}
+                    isLoading={isSubdistrictsLoading}
+                    placeholder='Pilih Kecamatan'
+                    validation={{
+                      required: 'Kecamatan harus diisi',
+                    }}
+                  />
+                </div>
+
                 <PasswordInput
                   id='password'
                   label='Kata Sandi'
@@ -119,7 +207,11 @@ export default function LoginPage() {
                 />
               </div>
 
-              <Button className='w-full justify-center' type='submit'>
+              <Button
+                isLoading={isLoading}
+                className='w-full justify-center'
+                type='submit'
+              >
                 Buat Akun
               </Button>
 

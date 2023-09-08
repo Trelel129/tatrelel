@@ -18,13 +18,13 @@ export default function DevelopmentCard({
   return shouldShow ? (
     <SimpleCard
       className={clsxm([
-        'border-primary-500 bg-primary-600 border-2 border-dashed',
+        'border-primary-500 bg-light border-2 border-dashed',
         'overflow-auto pt-2',
         className,
       ])}
       {...rest}
     >
-      <Typography className='text-primary-200 mb-2 text-center' variant='c1'>
+      <Typography className='text-typo-secondary mb-2 text-center' variant='c1'>
         Development Only
       </Typography>
       {children}

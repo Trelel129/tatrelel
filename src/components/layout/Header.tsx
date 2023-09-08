@@ -1,13 +1,20 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { LogIn, Menu, User2 } from 'lucide-react';
+import { Dialog, Menu, Transition } from '@headlessui/react';
+import clsx from 'clsx';
+import { Home, LogIn, LogOut, MenuIcon, User, User2 } from 'lucide-react';
 import * as React from 'react';
 
 import IconButton from '@/components/buttons/IconButton';
 import HeaderLink from '@/components/layout/header/HeaderLink';
 import Logo from '@/components/layout/logo/Logo';
+import IconLink from '@/components/links/IconLink';
 import UnstyledLink from '@/components/links/UnstyledLink';
+import Typography from '@/components/typography/Typography';
+
+import useAuthStore from '@/store/useAuthStore';
 
 import { AUTH_LINKS, LINKS } from '@/content/header';
+
+const userNavigation = [{ name: 'Dashboard', href: '/dashboard' }];
 
 export default function Header() {
   //#region  //*=========== Mobile Navigation ===========
@@ -20,6 +27,9 @@ export default function Header() {
     setIsOpen(true);
   }
   //#endregion  //*======== Mobile Navigation ===========
+
+  const user = useAuthStore.useUser();
+  const logout = useAuthStore.useLogout();
 
   return (
     <header className='sticky top-0 z-[100] bg-white flex'>
@@ -38,18 +48,84 @@ export default function Header() {
               </HeaderLink>
             ))}
           </ul>
-          <ul className=' gap-4 items-center list-none h-full hidden md:flex'>
-            <HeaderLink href={AUTH_LINKS.login.href}>
-              {AUTH_LINKS.login.label}
-            </HeaderLink>
-            <div className='w-[1px] h-4  bg-typo-divider' />
-            <HeaderLink
-              href={AUTH_LINKS.register.href}
-              className='text-secondary-400 group-hover:text-secondary-600 '
-            >
-              {AUTH_LINKS.register.label}
-            </HeaderLink>
-          </ul>
+          {user ? (
+            <ul className='hidden md:flex items-center gap-4'>
+              <Menu as='div' className='relative ml-3 '>
+                <div>
+                  <Menu.Button
+                    data-cy='user-menu'
+                    className={clsx([
+                      '-mr-2 flex max-w-xs items-center gap-4 rounded-md bg-white px-0.5 py-1 text-sm',
+                      'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2',
+                    ])}
+                  >
+                    <span className='sr-only'>Open user menu</span>
+                    <div className='hidden min-w-0  flex-col items-end sm:flex'>
+                      <Typography variant='b2'>{user?.name}</Typography>
+                      <Typography variant='b3'>@{user?.username}</Typography>
+                    </div>
+                    <div className='flex h-10 w-10 items-center justify-center rounded-full bg-primary-50'>
+                      <User className='text-primary-600' />
+                    </div>
+                  </Menu.Button>
+                </div>
+                <Transition
+                  as={React.Fragment}
+                  enter='transition ease-out duration-100'
+                  enterFrom='transform opacity-0 scale-95'
+                  enterTo='transform opacity-100 scale-100'
+                  leave='transition ease-in duration-75'
+                  leaveFrom='transform opacity-100 scale-100'
+                  leaveTo='transform opacity-0 scale-95'
+                >
+                  <Menu.Items className='absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
+                    {userNavigation.map((item) => (
+                      <Menu.Item key={item.name}>
+                        {({ active }) => (
+                          <UnstyledLink
+                            href={item.href}
+                            className={clsx(
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700',
+                            )}
+                          >
+                            {item.name}
+                          </UnstyledLink>
+                        )}
+                      </Menu.Item>
+                    ))}
+                    <Menu.Item>
+                      {({ active }) => (
+                        <button
+                          onClick={logout}
+                          data-cy='logout'
+                          className={clsx(
+                            active ? 'bg-gray-100' : '',
+                            'block w-full px-4 py-2 text-left text-sm text-gray-700',
+                          )}
+                        >
+                          Keluar
+                        </button>
+                      )}
+                    </Menu.Item>
+                  </Menu.Items>
+                </Transition>
+              </Menu>
+            </ul>
+          ) : (
+            <ul className=' gap-4 items-center list-none h-full hidden md:flex'>
+              <HeaderLink href={AUTH_LINKS.login.href}>
+                {AUTH_LINKS.login.label}
+              </HeaderLink>
+              <div className='w-[1px] h-4  bg-typo-divider' />
+              <HeaderLink
+                href={AUTH_LINKS.register.href}
+                className='text-secondary-400 group-hover:text-secondary-600 '
+              >
+                {AUTH_LINKS.register.label}
+              </HeaderLink>
+            </ul>
+          )}
         </React.Fragment>
 
         {/* Mobile Navigation Menu */}
@@ -57,7 +133,7 @@ export default function Header() {
           variant='ghost'
           size='lg'
           className='flex md:hidden text-typo'
-          icon={Menu}
+          icon={MenuIcon}
           onClick={openModal}
         />
         <Transition appear show={isOpen} as={React.Fragment}>
@@ -103,7 +179,38 @@ export default function Header() {
                       className='px-6 pt-3 pb-12 divide-y divide-typo-divider'
                       ref={containerRef}
                     >
-                      <ul className='gap-4 list-none flex flex-col'>
+                      {user && (
+                        <div className='w-full flex justify-between flex-wrap p-4 mb-6 rounded-lg bg-light'>
+                          <div>
+                            <Typography variant='b2'>{user?.name}</Typography>
+                            <Typography
+                              variant='b3'
+                              className='text-primary-500'
+                            >
+                              @{user?.username}
+                            </Typography>
+                          </div>
+
+                          <div className='flex items-center gap-4'>
+                            <IconButton
+                              variant='danger'
+                              icon={LogOut}
+                              onClick={logout}
+                            />
+                            <IconLink
+                              variant='primary'
+                              icon={Home}
+                              href='/dashboard'
+                            />
+                          </div>
+                        </div>
+                      )}
+                      <ul
+                        className={clsx([
+                          'gap-4 list-none flex flex-col',
+                          user && 'mt-6 pt-6',
+                        ])}
+                      >
                         {LINKS.map((link, i) => (
                           <HeaderLink
                             key={i}
@@ -115,23 +222,25 @@ export default function Header() {
                           </HeaderLink>
                         ))}
                       </ul>
-                      <ul className='gap-4 list-none flex flex-col mt-6 pt-6'>
-                        <HeaderLink
-                          href={AUTH_LINKS.login.href}
-                          size='lg'
-                          icon={LogIn}
-                        >
-                          {AUTH_LINKS.login.label}
-                        </HeaderLink>
+                      {!user && (
+                        <ul className='gap-4 list-none flex flex-col mt-6 pt-6'>
+                          <HeaderLink
+                            href={AUTH_LINKS.login.href}
+                            size='lg'
+                            icon={LogIn}
+                          >
+                            {AUTH_LINKS.login.label}
+                          </HeaderLink>
 
-                        <HeaderLink
-                          href={AUTH_LINKS.register.href}
-                          size='lg'
-                          icon={User2}
-                        >
-                          {AUTH_LINKS.register.label}
-                        </HeaderLink>
-                      </ul>
+                          <HeaderLink
+                            href={AUTH_LINKS.register.href}
+                            size='lg'
+                            icon={User2}
+                          >
+                            {AUTH_LINKS.register.label}
+                          </HeaderLink>
+                        </ul>
+                      )}
                     </div>
                   </div>
                 </Dialog.Panel>

@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import Button from '@/components/buttons/Button';
 import IconButton from '@/components/buttons/IconButton';
+import withAuth from '@/components/hoc/withAuth';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import PrimaryLink from '@/components/links/PrimaryLink';
 import Seo from '@/components/Seo';
@@ -14,12 +15,16 @@ import {
 } from '@/components/Tooltip';
 import Typography from '@/components/typography/Typography';
 
+import useAuthStore from '@/store/useAuthStore';
+
 import AjuanSection from '@/pages/dashboard/components/AjuanSection';
 import LeaderboardSection from '@/pages/dashboard/components/LeaderboardSection';
 import MisiSection from '@/pages/dashboard/components/MisiSection';
 import SurgaKulinerSection from '@/pages/dashboard/components/SurgaKulinerSection';
 
-export default function DashboardPage() {
+export default withAuth('protected')(DashboardPage);
+function DashboardPage() {
+  const user = useAuthStore.useUser();
   return (
     <DashboardLayout className='relative'>
       <Seo templateTitle='Dashboard' />
@@ -36,7 +41,7 @@ export default function DashboardPage() {
               Selamat Datang Kembali
             </Typography>
             <Typography as='h1' variant='j3' className='mt-1'>
-              Kurnia Cahya Febryanto
+              {user?.name}
             </Typography>
           </div>
           <div className='flex items-center gap-3'>
