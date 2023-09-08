@@ -8,57 +8,57 @@ import Typography from '@/components/typography/Typography';
 
 const ORNAMENTS = [
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-1.png',
     amount: '10',
     id: '1',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-2.png',
     amount: '10',
     id: '2',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-3.png',
     amount: '10',
     id: '3',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-4.png',
     amount: '10',
     id: '4',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-5.png',
     amount: '10',
     id: '5',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-6.png',
     amount: '10',
     id: '6',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-7.png',
     amount: '10',
     id: '7',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-8.png',
     amount: '10',
     id: '8',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-9.png',
     amount: '10',
     id: '9',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-10.png',
     amount: '10',
     id: '10',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-11.png',
     amount: '10',
     id: '11',
   },
@@ -94,7 +94,7 @@ export default function CobapagePage() {
             <div className='flex flex-row self-center item-center gap-3 layout'>
               <div className='rounded-xl border shadow-lg flex flex-col self-center items-center'>
                 <NextImage
-                  src='/images/ornamen/grass.jpg'
+                  src='/tiles/tile-1.png'
                   width='100'
                   height='100'
                   alt='ornamen'

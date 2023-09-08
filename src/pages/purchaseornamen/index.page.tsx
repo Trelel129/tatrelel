@@ -61,7 +61,7 @@ const OPTIONS = [
 
 const ORNAMENTS = [
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-1.png',
     color: 'common',
     name: 'Rumput',
     amount: 'x1',
@@ -69,15 +69,15 @@ const ORNAMENTS = [
     id: '1',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-2.png',
     color: 'common',
-    name: 'Rumput',
+    name: 'Bukit-1',
     amount: 'x1',
     price: '10',
     id: '2',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-3.png',
     color: 'common',
     name: 'Rumput',
     amount: 'x1',
@@ -85,7 +85,7 @@ const ORNAMENTS = [
     id: '3',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-4.png',
     color: 'common',
     name: 'Rumput',
     amount: 'x1',
@@ -93,7 +93,7 @@ const ORNAMENTS = [
     id: '4',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-5.png',
     color: 'common',
     name: 'Rumput',
     amount: 'x1',
@@ -101,7 +101,7 @@ const ORNAMENTS = [
     id: '5',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-6.png',
     color: 'common',
     name: 'Rumput',
     amount: 'x1',
@@ -109,7 +109,7 @@ const ORNAMENTS = [
     id: '6',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-7.png',
     color: 'common',
     name: 'Rumput',
     amount: 'x1',
@@ -117,7 +117,7 @@ const ORNAMENTS = [
     id: '7',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-8.png',
     color: 'common',
     name: 'Rumput',
     amount: 'x1',
@@ -125,7 +125,7 @@ const ORNAMENTS = [
     id: '8',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-9.png',
     color: 'common',
     name: 'Rumput Rumput liar yang kau biarkan berserakan',
     amount: 'x1',
@@ -133,7 +133,7 @@ const ORNAMENTS = [
     id: '9',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-10.png',
     color: 'common',
     name: 'Rumput',
     amount: 'x1',

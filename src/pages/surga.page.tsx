@@ -1,75 +1,89 @@
 // import p5 from 'p5';
+import { Info } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import p5Types from 'p5';
 import * as React from 'react';
+import { BsQuestionCircle } from 'react-icons/bs';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
 import Button from '@/components/buttons/Button';
+import IconButton from '@/components/buttons/IconButton';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import ButtonLink from '@/components/links/ButtonLink';
 import NextImage from '@/components/NextImage';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/popover/Popover';
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
+
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
   ssr: false,
 });
 
 const ORNAMENTS = [
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-1.png',
     amount: '10',
     id: '1',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-2.png',
     amount: '10',
     id: '2',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-3.png',
     amount: '10',
     id: '3',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-4.png',
     amount: '10',
     id: '4',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-5.png',
     amount: '10',
     id: '5',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-6.png',
     amount: '10',
     id: '6',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-7.png',
     amount: '10',
     id: '7',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-8.png',
     amount: '10',
     id: '8',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-9.png',
     amount: '10',
     id: '9',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-10.png',
     amount: '10',
     id: '10',
   },
   {
-    image: '/images/ornamen/grass.jpg',
+    image: '/tiles/tile-11.png',
     amount: '10',
     id: '11',
+  },
+  {
+    image: '/tiles/tile-12.png',
+    amount: '10',
+    id: '12',
   },
 ];
 
@@ -136,15 +150,9 @@ export default function SurgapagePage() {
     p.createCanvas(size.width, size.height - HEIGHTFIT).parent(canvasParentRef);
 
     p.frameRate(60);
-    p.textSize(20);
-    p.textAlign(p.CENTER, p.CENTER);
     // for dark mode
     // p.background("black");
     // p.fill(255);
-    p.text('Use arrow keys to select cursor', 200, 100);
-    p.text('Press space to customize tile', 200, 150);
-    p.text('Use arrow keys to choose tile', 200, 200);
-    p.text('Press space to select tile', 200, 250);
     // p.text("Press z to download map", 200, 300);
     onkeyup = function (e) {
       if (e.key === 'w' && opt === false && first === true) {
@@ -796,35 +804,81 @@ export default function SurgapagePage() {
       <Seo templateTitle='Surga.page' />
       <main>
         <section>
-          <div className='flex flex-row layout gap-4 items-center justify-center'>
-            <div className='layout py-2'>
+          {/* guide */}
+          <Popover>
+            <PopoverTrigger
+              asChild
+              className='absolute top-32 right-60 -translate-x-1/2 -translate-y-1/2'
+            >
+              <IconButton
+                variant='outline'
+                size='sm'
+                className='rounded-full'
+                icon={BsQuestionCircle}
+              />
+            </PopoverTrigger>
+            <PopoverContent className='w-fit p-2 h-fit'>
+              <div className='flex layout justify-center'>
+                <Typography>
+                  Gunakan{' '}
+                  <span className='text-blue-500'>[W], [A], [S], atau [D]</span>{' '}
+                  untuk menggerakkan kursor
+                  <br />
+                  <br />
+                  Gunakan <span className='text-blue-500'>[F]</span> untuk
+                  memilih ornamen
+                  <br />
+                  <br />
+                  Setelah memilih, gunakan{' '}
+                  <span className='text-blue-500'>
+                    [W], [A], [S], atau [D]
+                  </span>{' '}
+                  untuk mengganti ornamen
+                </Typography>
+              </div>
+            </PopoverContent>
+          </Popover>
+          <div className='flex gap-4 items-center justify-center'>
+            <div className='py-2 dashboard-layout'>
               {/* {JSON.stringify(size)} */}
               {size.height && size.width && (
                 <Sketch setup={setup} draw={draw} />
               )}
             </div>
-            <Button className='h-3'>
-              <Typography
-                variant='h3'
-                className='text-center relative'
-                data-modal-target='inventory'
-                data-modal-toggle='inventory'
+            <Popover>
+              <PopoverTrigger
+                asChild
+                className='absolute top-1/3 right-60 -translate-x-1/2 -translate-y-1/2'
               >
-                Inventory
-              </Typography>
-            </Button>
-            <div
-              className='gap-4 grid grid-cols-5 items-center justify-center w-11/12'
-              id='inventory'
-              tabIndex={-1}
-              aria-hidden='true'
-            >
-              {ORNAMENTS.map((ornament, i) => (
-                <OrnamentDisplay key={i} {...ornament} />
-              ))}
-            </div>
+                <IconButton
+                  variant='outline'
+                  size='sm'
+                  className='rounded-full'
+                  icon={Info}
+                />
+              </PopoverTrigger>
+              <PopoverContent className='w-fit'>
+                <div
+                  className='gap-4 grid grid-cols-3 justify-items-center'
+                  id='inventory'
+                >
+                  {ORNAMENTS.map((ornament, i) => (
+                    <OrnamentDisplay key={i} {...ornament} />
+                  ))}
+                </div>
+                <Typography variant='s3' className='text-center grid-flow-col'>
+                  <Button variant='outline' size='base'>
+                    {'<'}
+                  </Button>
+                  <Button variant='outline' size='base'>
+                    {'>'}
+                  </Button>
+                </Typography>
+              </PopoverContent>
+            </Popover>
           </div>
         </section>
+
         <div className='flex layout gap-4'>
           <ButtonLink
             href='/coba'
@@ -874,7 +928,7 @@ function OrnamentDisplay({
   id: string;
 }) {
   return (
-    <div className='rounded-xl border border-typo-outline shadow-lg flex flex-col'>
+    <div className='rounded-xl border border-typo-outline shadow-lg flex flex-col z-10'>
       <NextImage
         src={image}
         width='100'
