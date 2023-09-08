@@ -4,7 +4,6 @@ import {
   QueryOptions,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { AnimatePresence } from 'framer-motion';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import nProgress from 'nprogress';
@@ -36,15 +35,13 @@ const queryClient = new QueryClient({
   },
 });
 
-function MyApp({ Component, pageProps, router }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <ParallaxProvider>
-        <AnimatePresence mode='wait'>
-          <DismissableToast />
-          <Component key={router.route} {...pageProps} />
-          <ReactQueryDevtools />
-        </AnimatePresence>
+        <DismissableToast />
+        <Component {...pageProps} />
+        <ReactQueryDevtools />
       </ParallaxProvider>
     </QueryClientProvider>
   );
