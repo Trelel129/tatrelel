@@ -91,7 +91,7 @@ const groupNavs: GroupedNavigation[] = [
     navigations: [
       {
         name: 'Misi',
-        href: '#',
+        href: '/misi',
         icon: Briefcase,
         exactMatch: true,
       },

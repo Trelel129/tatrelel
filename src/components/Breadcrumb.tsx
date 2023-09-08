@@ -8,6 +8,8 @@ import Typography from '@/components/typography/Typography';
 const breadcrumbs = {
   '/': 'Landing Page',
   '/sandbox/breadcrumb': 'Breadcrumb',
+  '/dashboard': 'Dashboard',
+  '/misi': 'Misi',
 };
 type BreadcrumbProps = {
   crumbs: Array<keyof typeof breadcrumbs>;
