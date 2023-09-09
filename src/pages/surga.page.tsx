@@ -93,49 +93,6 @@ const HEIGHTFIT = 250;
 export default function SurgapagePage() {
   const size = useWindowDimensions();
 
-  // const sketch = (p: p5Types) => {
-  //   // Paste your entire p5.js code here
-  //   // ...
-  //   // p5.js global variables
-  //   // ...
-  //   // const GRID2_SIZE = 3;
-  //   // const GRID3_SIZE = 12;
-
-  //   const tile_images = [];
-
-  //   // let loadImage = window.loadImage;
-
-  //   // let image = window.image;
-
-  //   // let createCanvas = window.createCanvas;
-
-  //   // let background = window.background;
-
-  //   // let windowHeight = window.windowHeight;
-  //   // let windowWidth = window.windowWidth;
-
-  //   // let grid2 = [
-  //   //   [0, 0, 11],
-  //   //   [0, 10, 0],
-  //   //   [1, 0, 0]
-  //   // ];
-
-  //   //grid 3 all 0s
-  //   // let grid3 = [
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  //   //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  //   // ];
-
   //   const cat = [0, 1, 10, 11, 15, 16, 20, 24, 37]; // category tiles
 
   //   // grid[1][0] = 33;
@@ -329,15 +286,6 @@ export default function SurgapagePage() {
   let opt = false;
 
   let first = true;
-  // let floor;
-  // let keyCode;
-  // let UP_ARROW = 38;
-  // let DOWN_ARROW = 40;
-  // let LEFT_ARROW = 37;
-  // let RIGHT_ARROW = 39;
-
-  // let saveJSON = window.saveJSON;
-  // let loadJSON = window.loadJSON;
 
   const TILE_WIDTH = 100;
   const TILE_HEIGHT = 50;
@@ -345,18 +293,9 @@ export default function SurgapagePage() {
 
   let x = 0;
   let y = 0;
-  // let mouseX = 0;
-  // let mouseY = 0;
-
-  // const width = size.width;
-  // let height = size.height;
 
   let x_start = 0;
   let y_start = 0;
-  // const x_start2 = 0;
-  // const y_start2 = 0;
-  // let url = window.location.href;
-  // let url2 = "map.json";
 
   const GRID_SIZE = 12;
 
