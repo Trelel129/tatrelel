@@ -3,7 +3,6 @@ import { Info } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import p5Types from 'p5';
 import * as React from 'react';
-import { BsQuestionCircle } from 'react-icons/bs';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
@@ -743,40 +742,6 @@ export default function SurgapagePage() {
       <Seo templateTitle='Surga.page' />
       <main>
         <section>
-          {/* guide */}
-          <Popover>
-            <PopoverTrigger
-              asChild
-              className='absolute top-32 right-60 -translate-x-1/2 -translate-y-1/2'
-            >
-              <IconButton
-                variant='outline'
-                size='sm'
-                className='rounded-full'
-                icon={BsQuestionCircle}
-              />
-            </PopoverTrigger>
-            <PopoverContent className='w-fit p-2 h-fit'>
-              <div className='flex layout justify-center'>
-                <Typography>
-                  Gunakan{' '}
-                  <span className='text-blue-500'>[W], [A], [S], atau [D]</span>{' '}
-                  untuk menggerakkan kursor
-                  <br />
-                  <br />
-                  Gunakan <span className='text-blue-500'>[F]</span> untuk
-                  memilih ornamen
-                  <br />
-                  <br />
-                  Setelah memilih, gunakan{' '}
-                  <span className='text-blue-500'>
-                    [W], [A], [S], atau [D]
-                  </span>{' '}
-                  untuk mengganti ornamen
-                </Typography>
-              </div>
-            </PopoverContent>
-          </Popover>
           <div className='flex gap-4 items-center justify-center'>
             <div className='py-2 dashboard-layout'>
               {/* {JSON.stringify(size)} */}
@@ -817,7 +782,23 @@ export default function SurgapagePage() {
             </Popover>
           </div>
         </section>
-
+        {/* guide */}
+        <div className='flex layout justify-center'>
+          <Typography>
+            Gunakan{' '}
+            <span className='text-blue-500'>[W], [A], [S], atau [D]</span> untuk
+            menggerakkan kursor
+            <br />
+            <br />
+            Gunakan <span className='text-blue-500'>[F]</span> untuk memilih
+            ornamen
+            <br />
+            <br />
+            Setelah memilih, gunakan{' '}
+            <span className='text-blue-500'>[W], [A], [S], atau [D]</span> untuk
+            mengganti ornamen
+          </Typography>
+        </div>
         <div className='flex layout gap-4'>
           <ButtonLink
             href='/coba'
