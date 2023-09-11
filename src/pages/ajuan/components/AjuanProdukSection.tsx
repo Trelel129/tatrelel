@@ -1,5 +1,7 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
+import Button from '@/components/buttons/Button';
 import SimpleCard from '@/components/cards/SimpleCard';
 import Typography from '@/components/typography/Typography';
 
@@ -24,6 +26,11 @@ const PRODUK_AJUAN: ProdukAjuanType[] = [
 ];
 
 export default function AjuanProdukSection() {
+  const router = useRouter();
+  const goToStatus = () => {
+    router.push('/ajuan/status');
+  };
+
   return (
     <SimpleCard className='overflow-hidden flex gap-5 flex-col'>
       <Typography variant='h3'>
@@ -44,6 +51,13 @@ export default function AjuanProdukSection() {
                 <Typography variant='b1' color='tertiary'>
                   {produk.description}
                 </Typography>
+                <Button
+                  variant='outline'
+                  className='w-fit'
+                  onClick={goToStatus}
+                >
+                  Lihat Status
+                </Button>
               </div>
             </div>
           </div>
