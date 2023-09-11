@@ -1,10 +1,10 @@
 import { HelpCircle, User } from 'lucide-react';
 import * as React from 'react';
 
-import IconButton from '@/components/buttons/IconButton';
 import withAuth from '@/components/hoc/withAuth';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import ButtonLink from '@/components/links/ButtonLink';
+import IconLink from '@/components/links/IconLink';
 import PrimaryLink from '@/components/links/PrimaryLink';
 import Seo from '@/components/Seo';
 import {
@@ -77,7 +77,7 @@ function DashboardPage() {
                     size='sm'
                     variant='basic'
                     className='text-xs sm:text-xs'
-                    href='/'
+                    href='/bantuan'
                   >
                     ini
                   </PrimaryLink>
@@ -86,7 +86,11 @@ function DashboardPage() {
               <TooltipProvider delayDuration={100}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <IconButton icon={HelpCircle} variant='outline' />
+                    <IconLink
+                      href='/bantuan'
+                      icon={HelpCircle}
+                      variant='outline'
+                    />
                   </TooltipTrigger>
                   <TooltipContent>
                     <Typography variant='c1'>Bantuan</Typography>

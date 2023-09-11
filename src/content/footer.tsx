@@ -1,9 +1,4 @@
-import {
-  RiDiscordFill,
-  RiInstagramFill,
-  RiTwitterFill,
-  RiYoutubeFill,
-} from 'react-icons/ri';
+import { RiInstagramFill, RiYoutubeFill } from 'react-icons/ri';
 
 export const FOOTER_CONTENT = [
   {
@@ -11,24 +6,24 @@ export const FOOTER_CONTENT = [
     links: [
       {
         title: 'FAQ',
-        url: '#',
+        url: '/faq',
       },
       {
-        title: 'Kontak',
-        url: '#',
+        title: 'Bantuan',
+        url: '/bantuan',
       },
     ],
   },
   {
-    title: 'Tentang Kami',
+    title: '',
     links: [
       {
-        title: 'Kantor',
-        url: '#',
+        title: 'Tentang Kami',
+        url: '#tentang',
       },
       {
-        title: 'Anggota',
-        url: '#',
+        title: 'Fitur',
+        url: '#fitur',
       },
     ],
   },
@@ -36,23 +31,13 @@ export const FOOTER_CONTENT = [
 
 export const SOCIAL_LINKS = [
   {
-    title: 'Discord',
-    url: '#',
-    icon: RiDiscordFill,
-  },
-  {
-    title: 'Twitter',
-    url: '#',
-    icon: RiTwitterFill,
+    title: 'Youtube',
+    url: 'https://its.id/fafifedemo',
+    icon: RiYoutubeFill,
   },
   {
     title: 'Instagram',
-    url: '#',
+    url: 'https://www.instagram.com/itshalalcenter',
     icon: RiInstagramFill,
-  },
-  {
-    title: 'Youtube',
-    url: '#',
-    icon: RiYoutubeFill,
   },
 ];

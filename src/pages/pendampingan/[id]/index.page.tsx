@@ -46,7 +46,7 @@ function AjuanPage({
 
           <ShopDetailCard data={data} />
 
-          <ProductDetailCard data={data.produk} />
+          <ProductDetailCard data={data} />
 
           <DocumentDetailCard data={data.dokumen} />
         </section>

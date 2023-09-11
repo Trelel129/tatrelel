@@ -1062,7 +1062,7 @@ export default function SurgapagePage() {
           </Typography>
         </div>
         <div className='flex layout gap-4'>
-          <ButtonLink
+          {/* <ButtonLink
             href='/coba'
             variant='ghost'
             className='rounded shadow-lg lainnya'
@@ -1077,7 +1077,7 @@ export default function SurgapagePage() {
               />
               Ornamen Tersedia
             </Typography>
-          </ButtonLink>
+          </ButtonLink> */}
           <ButtonLink
             href='/purchaseornamen'
             variant='ghost'

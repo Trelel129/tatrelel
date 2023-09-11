@@ -13,6 +13,9 @@ const breadcrumbs = {
   '/misi': 'Misi',
   '/ajuan': 'Ajuan Pendampingan',
   '/pendampingan': 'Pendampingan Sertifikasi',
+  '/status': 'Status Ajuan',
+  '/surga': 'Surga Kuliner',
+  '/toko': 'Toko Ornamen',
 };
 type BreadcrumbProps = {
   crumbs: Array<keyof typeof breadcrumbs>;

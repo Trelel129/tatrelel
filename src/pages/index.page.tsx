@@ -5,7 +5,6 @@ import Layout from '@/components/layout/Layout';
 import Seo from '@/components/Seo';
 
 import AboutSection from '@/pages/landing/AboutSection';
-import BenefitSection from '@/pages/landing/BenefitSection';
 import FeatureSection from '@/pages/landing/FeatureSection';
 import HomeSection from '@/pages/landing/HomeSection';
 import SloganSection from '@/pages/landing/SloganSection';
@@ -19,7 +18,7 @@ function IndexPage() {
         <HomeSection />
         <AboutSection />
         <FeatureSection />
-        <BenefitSection />
+
         <SloganSection />
       </main>
     </Layout>

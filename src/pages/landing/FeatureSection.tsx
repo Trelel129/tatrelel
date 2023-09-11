@@ -7,7 +7,10 @@ import Typography from '@/components/typography/Typography';
 export default function FeatureSection() {
   return (
     <>
-      <section className='min-h-main bg-white overflow-hidden flex flex-col gap-32 md:gap-4'>
+      <section
+        id='fitur'
+        className='min-h-main bg-white overflow-hidden flex flex-col gap-32 md:gap-4'
+      >
         <div className='flex flex-col-reverse md:flex-row gap-10 layout z-10 pt-20'>
           <div className='w-full md:w-1/2 shrink-0 flex relative  justify-center'>
             <NextImage

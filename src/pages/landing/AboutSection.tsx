@@ -6,7 +6,7 @@ import Typography from '@/components/typography/Typography';
 
 export default function AboutSection() {
   return (
-    <section className='min-h-main bg-gray-50 relative flex '>
+    <section id='tentang' className='min-h-main bg-gray-50 relative flex '>
       <div className='layout gap-10 flex flex-col md:flex-row py-20 z-20'>
         <div className='flex flex-col gap-5 w-full md:w-5/12'>
           <Typography as='h1' variant='j2'>

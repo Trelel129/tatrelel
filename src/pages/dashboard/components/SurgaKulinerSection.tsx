@@ -2,8 +2,8 @@ import clsx from 'clsx';
 import { ChevronRight } from 'lucide-react';
 import * as React from 'react';
 
-import IconButton from '@/components/buttons/IconButton';
 import SimpleCard from '@/components/cards/SimpleCard';
+import IconLink from '@/components/links/IconLink';
 import NextImage from '@/components/NextImage';
 import Typography from '@/components/typography/Typography';
 
@@ -27,7 +27,8 @@ export default function SurgaKulinerSection() {
             Surga Kuliner
           </Typography>
         </div>
-        <IconButton
+        <IconLink
+          href='/surga'
           variant='outline'
           className='text-white hover:text-typo'
           icon={ChevronRight}

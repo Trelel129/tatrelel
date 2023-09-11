@@ -1,9 +1,10 @@
 import clsx from 'clsx';
 import * as React from 'react';
 
-import Button from '@/components/buttons/Button';
+import SimpleCard from '@/components/cards/SimpleCard';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
-import ButtonLink from '@/components/links/ButtonLink';
+import PageHeader from '@/components/layout/dashboard/PageHeader';
+import UnstyledLink from '@/components/links/UnstyledLink';
 import NextImage from '@/components/NextImage';
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
@@ -151,80 +152,81 @@ export default function CobapagePage() {
   // }
 
   return (
-    <DashboardLayout>
+    <DashboardLayout className='relative'>
       <Seo templateTitle='Coba.page' />
 
-      <main>
-        <div className='background-purchase layout border border-spacing-5 '>
-          <div className='flex flex-col gap-4'>
-            {/* {JSON.stringify(data)}*/}
-            <Typography variant='j2' className='ml-8'>
-              Toko Ornamen
-            </Typography>
-            <Typography variant='h3' className='ml-4'>
-              List ornamen yang dijual
-            </Typography>
+      <main className='py-12 flex flex-col'>
+        <PageHeader
+          className='z-10'
+          backHref='/dashboard'
+          crumbs={['/dashboard', '/toko']}
+        >
+          <PageHeader.Title>Toko Ornamen</PageHeader.Title>
+        </PageHeader>
 
-            <Typography variant='h6' className='details'>
-              KOIN ANDA SAAT INI
-            </Typography>
-            <Typography variant='s1' className='coin'>
-              1000
-            </Typography>
-
-            {OPTIONS.map((option, i) => (
-              <div
-                key={i}
-                className='flex layout items-center justify-center gap-4'
-              >
-                {option}
-              </div>
-            ))}
-
-            <div className='layout items-center gap-4 grid grid-cols-5'>
-              {ORNAMENTS.map((ornament, i) => (
-                <OrnamentDisplay key={i} {...ornament} />
-              ))}
-            </div>
-
-            <div className='gridcolumn pagin'>
-              <Typography variant='s3' className='text-center grid-flow-col'>
-                <Button variant='outline' size='base'>
-                  {'<'}
-                </Button>
-                <Button variant='outline' size='base'>
-                  {'>'}
-                </Button>
-              </Typography>
-              <Typography variant='s3' className='text-center'>
-                1 - 10 of 36 <br />
-                Ornament per page:{' '}
-                <b>
-                  <u>10</u>
-                </b>
-                {/* tab */} <b>15</b> <b>20</b>
-              </Typography>
-            </div>
-            <Typography variant='s3' className='text padding-lihat ml-4'>
-              LIHAT LAINNYA
-            </Typography>
-            <ButtonLink
-              href='/coba'
-              variant='ghost'
-              className='shadow rounded-xl w-40 ml-4'
+        <div className='flex dashboard-layout z-10 flex-col gap-4'>
+          {OPTIONS.map((option, i) => (
+            <div
+              key={i}
+              className='flex layout items-center justify-center gap-4'
             >
-              <Typography variant='h3' className='text-center'>
-                <NextImage
-                  className='flex'
-                  src='/images/ornamen/StoreIcon.png'
-                  alt='ornamen'
-                  width={25}
-                  height={25}
-                />
-                Ornamen Tersedia
-              </Typography>
-            </ButtonLink>
+              {option}
+            </div>
+          ))}
+
+          <div className='layout gap-4 grid md:grid-cols-3 lg:grid-cols-5'>
+            {ORNAMENTS.map((ornament, i) => (
+              <OrnamentDisplay key={i} {...ornament} />
+            ))}
           </div>
+          {/* 
+          <div className=''>
+            <Typography variant='s3' className='text-center grid-flow-col'>
+              <Button variant='outline' size='base'>
+                {'<'}
+              </Button>
+              <Button variant='outline' size='base'>
+                {'>'}
+              </Button>
+            </Typography>
+            <Typography variant='s3' className='text-center'>
+              1 - 10 of 36 <br />
+              Ornament per page:{' '}
+              <b>
+                <u>10</u>
+              </b>
+          
+              <b>15</b> <b>20</b>
+            </Typography>
+          </div> */}
+          {/* <Typography variant='s3' className='text padding-lihat ml-4'>
+            LIHAT LAINNYA
+          </Typography>
+          <ButtonLink
+            href='/coba'
+            variant='ghost'
+            className='shadow rounded-xl w-40 ml-4'
+          >
+            <Typography variant='h3' className='text-center'>
+              <NextImage
+                className='flex'
+                src='/images/ornamen/StoreIcon.png'
+                alt='ornamen'
+                width={25}
+                height={25}
+              />
+              Ornamen Tersedia
+            </Typography>
+          </ButtonLink> */}
+        </div>
+
+        <div
+          className='absolute inset-0 opacity-50'
+          style={{
+            backgroundImage: 'url("/images/background/grid.png")',
+          }}
+        >
+          <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b  bg-repeat' />
         </div>
       </main>
     </DashboardLayout>
@@ -245,40 +247,47 @@ function OrnamentDisplay({
   image,
   color,
   name,
-  amount,
+
   price,
   id,
 }: {
   image: string;
   color: string;
   name: string;
-  amount: string;
+
   price: string;
   id: string;
 }) {
   return (
-    <ButtonLink
-      variant='ghost'
-      href={`/purchaseornamen/${id}`}
-      className='rounded-xl border border-typo-outline shadow-lg flex flex-col'
-    >
-      <NextImage
-        src={image}
-        width='100'
-        height='100'
-        alt='ornamen'
-        className='rounded-t-lg'
-      />
-      <Typography variant='b2' className='text category numgrid'>
-        <div className={clsx(['circle', color])} />
-        {name}
-      </Typography>
-      <Typography variant='b1' className='text category numgrid'>
-        {amount}
-      </Typography>
-      <Typography variant='b1' className='text category numgrid price'>
-        {price} KOIN
-      </Typography>
-    </ButtonLink>
+    <UnstyledLink href={`/purchaseornamen/${id}`}>
+      <SimpleCard className='flex relative flex-col items-center h-full'>
+        <NextImage src={image} width='100' height='100' alt='ornamen' />
+        <div
+          className={clsx([
+            'w-4 h-4 rounded-full absolute top-3 right-3',
+            color,
+          ])}
+        />
+
+        <div className='flex mt-auto items-center justify-between w-full'>
+          <Typography variant='s1' className='text category numgrid'>
+            {name}
+          </Typography>
+          <div className='flex items-center gap-2'>
+            <div className='p-0.5 bg-white shadow rounded-full'>
+              <NextImage
+                src='/images/icon/koin-sip.png'
+                width={120}
+                height={120}
+                className='w-4'
+                imgClassName='w-full'
+                alt='Koin SIP'
+              />
+            </div>
+            <Typography variant='s2'>{price}</Typography>
+          </div>
+        </div>
+      </SimpleCard>
+    </UnstyledLink>
   );
 }

@@ -56,7 +56,7 @@ function AjuanPage({
         <section className='flex flex-col gap-6 z-10'>
           <ShopDetailCard data={data} />
 
-          <ProductDetailCard data={data.produk} />
+          <ProductDetailCard data={data} />
         </section>
 
         <div
