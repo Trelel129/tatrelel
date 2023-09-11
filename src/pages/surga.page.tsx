@@ -3,6 +3,13 @@ import { Info } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import p5Types from 'p5';
 import * as React from 'react';
+import {
+  Bs0Circle,
+  BsArrowDown,
+  BsArrowLeft,
+  BsArrowRight,
+  BsArrowUp,
+} from 'react-icons/bs';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
@@ -18,6 +25,8 @@ import {
 } from '@/components/popover/Popover';
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
+
+const NUMTILES = 57;
 
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
   ssr: false,
@@ -103,7 +112,10 @@ export default function SurgapagePage() {
   ) => {
     // p5.js setup function
     // ...
-    p.createCanvas(size.width, size.height - HEIGHTFIT).parent(canvasParentRef);
+    p.createCanvas(size.width - HEIGHTFIT, size.height - HEIGHTFIT).parent(
+      canvasParentRef,
+    );
+    // if(android)
 
     p.frameRate(60);
     // for dark mode
@@ -111,96 +123,99 @@ export default function SurgapagePage() {
     // p.fill(255);
     // p.text("Press z to download map", 200, 300);
     onkeyup = function (e) {
-      if (e.key === 'w' && opt === false && first === true) {
-        if (cursor.x === 0) {
-          moveCursor(GRID_SIZE - 3, 0);
-        } else {
-          moveCursor(-1, 0);
-        }
-        // console.log('e.key:', e.key);
-        first = false;
-      } else if (e.key === 's' && opt === false && first === true) {
-        moveCursor(1, 0);
-        first = false;
-      } else if (e.key === 'a' && opt === false && first === true) {
-        if (cursor.y === 0) {
-          moveCursor(0, GRID_SIZE - 3);
-        } else {
-          moveCursor(0, -1);
-        }
-        first = false;
-      } else if (e.key === 'd' && opt === false && first === true) {
-        moveCursor(0, 1);
-        first = false;
-      } else if (e.key === 'w' && opt === false && first === false) {
-        restoreGrid();
-        if (cursor.x === 0) {
-          moveCursor(GRID_SIZE - 3, 0);
-        } else {
-          moveCursor(-1, 0);
-        }
-      } else if (e.key === 's' && opt === false && first === false) {
-        restoreGrid();
-        moveCursor(1, 0);
-      } else if (e.key === 'a' && opt === false && first === false) {
-        restoreGrid();
-        if (cursor.y === 0) {
-          moveCursor(0, GRID_SIZE - 3);
-        } else {
-          moveCursor(0, -1);
-        }
-        first = false;
-      } else if (e.key === 'd' && opt === false && first === false) {
-        restoreGrid();
-        moveCursor(0, 1);
-      } //space
-      else if (e.key === 'f' && opt === false) {
-        first = true;
-        switchOpt();
-        grid[11][11] = grid[10][10];
-      } else if (e.key === 'w' && opt === true) {
-        if (tile < 38) {
-          tile++;
-        } else {
-          tile = 0;
-        }
-        changeTile(tile);
-      } else if (e.key === 's' && opt === true) {
-        if (tile > 0) {
-          tile--;
-        } else {
-          tile = 38;
-        }
-        changeTile(tile);
-      } else if (e.key === 'a' && opt === true) {
-        if (tile > 0) {
-          tile--;
-        } else {
-          tile = 38;
-        }
-        changeTile(tile);
-      } else if (e.key === 'd' && opt === true) {
-        if (tile < 38) {
-          tile++;
-        } else {
-          tile = 0;
-        }
-        changeTile(tile);
-      } else if (e.key === 'f' && opt === true) {
-        switchOpt();
-        grid[cursor.x][cursor.y] = grid[11][11];
-      }
-      // //download map to file using z key
-      // else if (e.key === "z") {
-      //   saveJSON(grid, 'map.json', true);
-      // }
+      keyCode(e);
     };
   };
+  function keyCode(e: KeyboardEvent) {
+    if (e.key === 'w' && opt === false && first === true) {
+      if (cursor.x === 0) {
+        moveCursor(GRID_SIZE - 3, 0);
+      } else {
+        moveCursor(-1, 0);
+      }
+      // console.log('e.key:', e.key);
+      first = false;
+    } else if (e.key === 's' && opt === false && first === true) {
+      moveCursor(1, 0);
+      first = false;
+    } else if (e.key === 'a' && opt === false && first === true) {
+      if (cursor.y === 0) {
+        moveCursor(0, GRID_SIZE - 3);
+      } else {
+        moveCursor(0, -1);
+      }
+      first = false;
+    } else if (e.key === 'd' && opt === false && first === true) {
+      moveCursor(0, 1);
+      first = false;
+    } else if (e.key === 'w' && opt === false && first === false) {
+      restoreGrid();
+      if (cursor.x === 0) {
+        moveCursor(GRID_SIZE - 3, 0);
+      } else {
+        moveCursor(-1, 0);
+      }
+    } else if (e.key === 's' && opt === false && first === false) {
+      restoreGrid();
+      moveCursor(1, 0);
+    } else if (e.key === 'a' && opt === false && first === false) {
+      restoreGrid();
+      if (cursor.y === 0) {
+        moveCursor(0, GRID_SIZE - 3);
+      } else {
+        moveCursor(0, -1);
+      }
+      first = false;
+    } else if (e.key === 'd' && opt === false && first === false) {
+      restoreGrid();
+      moveCursor(0, 1);
+    } //space
+    else if (e.key === 'f' && opt === false) {
+      first = true;
+      switchOpt();
+      grid[11][11] = grid[10][10];
+    } else if (e.key === 'w' && opt === true) {
+      if (tile < NUMTILES) {
+        tile++;
+      } else {
+        tile = 0;
+      }
+      changeTile(tile);
+    } else if (e.key === 's' && opt === true) {
+      if (tile > 0) {
+        tile--;
+      } else {
+        tile = NUMTILES;
+      }
+      changeTile(tile);
+    } else if (e.key === 'a' && opt === true) {
+      if (tile > 0) {
+        tile--;
+      } else {
+        tile = NUMTILES;
+      }
+      changeTile(tile);
+    } else if (e.key === 'd' && opt === true) {
+      if (tile < NUMTILES) {
+        tile++;
+      } else {
+        tile = 0;
+      }
+      changeTile(tile);
+    } else if (e.key === 'f' && opt === true) {
+      switchOpt();
+      grid[cursor.x][cursor.y] = grid[11][11];
+    }
+    // //download map to file using z key
+    // else if (e.key === "z") {
+    //   saveJSON(grid, 'map.json', true);
+    // }
+  }
 
   const draw = (p: p5Types) => {
     p.background(0);
     const tile_images: p5Types.Image[] = [];
-    for (let i = 0; i <= 38; i++) {
+    for (let i = 0; i <= NUMTILES; i++) {
       tile_images.push(p.loadImage('./tiles/tile-' + i + '.png'));
     }
 
@@ -208,7 +223,7 @@ export default function SurgapagePage() {
       // p5.js draw function
       // ...
       function draw_grid() {
-        x_start = size.width / 4 - TILE_WIDTH / 4;
+        x_start = size.width / 4 + (2 * HEIGHTFIT) / 3 - TILE_WIDTH / 4;
         y_start = size.height / 4 - HEIGHTFIT - TILE_HEIGHT / 4;
         for (let i = 0; i < GRID_SIZE; i++) {
           for (let j = 0; j < GRID_SIZE; j++) {
@@ -257,7 +272,7 @@ export default function SurgapagePage() {
 
       // function setup() {
       //   createCanvas(windowWidth, windowHeight);
-      //   for (let i = 0; i <= 38; i++) {
+      //   for (let i = 0; i <= NUMTILES; i++) {
       //     tile_images.push(loadImage("./tiles/tile-" + i + ".png"));
       //   }
       // }
@@ -736,17 +751,264 @@ export default function SurgapagePage() {
   //     canvas.remove();
   //   };
   // }, []);
+  // function ArrowMap({
+  //   xy,
+  //   if00,
+  //   if01,
+  //   if10,
+  //   if11,
+  //   opti,
+  //   optn,
+  //   icon,
+  // }: {
+  //   xy: number;
+  //   if00: number;
+  //   if01: number;
+  //   if10: number;
+  //   if11: number;
+  //   opti: string;
+  //   optn: number;
+  //   icon: IconType;
+  // }) {
+  //   return (
+  //     <Button
+  //       variant='ghost'
+  //       className='rounded shadow-lg'
+  //       onClick={() => {
+  //         if (opt === false && first === true) {
+  //           if (xy === 0) {
+  //             moveCursor(if00, if01);
+  //           } else {
+  //             moveCursor(if10, if11);
+  //           }
+  //           first = false;
+  //         }
+  //         if (opt === false && first === false) {
+  //           restoreGrid();
+  //           if (xy === 0) {
+  //             moveCursor(if00, if01);
+  //           } else {
+  //             moveCursor(if10, if11);
+  //           }
+  //         }
+  //         if (opt === true) {
+  //           if (tile > optn) {
+  //             {
+  //               opti;
+  //             }
+  //           } else {
+  //             tile = NUMTILES - optn;
+  //           }
+  //         }
+  //       }}
+  //     >
+  //       <Typography variant='h3' className='text-center'>
+  //         <IconButton
+  //           variant='outline'
+  //           size='sm'
+  //           className='rounded-full'
+  //           icon={icon}
+  //         />
+  //       </Typography>
+  //     </Button>
+  //   );
+  // }
 
   return (
     <DashboardLayout>
       <Seo templateTitle='Surga.page' />
-      <main>
+      <main className=''>
+        {/* <!-- This heading is hidden in portrait mode and only be shown in landscape mode--> */}
+        <div className='absolute flex layout'>
+          {/* button */}
+          <div className='grid grid-cols-2 gap-4 justify-items-center layout w-1/6'>
+            <Button
+              variant='ghost'
+              className='rounded shadow-lg'
+              onClick={() => {
+                if (opt === false && first === true) {
+                  if (cursor.y === 0) {
+                    moveCursor(0, GRID_SIZE - 3);
+                  } else {
+                    moveCursor(0, -1);
+                  }
+                  first = false;
+                } else if (opt === false && first === false) {
+                  restoreGrid();
+                  if (cursor.y === 0) {
+                    moveCursor(0, GRID_SIZE - 3);
+                  } else {
+                    moveCursor(0, -1);
+                  }
+                  first = false;
+                } else if (opt === true) {
+                  if (tile > 0) {
+                    tile--;
+                  } else {
+                    tile = NUMTILES;
+                  }
+                  changeTile(tile);
+                }
+              }}
+            >
+              <Typography variant='h3' className='text-center'>
+                <IconButton
+                  variant='outline'
+                  size='sm'
+                  className='rounded-full bg-white'
+                  icon={BsArrowLeft}
+                />
+              </Typography>
+            </Button>
+            <Button
+              variant='ghost'
+              className='rounded shadow-lg'
+              onClick={() => {
+                if (opt === false && first === true) {
+                  if (cursor.x === 0) {
+                    moveCursor(GRID_SIZE - 3, 0);
+                  } else {
+                    moveCursor(-1, 0);
+                  }
+                  first = false;
+                } else if (opt === false && first === false) {
+                  restoreGrid();
+                  if (cursor.x === 0) {
+                    moveCursor(GRID_SIZE - 3, 0);
+                  } else {
+                    moveCursor(-1, 0);
+                  }
+                } else if (opt === true) {
+                  if (tile < NUMTILES) {
+                    tile++;
+                  } else {
+                    tile = 0;
+                  }
+                  changeTile(tile);
+                }
+              }}
+            >
+              <Typography variant='h3' className='text-center'>
+                <IconButton
+                  variant='outline'
+                  size='sm'
+                  className='rounded-full bg-white'
+                  icon={BsArrowUp}
+                />
+              </Typography>
+            </Button>
+            <Button
+              variant='ghost'
+              className='rounded shadow-lg'
+              onClick={() => {
+                if (opt === false && first === true) {
+                  if (cursor.y === GRID_SIZE - 4) {
+                    moveCursor(-GRID_SIZE + 3, 0);
+                  } else {
+                    moveCursor(1, 0);
+                  }
+                  first = false;
+                } else if (opt === false && first === false) {
+                  restoreGrid();
+                  if (cursor.y === GRID_SIZE - 4) {
+                    moveCursor(-GRID_SIZE + 3, 0);
+                  } else {
+                    moveCursor(1, 0);
+                  }
+                  first = false;
+                } else if (opt === true) {
+                  if (tile > 0) {
+                    tile--;
+                  } else {
+                    tile = NUMTILES;
+                  }
+                  changeTile(tile);
+                }
+              }}
+            >
+              <Typography variant='h3' className='text-center'>
+                <IconButton
+                  variant='outline'
+                  size='sm'
+                  className='rounded-full bg-white'
+                  icon={BsArrowDown}
+                />
+              </Typography>
+            </Button>
+            <Button
+              variant='ghost'
+              className='rounded shadow-lg'
+              onClick={() => {
+                if (opt === false && first === true) {
+                  if (cursor.x === GRID_SIZE - 3) {
+                    moveCursor(0, -GRID_SIZE + 3);
+                  } else {
+                    moveCursor(0, 1);
+                  }
+                  first = false;
+                } else if (opt === false && first === false) {
+                  restoreGrid();
+                  if (cursor.x === GRID_SIZE - 3) {
+                    moveCursor(0, -GRID_SIZE + 3);
+                  } else {
+                    moveCursor(0, 1);
+                  }
+                  first = false;
+                } else if (opt === true) {
+                  if (tile < NUMTILES) {
+                    tile++;
+                  } else {
+                    tile = 0;
+                  }
+                  changeTile(tile);
+                }
+              }}
+            >
+              <Typography variant='h3' className='text-center'>
+                <IconButton
+                  variant='outline'
+                  size='sm'
+                  className='rounded-full bg-white'
+                  icon={BsArrowRight}
+                />
+              </Typography>
+            </Button>
+            <Button
+              variant='ghost'
+              className='rounded shadow-lg'
+              onClick={() => {
+                if (opt === false) {
+                  first = true;
+                  switchOpt();
+                  grid[11][11] = grid[10][10];
+                } else {
+                  switchOpt();
+                  grid[cursor.x][cursor.y] = grid[11][11];
+                }
+              }}
+            >
+              <Typography variant='h3' className='text-center'>
+                <IconButton
+                  variant='outline'
+                  size='sm'
+                  className='rounded-full bg-white'
+                  icon={Bs0Circle}
+                />
+              </Typography>
+            </Button>
+          </div>
+        </div>
+
         <section>
-          <div className='flex gap-4 items-center justify-center'>
-            <div className='py-2 dashboard-layout'>
+          <div className='flex gap-4 items-center justify '>
+            <div className='py-2 dashboard-layout object-scale-up'>
               {/* {JSON.stringify(size)} */}
               {size.height && size.width && (
-                <Sketch setup={setup} draw={draw} />
+                <Sketch
+                  className='overflow-scroll '
+                  setup={setup}
+                  draw={draw}
+                />
               )}
             </div>
             <Popover>
