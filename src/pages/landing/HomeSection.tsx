@@ -99,11 +99,14 @@ export default function HomeSection() {
 
         <div className='flex flex-wrap gap-y-2 justify-center gap-x-5 items-center'>
           <div className='animate-bounce'>
-            <ButtonLink href='#' rightIcon={PlayCircle}>
+            <ButtonLink href='https://its.id/fafifedemo' rightIcon={PlayCircle}>
               Mulai Sekarang
             </ButtonLink>
           </div>
-          <UnderlineLink href='#' className='gap-2.5 text-sm md:text-base'>
+          <UnderlineLink
+            href='/bantuan'
+            className='gap-2.5 text-sm md:text-base'
+          >
             <BookOpen size='1em' />
             Pelajari Lebih Lanjut
           </UnderlineLink>

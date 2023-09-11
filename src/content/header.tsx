@@ -1,6 +1,7 @@
 import {
   BarChart2,
   Contact2,
+  FileQuestion,
   HelpCircle,
   Home,
   LucideIcon,
@@ -20,6 +21,7 @@ export const LINKS: {
   { href: '/kontak', label: 'Kontak', icon: Contact2 },
   { href: '/tentang', label: 'Tentang Kami', icon: Users2 },
   { href: '/faq', label: 'FAQ', icon: HelpCircle },
+  { href: '/bantuan', label: 'Bantuan', icon: FileQuestion },
 ];
 
 export const AUTH_LINKS = {

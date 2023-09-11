@@ -1,5 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withMDX = require('@next/mdx')({
+  extension: /\.(md|mdx)$/,
+});
+module.exports = withMDX({
   eslint: {
     dirs: ['src'],
   },
@@ -12,6 +15,4 @@ const nextConfig = {
   images: {
     domains: ['res.cloudinary.com', 'images.unsplash.com'],
   },
-};
-
-module.exports = nextConfig;
+});
