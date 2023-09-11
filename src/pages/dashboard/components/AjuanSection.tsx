@@ -36,7 +36,7 @@ export default function AjuanSection() {
     <SimpleCard className='overflow-hidden flex flex-col p-0 sm:p-0 row-start-2 h-1/2'>
       <div className='flex justify-between items-center p-6 pb-0'>
         <Typography variant='s1'>Ajuan</Typography>
-        <UnderlineLink href='/ajuan'>Lihat Semua</UnderlineLink>
+        <UnderlineLink href='/dashboard/ajuan'>Lihat Semua</UnderlineLink>
       </div>
       <div className='mt-4 pt-0 overflow-y-auto scrollbar-hide flex flex-col'>
         {AJUAN_CONTENT.map((mission, i) => (
