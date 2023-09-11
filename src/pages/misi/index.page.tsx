@@ -1,10 +1,8 @@
 import clsx from 'clsx';
-import { Grid, List } from 'lucide-react';
 import * as React from 'react';
 
 import { getPercentage } from '@/lib/helper';
 
-import IconButton from '@/components/buttons/IconButton';
 import SimpleCard from '@/components/cards/SimpleCard';
 import withAuth from '@/components/hoc/withAuth';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
@@ -20,42 +18,10 @@ import {
 } from '@/components/Tooltip';
 import Typography from '@/components/typography/Typography';
 
-type MissionContentType = { title: string; percentage: number };
-const MISSION_CONTENT: MissionContentType[] = [
-  {
-    title: 'Menyelesaikan sertifikasi 1 UMKM',
-    percentage: 50,
-  },
-  {
-    title: 'Sertifikasi UMKM di Daerah Keputih',
-    percentage: 80,
-  },
-  {
-    title: 'Lengkapi Profil Anda',
-    percentage: 100,
-  },
-  {
-    title: 'Sertifikasi UMKM di Daerah Keputih',
-    percentage: 80,
-  },
-  {
-    title: 'Lengkapi Profil Anda',
-    percentage: 100,
-  },
-  {
-    title: 'Sertifikasi UMKM di Daerah Keputih',
-    percentage: 80,
-  },
-  {
-    title: 'Lengkapi Profil Anda',
-    percentage: 100,
-  },
-];
+import { MISSION_CONTENT } from '@/content/misi';
 
 export default withAuth('protected')(DashboardPage);
 function DashboardPage() {
-  const [layout, setLayout] = React.useState<'grid' | 'list'>('grid');
-
   return (
     <DashboardLayout className='relative'>
       <Seo templateTitle='Dashboard' />
@@ -67,41 +33,16 @@ function DashboardPage() {
           crumbs={['/dashboard', '/misi']}
         >
           <PageHeader.Title>Misi Anda</PageHeader.Title>
-          <PageHeader.ActionGroup>
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <IconButton
-                    variant={layout === 'grid' ? 'primary' : 'outline'}
-                    icon={Grid}
-                    onClick={() => setLayout('grid')}
-                  />
-                </TooltipTrigger>
-                <TooltipContent side='bottom'>
-                  <Typography variant='c1'>Tampilkan Bentuk Grid</Typography>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider delayDuration={100}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <IconButton
-                    variant={layout === 'list' ? 'primary' : 'outline'}
-                    icon={List}
-                    onClick={() => setLayout('list')}
-                  />
-                </TooltipTrigger>
-                <TooltipContent>
-                  <Typography variant='c1'>Tampilkan Bentuk List</Typography>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </PageHeader.ActionGroup>
         </PageHeader>
 
         <section className='dashboard-layout gap-2 flex flex-col z-10 justify-between'>
           <div className='mt-2 inline-flex items-center gap-1'>
-            <Tag color='primary'>4</Tag>{' '}
+            <Tag color='primary'>
+              {
+                MISSION_CONTENT.filter((mission) => mission.percentage === 100)
+                  .length
+              }
+            </Tag>{' '}
             <Typography variant='b3' color='secondary'>
               / 6 misi selesai
             </Typography>
@@ -130,7 +71,7 @@ function DashboardPage() {
           </div>
         </section>
 
-        <section className='dashboard-layout gap-6 z-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5'>
+        <section className='dashboard-layout gap-6 z-10 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
           {MISSION_CONTENT.map((data, i) => (
             <SimpleCard
               size='sm'
@@ -138,13 +79,18 @@ function DashboardPage() {
               className=' flex flex-col gap-4 justify-start'
             >
               <NextImage
-                src='/images/dummy/produk.jpg'
-                alt='Surga Kuliner'
+                src={data.image}
+                alt='Misi'
                 layout='fill'
                 className='w-full aspect-video relative rounded-xl overflow-hidden'
                 imgClassName='w-full object-cover'
               />
-              <Typography variant='s2'>{data.title}</Typography>
+              <div className='space-y-2'>
+                <Typography variant='s2'>{data.title}</Typography>
+                <Typography variant='c1' color='secondary'>
+                  {data.description}
+                </Typography>
+              </div>
               <div className='flex items-center gap-3 mt-auto'>
                 <div className='w-full relative h-2 overflow-hidden rounded-full bg-light shadow-inner'>
                   <span

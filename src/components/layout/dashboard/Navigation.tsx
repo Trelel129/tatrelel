@@ -14,6 +14,7 @@ import {
   Store,
   User,
   UserCircle,
+  Users,
 } from 'lucide-react';
 import { useRouter } from 'next/router';
 import * as React from 'react';
@@ -59,6 +60,11 @@ const groupNavs: GroupedNavigation[] = [
         icon: ClipboardList,
       },
       {
+        name: 'Pendampingan',
+        href: '/pendampingan',
+        icon: Users,
+      },
+      {
         name: 'Profile',
         href: '#',
         icon: UserCircle,
@@ -97,13 +103,13 @@ const groupNavs: GroupedNavigation[] = [
       },
       {
         name: 'Surga Kuliner',
-        href: 'surga',
+        href: '/surga',
         icon: Map,
         exactMatch: true,
       },
       {
         name: 'Toko Ornamen',
-        href: 'purchaseornamen',
+        href: '/purchaseornamen',
         icon: Store,
         exactMatch: true,
       },

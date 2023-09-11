@@ -174,7 +174,7 @@ export default function BaseDialog({
                   onClick={onClose}
                   className='mt-3 w-full items-center justify-center !font-medium sm:mt-0 sm:w-auto sm:text-sm'
                 >
-                  Cancel
+                  Batal
                 </Button>
               </div>
             </div>

@@ -30,6 +30,8 @@ import Typography from '@/components/typography/Typography';
 
 import useAuthStore from '@/store/useAuthStore';
 
+import { RANK_DATA } from '@/content/rank';
+
 type HeaderProps = {
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -86,13 +88,13 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                               variant='s3'
                               className='text-primary-600'
                             >
-                              Level 5
+                              Level 1
                             </Typography>
                             <Typography variant='s3' color='secondary'>
                               <span className='text-yellow-500'>
-                                + 400 SIP Koin
+                                + 50 SIP Koin
                               </span>{' '}
-                              di Level 6
+                              di Level 2
                             </Typography>
                           </div>
                           <div className='flex items-center gap-3'>
@@ -101,13 +103,13 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                             </Typography>
                             <div className='w-full min-w-[12rem] relative h-2 overflow-hidden rounded-full bg-light shadow-inner'>
                               <span
-                                title='2500'
+                                title='50'
                                 className={clsx([
                                   'bg-gradient-to-r from-primary-400 to-primary-700',
                                   'absolute left-0 h-2 shrink-0 rounded-r-full',
                                 ])}
                                 style={{
-                                  width: `${getPercentage(2500, 10000)}%`,
+                                  width: `${getPercentage(50, 80)}%`,
                                 }}
                               >
                                 &nbsp;
@@ -118,7 +120,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                               color='secondary'
                               className='whitespace-nowrap'
                             >
-                              2.500 / 10.000
+                              50 / 80
                             </Typography>
                           </div>
                         </div>
@@ -133,7 +135,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                               alt='Koin SIP'
                             />
                           </div>
-                          <Typography variant='s2'>342.673.428</Typography>
+                          <Typography variant='s2'>1.100</Typography>
                         </div>
                       </button>
                     </TooltipTrigger>
@@ -248,18 +250,21 @@ function GamificationModal({
               <TooltipTrigger asChild>
                 <div className='bg-white  absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 soft-shadow rounded-full p-3 mx-auto w-[8rem]'>
                   <NextImage
-                    src='/images/rank/explorer.svg'
-                    width={100}
-                    height={100}
+                    src={RANK_DATA.novice.image}
+                    width={242}
+                    height={242}
                     className='w-full'
                     imgClassName='w-full'
-                    alt='explorer'
+                    alt={RANK_DATA.novice.title}
                   />
                 </div>
               </TooltipTrigger>
               <TooltipContent side='left'>
                 <Typography variant='c1'>
-                  Rank Kamu <span className='text-primary-600'>Novice</span>
+                  Rank Kamu{' '}
+                  <span className='text-primary-600'>
+                    {RANK_DATA.novice.title}
+                  </span>
                 </Typography>
               </TooltipContent>
             </Tooltip>
@@ -272,23 +277,23 @@ function GamificationModal({
             <div className='flex gap-2 justify-center items-center'>
               <div className='bg-primary-900 px-3 py-0.5 rounded-full'>
                 <Typography variant='s3' className='text-white'>
-                  Novice
+                  {RANK_DATA.novice.title}
                 </Typography>
               </div>
               <Typography variant='s3' color='secondary'>
-                <span className='text-primary-600'>2 Level</span> lagi menuju
-                Explorer
+                <span className='text-primary-600'>8 Level</span> lagi menuju{' '}
+                {RANK_DATA.explorer.title}
               </Typography>
             </div>
           </div>
           <div className='w-full flex flex-col gap-0.5 mt-8 md:mt-4'>
             <div className='flex justify-between items-center'>
               <Typography variant='s3' className='text-primary-600'>
-                Level 5
+                Level 1
               </Typography>
               <Typography variant='s3' color='secondary'>
-                <span className='text-yellow-500'>+ 400 SIP Koin</span> di Level
-                6
+                <span className='text-yellow-500'>+ 50 SIP Koin</span> di Level
+                2
               </Typography>
             </div>
             <div className='flex items-center gap-3'>
@@ -305,14 +310,14 @@ function GamificationModal({
                           'absolute left-0 h-2 shrink-0 rounded-r-full',
                         ])}
                         style={{
-                          width: `${getPercentage(2500, 10000)}%`,
+                          width: `${getPercentage(50, 80)}%`,
                         }}
                       >
                         &nbsp;
                       </span>
                     </TooltipTrigger>
                     <TooltipContent side='bottom'>
-                      <Typography variant='c1'>2500 XP</Typography>
+                      <Typography variant='c1'>50 XP</Typography>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -322,7 +327,7 @@ function GamificationModal({
                 color='secondary'
                 className='whitespace-nowrap'
               >
-                <span className='text-primary-600'>2.500</span> / 10.000
+                <span className='text-primary-600'>50</span> / 80
               </Typography>
             </div>
           </div>
@@ -342,7 +347,7 @@ function GamificationModal({
                 <Typography variant='c1' className='whitespace-nowrap'>
                   Koin SIP
                 </Typography>
-                <Typography variant='s2'>342.673.428</Typography>
+                <Typography variant='s2'>1.100</Typography>
               </div>
             </div>
             <div className='flex items-center gap-2'>
@@ -360,7 +365,7 @@ function GamificationModal({
                 <Typography variant='c1' className='whitespace-nowrap'>
                   Banyak Kios
                 </Typography>
-                <Typography variant='s2'>30</Typography>
+                <Typography variant='s2'>2</Typography>
               </div>
             </div>
           </div>

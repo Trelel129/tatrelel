@@ -1,10 +1,10 @@
 import { HelpCircle, User } from 'lucide-react';
 import * as React from 'react';
 
-import Button from '@/components/buttons/Button';
 import IconButton from '@/components/buttons/IconButton';
 import withAuth from '@/components/hoc/withAuth';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
+import ButtonLink from '@/components/links/ButtonLink';
 import PrimaryLink from '@/components/links/PrimaryLink';
 import Seo from '@/components/Seo';
 import {
@@ -48,7 +48,9 @@ function DashboardPage() {
             <TooltipProvider delayDuration={100}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button leftIcon={User}>PTSP</Button>
+                  <ButtonLink href='https://ptsp.halal.go.id' leftIcon={User}>
+                    Akun PTSP
+                  </ButtonLink>
                 </TooltipTrigger>
                 <TooltipContent>
                   <Typography variant='c1'>Akses Akun PTSP</Typography>

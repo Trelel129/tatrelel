@@ -8,21 +8,7 @@ import UnderlineLink from '@/components/links/UnderlineLink';
 import Tag from '@/components/tag/Tag';
 import Typography from '@/components/typography/Typography';
 
-type MissionContentType = { title: string; percentage: number };
-const MISSION_CONTENT: MissionContentType[] = [
-  {
-    title: 'Menyelesaikan sertifikasi 1 UMKM',
-    percentage: 50,
-  },
-  {
-    title: 'Sertifikasi UMKM di Daerah Keputih',
-    percentage: 80,
-  },
-  {
-    title: 'Lengkapi Profil Anda',
-    percentage: 100,
-  },
-];
+import { MISSION_CONTENT, MissionContentType } from '@/content/misi';
 
 export default function MisiSection() {
   return (
@@ -32,7 +18,12 @@ export default function MisiSection() {
         <UnderlineLink href='/misi'>Lihat Semua</UnderlineLink>
       </div>
       <div className='mt-2 inline-flex items-center gap-1'>
-        <Tag color='primary'>4</Tag>{' '}
+        <Tag color='primary'>
+          {
+            MISSION_CONTENT.filter((mission) => mission.percentage === 100)
+              .length
+          }
+        </Tag>{' '}
         <Typography variant='b3' color='secondary'>
           / 6 misi selesai
         </Typography>
@@ -48,8 +39,11 @@ export default function MisiSection() {
 function MissionListItem({ data }: { data: MissionContentType }) {
   return (
     <div className='bg-gray-50 rounded-lg p-3'>
-      <div>
+      <div className='space-y-1'>
         <Typography variant='s3'>{data.title}</Typography>
+        <Typography variant='c2' color='secondary' className='truncate'>
+          {data.description}
+        </Typography>
       </div>
       <div className='flex items-center gap-3 mt-1'>
         <div className='w-full min-w-[12rem] relative h-2 overflow-hidden rounded-full bg-light shadow-inner'>

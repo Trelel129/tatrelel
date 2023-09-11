@@ -1,16 +1,11 @@
-import { Check, Eye, HelpingHand } from 'lucide-react';
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
+import clsx from 'clsx';
+import { Eye } from 'lucide-react';
 
-import useDialog from '@/hooks/useDialog';
-
-import Button from '@/components/buttons/Button';
 import SimpleCard from '@/components/cards/SimpleCard';
 import withAuth from '@/components/hoc/withAuth';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import PageHeader from '@/components/layout/dashboard/PageHeader';
 import ButtonLink from '@/components/links/ButtonLink';
-import IconLink from '@/components/links/IconLink';
 import NextImage from '@/components/NextImage';
 import Seo from '@/components/Seo';
 import Tag from '@/components/tag/Tag';
@@ -19,30 +14,29 @@ import Typography from '@/components/typography/Typography';
 import useAjuanStore from '@/store/useAjuanStore';
 
 import { AjuanDataType } from '@/content/ajuan';
-import SedekahModal from '@/pages/ajuan/components/SedekahModal';
 
 export default withAuth('protected')(AjuanPage);
 function AjuanPage() {
   const ajuan = useAjuanStore.useData();
   const ajuanData = ajuan.filter(
-    (data) => !(data.status === 'accepted' || data.status === 'completed'),
+    (data) => data.status === 'accepted' || data.status === 'completed',
   );
   return (
     <DashboardLayout className='relative'>
-      <Seo templateTitle='Ajuan' />
+      <Seo templateTitle='Pendampingan Sertifikasi' />
 
       <main className='py-12 flex flex-col gap-12'>
         <PageHeader
           className='z-10'
           backHref='/dashboard'
-          crumbs={['/dashboard', '/ajuan']}
+          crumbs={['/dashboard', '/pendampingan']}
         >
-          <PageHeader.Title>Ajuan Pendampingan</PageHeader.Title>
+          <PageHeader.Title>Pendampingan Sertifikasi</PageHeader.Title>
         </PageHeader>
 
         <section className='dashboard-layout grid grid-cols-1 lg:grid-cols-2 gap-8 z-10'>
           {ajuanData.map((ajuan) => (
-            <AjuanCard data={ajuan} key={ajuan.id} />
+            <PendampinganCard data={ajuan} key={ajuan.id} />
           ))}
         </section>
 
@@ -59,33 +53,14 @@ function AjuanPage() {
   );
 }
 
-function AjuanCard({ data }: { data: AjuanDataType }) {
-  const dialog = useDialog();
-  const router = useRouter();
-  const setTerima = useAjuanStore.useSetTerima();
-
-  const onAccept = () => {
-    dialog({
-      title: 'Terima Ajuan Pendampingan',
-      description: (
-        <>
-          Anda akan menerima ajuan pendampingan{' '}
-          <span className='font-semibold'>{data.nama}</span>.
-          <br />
-          Apa anda yakin ?
-        </>
-      ),
-      submitText: 'Terima',
-      variant: 'success',
-    }).then(() => {
-      setTerima(data.id);
-      toast.success('Berhasil menerima ajuan');
-      router.push(`/pendampingan/${data.id}`);
-    });
-  };
-
+function PendampinganCard({ data }: { data: AjuanDataType }) {
   return (
-    <SimpleCard className='flex flex-col md:flex-row gap-6'>
+    <SimpleCard
+      className={clsx(
+        'flex flex-col md:flex-row gap-6',
+        data.status === 'completed' && 'bg-green-50',
+      )}
+    >
       <NextImage
         src={data.image}
         alt={data.nama}
@@ -95,14 +70,14 @@ function AjuanCard({ data }: { data: AjuanDataType }) {
       />
       <div className='w-full flex flex-col'>
         <div className='space-y-2'>
-          {data.status === 'waiting' && (
-            <Tag color='warning' size='sm' className='w-fit'>
-              Menunggu Konfirmasi
+          {data.status === 'completed' && (
+            <Tag color='success' size='sm' className='w-fit'>
+              Selesai
             </Tag>
           )}
-          {data.status === 'gifted' && (
-            <Tag color='DEFAULT' size='sm' className='w-fit'>
-              Telah Disedekahkan
+          {data.status === 'accepted' && (
+            <Tag color='primary' size='sm' className='w-fit'>
+              Dalam Proses
             </Tag>
           )}
 
@@ -150,38 +125,13 @@ function AjuanCard({ data }: { data: AjuanDataType }) {
         </div>
 
         <div className='w-full flex gap-2 items-center md:justify-end'>
-          {data.status === 'gifted' && (
-            <ButtonLink
-              leftIcon={Eye}
-              href={`/ajuan/${data.id}`}
-              variant='ghost'
-            >
-              Lihat Kemajuan
-            </ButtonLink>
-          )}
-          {data.status === 'waiting' && (
-            <>
-              <SedekahModal data={data}>
-                {({ openModal }) => (
-                  <Button
-                    variant='ghost'
-                    onClick={openModal}
-                    rightIcon={HelpingHand}
-                  >
-                    Sedehkahkan
-                  </Button>
-                )}
-              </SedekahModal>
-              <Button onClick={onAccept} rightIcon={Check}>
-                Terima
-              </Button>
-              <IconLink
-                variant='secondary'
-                href={`/ajuan/${data.id}`}
-                icon={Eye}
-              />
-            </>
-          )}
+          <ButtonLink
+            leftIcon={Eye}
+            href={`/pendampingan/${data.id}`}
+            variant='ghost'
+          >
+            Detail Pendampingan
+          </ButtonLink>
         </div>
       </div>
     </SimpleCard>

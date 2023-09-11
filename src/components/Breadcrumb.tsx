@@ -7,9 +7,12 @@ import Typography from '@/components/typography/Typography';
 
 const breadcrumbs = {
   '/': 'Landing Page',
+  '/id': 'Detail',
   '/sandbox/breadcrumb': 'Breadcrumb',
   '/dashboard': 'Dashboard',
   '/misi': 'Misi',
+  '/ajuan': 'Ajuan Pendampingan',
+  '/pendampingan': 'Pendampingan Sertifikasi',
 };
 type BreadcrumbProps = {
   crumbs: Array<keyof typeof breadcrumbs>;

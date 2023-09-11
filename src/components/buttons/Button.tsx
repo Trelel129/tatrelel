@@ -11,7 +11,6 @@ const ButtonVariant = [
   'outline',
   'ghost',
   'warning',
-  'success',
 ] as const;
 const ButtonSize = ['sm', 'base', 'lg'] as const;
 
@@ -105,14 +104,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               'text-primary-500',
               'shadow-none',
               'hover:bg-primary-50 focus-visible:ring-primary-400 active:bg-primary-100 disabled:bg-primary-100',
-            ],
-            variant === 'success' && [
-              'bg-green-500 text-white',
-              'border border-green-600',
-              'hover:bg-green-600 hover:text-white',
-              'active:bg-green-700',
-              'disabled:bg-green-700',
-              'focus-visible:ring-green-400',
             ],
           ],
           //#endregion  //*======== Variants ===========
