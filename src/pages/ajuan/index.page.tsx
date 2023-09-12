@@ -160,7 +160,7 @@ function AjuanCard({ data }: { data: AjuanDataType }) {
             </ButtonLink>
           )}
           {data.status === 'waiting' && (
-            <>
+            <div className='flex min-[1024px]:flex-col min-[1220px]:flex-row'>
               <SedekahModal data={data}>
                 {({ openModal }) => (
                   <Button
@@ -180,7 +180,7 @@ function AjuanCard({ data }: { data: AjuanDataType }) {
                 href={`/ajuan/${data.id}`}
                 icon={Eye}
               />
-            </>
+            </div>
           )}
         </div>
       </div>
