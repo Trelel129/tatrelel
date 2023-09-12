@@ -11,6 +11,7 @@ import {
   Map,
   Minus,
   Plus,
+  ShoppingCart,
   Store,
   User,
   UserCircle,
@@ -112,6 +113,16 @@ const groupNavs: GroupedNavigation[] = [
         href: '/purchaseornamen',
         icon: Store,
         exactMatch: true,
+      },
+    ],
+  },
+  {
+    name: 'Lainnya',
+    navigations: [
+      {
+        name: 'Tawaran',
+        href: '/tawaran',
+        icon: ShoppingCart,
       },
     ],
   },
