@@ -11,6 +11,7 @@ export type AjuanDataType = {
 };
 
 type ProdukAjuanType = {
+  id: string;
   name: string;
   description: string;
   image: string;
@@ -32,22 +33,21 @@ export const AJUAN_CONTENT: AjuanDataType[] = [
     address: 'Jl. Teknik Sipil No.i / 16, Keputih, Kec. Sukolilo, Surabaya',
     produk: [
       {
-        name: 'Telur Dadar',
+        id: '2p',
+        name: 'Pentol Bakso',
         description:
-          'Merupakan telur dadar yang digoreng dengan bumbu tambahan hanya garam dan gula',
-        image: '/images/sertifikasi/telur-dadar.png',
+          'Merupakan pentol pada bakso yang dijual dengan bahan daging sapi dan campuran tepung',
+        image: '/images/sertifikasi/pentol-bakso.png',
       },
       {
-        name: 'Sayur Sop',
-        description: 'Sayur sop sederhana wortel, sayur',
-        image: '/images/sertifikasi/sop.png',
+        id: '2t',
+        name: 'Tahu Bakso',
+        description:
+          'Merupakan tahu pada bakso yang dijual dengan bahan tahu asli dan campuran bakso',
+        image: '/images/sertifikasi/tahu-bakso.png',
       },
     ],
     dokumen: [
-      {
-        name: 'Nomor Induk Berusaha',
-        image: '/images/dummy/nib_adalah_contohnya.jpg',
-      },
       {
         name: 'Nomor Induk Berusaha',
         image: '/images/dummy/nib_adalah_contohnya.jpg',
@@ -64,22 +64,14 @@ export const AJUAN_CONTENT: AjuanDataType[] = [
     address: 'Jl. Teknik Sipil No.i / 16, Keputih, Kec. Sukolilo, Surabaya',
     produk: [
       {
-        name: 'Telur Dadar',
+        id: '3e',
+        name: 'Es Degan',
         description:
-          'Merupakan telur dadar yang digoreng dengan bumbu tambahan hanya garam dan gula',
-        image: '/images/sertifikasi/telur-dadar.png',
-      },
-      {
-        name: 'Sayur Sop',
-        description: 'Sayur sop sederhana wortel, sayur',
-        image: '/images/sertifikasi/sop.png',
+          'Minuman utama yang dijual dengan bahan dasar kelapa muda dan gula',
+        image: '/images/sertifikasi/es-degan-review.png',
       },
     ],
     dokumen: [
-      {
-        name: 'Nomor Induk Berusaha',
-        image: '/images/dummy/nib_adalah_contohnya.jpg',
-      },
       {
         name: 'Nomor Induk Berusaha',
         image: '/images/dummy/nib_adalah_contohnya.jpg',
@@ -96,22 +88,20 @@ export const AJUAN_CONTENT: AjuanDataType[] = [
     address: 'Jl. Teknik Sipil No.i / 16, Keputih, Kec. Sukolilo, Surabaya',
     produk: [
       {
+        id: '1t',
         name: 'Telur Dadar',
         description:
           'Merupakan telur dadar yang digoreng dengan bumbu tambahan hanya garam dan gula',
         image: '/images/sertifikasi/telur-dadar.png',
       },
       {
+        id: '1s',
         name: 'Sayur Sop',
         description: 'Sayur sop sederhana wortel, sayur',
         image: '/images/sertifikasi/sop.png',
       },
     ],
     dokumen: [
-      {
-        name: 'Nomor Induk Berusaha',
-        image: '/images/dummy/nib_adalah_contohnya.jpg',
-      },
       {
         name: 'Nomor Induk Berusaha',
         image: '/images/dummy/nib_adalah_contohnya.jpg',

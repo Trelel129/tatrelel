@@ -37,8 +37,8 @@ type HeaderProps = {
 };
 
 const userNavigation = [
-  { name: 'Ubah Password', href: '/akun/ubah-password' },
-  { name: 'Ubah Profil', href: '/akun/ubah-profil' },
+  { name: 'Ubah Password', href: '' },
+  { name: 'Ubah Profil', href: '' },
 ];
 
 export default function Header({ setSidebarOpen }: HeaderProps) {

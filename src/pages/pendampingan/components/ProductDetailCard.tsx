@@ -40,7 +40,7 @@ export default function ProductDetailCard({ data }: { data: AjuanDataType }) {
                     <TooltipTrigger asChild>
                       <IconLink
                         className='ml-auto'
-                        href={`/pendampingan/${data.id}/status`}
+                        href={`/pendampingan/${data.id}/status/${p.id}`}
                         icon={Eye}
                       />
                     </TooltipTrigger>

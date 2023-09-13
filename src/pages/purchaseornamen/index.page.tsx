@@ -259,7 +259,7 @@ function OrnamentDisplay({
   id: string;
 }) {
   return (
-    <UnstyledLink href={`/purchaseornamen/${id}`}>
+    <UnstyledLink href={id == '1' ? `/purchaseornamen/${id}` : ``}>
       <SimpleCard className='flex relative flex-col items-center h-full'>
         <NextImage src={image} width='100' height='100' alt='ornamen' />
         <div
