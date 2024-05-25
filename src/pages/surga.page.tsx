@@ -1,4 +1,6 @@
 // import p5 from 'p5';
+import { Popover } from '@headlessui/react';
+import { PopoverContent, PopoverTrigger } from '@radix-ui/react-popover';
 import { Info } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import p5Types from 'p5';
@@ -18,14 +20,9 @@ import IconButton from '@/components/buttons/IconButton';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import ButtonLink from '@/components/links/ButtonLink';
 import NextImage from '@/components/NextImage';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/popover/Popover';
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
-
+// import { m } from 'frame
 const NUMTILES = 57;
 
 const Sketch = dynamic(() => import('react-p5').then((mod) => mod.default), {
@@ -817,6 +814,40 @@ export default function SurgapagePage() {
   return (
     <DashboardLayout>
       <Seo templateTitle='Surga.page' />
+      <section>
+        <Popover>
+          <PopoverTrigger
+            asChild
+            className='absolute top-1/3 right-60 -translate-x-1/2 -translate-y-1/2'
+          >
+            <IconButton
+              variant='outline'
+              size='sm'
+              className='rounded-full'
+              icon={Info}
+            />
+          </PopoverTrigger>
+          <PopoverContent className='w-fit'>
+            <div
+              className='gap-4 grid grid-cols-3 justify-items-center'
+              id='inventory'
+            >
+              {ORNAMENTS.map((ornament, i) => (
+                <OrnamentDisplay key={i} {...ornament} />
+              ))}
+            </div>
+
+            <Typography variant='s3' className='text-center grid-flow-col'>
+              <Button variant='outline' size='base'>
+                {'<'}
+              </Button>
+              <Button variant='outline' size='base'>
+                {'>'}
+              </Button>
+            </Typography>
+          </PopoverContent>
+        </Popover>
+      </section>
       <main className=''>
         {/* <!-- This heading is hidden in portrait mode and only be shown in landscape mode--> */}
         <div className='absolute flex layout'>
@@ -1010,57 +1041,11 @@ export default function SurgapagePage() {
                   draw={draw}
                 />
               )}
+              <span className='text-blue-500'>[W], [A], [S], atau [D]</span>{' '}
+              untuk mengganti ornamen
             </div>
-            <Popover>
-              <PopoverTrigger
-                asChild
-                className='absolute top-1/3 right-60 -translate-x-1/2 -translate-y-1/2'
-              >
-                <IconButton
-                  variant='outline'
-                  size='sm'
-                  className='rounded-full'
-                  icon={Info}
-                />
-              </PopoverTrigger>
-              <PopoverContent className='w-fit'>
-                <div
-                  className='gap-4 grid grid-cols-3 justify-items-center'
-                  id='inventory'
-                >
-                  {ORNAMENTS.map((ornament, i) => (
-                    <OrnamentDisplay key={i} {...ornament} />
-                  ))}
-                </div>
-                <Typography variant='s3' className='text-center grid-flow-col'>
-                  <Button variant='outline' size='base'>
-                    {'<'}
-                  </Button>
-                  <Button variant='outline' size='base'>
-                    {'>'}
-                  </Button>
-                </Typography>
-              </PopoverContent>
-            </Popover>
           </div>
         </section>
-        {/* guide */}
-        <div className='flex layout justify-center'>
-          <Typography>
-            Gunakan{' '}
-            <span className='text-blue-500'>[W], [A], [S], atau [D]</span> untuk
-            menggerakkan kursor
-            <br />
-            <br />
-            Gunakan <span className='text-blue-500'>[F]</span> untuk memilih
-            ornamen
-            <br />
-            <br />
-            Setelah memilih, gunakan{' '}
-            <span className='text-blue-500'>[W], [A], [S], atau [D]</span> untuk
-            mengganti ornamen
-          </Typography>
-        </div>
         <div className='flex layout gap-4'>
           {/* <ButtonLink
             href='/coba'
