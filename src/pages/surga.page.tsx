@@ -1,6 +1,4 @@
 // import p5 from 'p5';
-import { Popover } from '@headlessui/react';
-import { PopoverContent, PopoverTrigger } from '@radix-ui/react-popover';
 import { Info } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import p5Types from 'p5';
@@ -20,6 +18,11 @@ import IconButton from '@/components/buttons/IconButton';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import ButtonLink from '@/components/links/ButtonLink';
 import NextImage from '@/components/NextImage';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/popover/Popover';
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
 // import { m } from 'frame

@@ -1,6 +1,7 @@
 import { Info } from 'lucide-react';
 import * as React from 'react';
 import { useState } from 'react';
+import { ImWarning } from 'react-icons/im';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
@@ -36,8 +37,8 @@ const initialMap = [
 ];
 
 const inventory = [
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  10, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
 ];
 
 const menu = [
@@ -57,13 +58,30 @@ export default function Surga2pagePage() {
   const handleTileClick = (index: number) => {
     const newMap = [...map];
     if (inventory[selectedTile - 1] > 0) {
-      inventory[selectedTile - 1]--;
-      inventory[map[index]]++;
-      // console.log(map[index]);
+      if (selectedTile - 1 === 0 || selectedTile - 1 === 1) {
+        // console.log('infinite default tile');
+      } else {
+        inventory[map[index] - 1]++;
+        // console.log('current tile', map[index], 'changed to', selectedTile);
+        // console.log('inventory added', inventory[map[index]]);
+        // console.log('current item added ', map[index]);
+        inventory[selectedTile - 1]--;
+        // console.log('current tile', map[index]);
+        // console.log('inventory reduced', inventory[selectedTile - 1]);
+      }
     } else {
+      //show pop up lack of item
+      //warning
+      // console.log('lack of item');
+      <ImWarning />;
       return;
     }
-    newMap[index] = selectedTile;
+    if (selectedTile - 1 === 1) {
+      inventory[map[index] - 1]++;
+      newMap[index] = 0;
+    } else {
+      newMap[index] = selectedTile;
+    }
     setMap(newMap);
   };
 
@@ -130,45 +148,42 @@ export default function Surga2pagePage() {
             />
           </section>
         </section>
-        <div className='flex layout justify-center'>
-          <NextImage
-            className='flex'
-            src={`/sqtiles/tile-${savedTile + 1}.png`}
-            alt='current-tile'
-            width={120}
-            height={150}
-          />
-          <Typography>
-            Gunakan{' '}
-            <span className='text-blue-500'>[W], [A], [S], atau [D]</span> untuk
-            menggerakkan kursor
-            <br />
-            <br />
-            Gunakan <span className='text-blue-500'>[F]</span> untuk memilih
-            ornamen
-            <br />
-            <br />
-            Setelah memilih, gunakan{' '}
-            <span className='text-blue-500'>[W], [A], [S], atau [D]</span> untuk
-            mengganti ornamen
-          </Typography>
-        </div>
-        <ButtonLink
-          href='/purchaseornamen'
-          variant='ghost'
-          className='rounded shadow-lg lainnya'
-        >
-          <Typography variant='h3' className='text-center'>
+        <section className='absolute flex justify-center bottom-px right-px -translate-x-1/2 -translate-y-1/2'>
+          <section className='grid justify-center'>
+            <Typography variant='b1' className='content-center text-center'>
+              current tile
+            </Typography>
             <NextImage
-              className='flex'
-              src='/images/ornamen/StoreIcon.png'
-              alt='ornamen'
-              width={25}
-              height={25}
+              className='flex justify-center content-center'
+              src={`/sqtiles/tile-${savedTile + 1}.png`}
+              alt='current-tile'
+              width={size.width / 30}
+              height={size.height / 15}
             />
-            Toko Ornamen
+          </section>
+          <Typography variant='b1' className='text-center content-center'>
+            {inventory[savedTile]}x
           </Typography>
-        </ButtonLink>
+        </section>
+
+        <div className='flex layout gap-4'>
+          <ButtonLink
+            href='/purchaseornamen'
+            variant='ghost'
+            className='rounded shadow-lg lainnya'
+          >
+            <Typography variant='h3' className='text-center'>
+              <NextImage
+                className='flex'
+                src='/images/ornamen/StoreIcon.png'
+                alt='ornamen'
+                width={size.width / 60}
+                height={25}
+              />
+              Toko Ornamen
+            </Typography>
+          </ButtonLink>
+        </div>
       </main>
     </DashboardLayout>
   );
@@ -221,7 +236,7 @@ const TileMap = ({
     const col = index % NUMTILESROW;
 
     const x = col * tileWidth - tileWidth * 5;
-    const y = row * tileHeight * 1.25 + tileHeight;
+    const y = row * tileHeight * 1.25 + tileHeight * 2;
 
     return { x, y };
   };
