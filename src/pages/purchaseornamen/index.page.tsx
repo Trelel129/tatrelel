@@ -1,11 +1,19 @@
 import clsx from 'clsx';
+import { Info } from 'lucide-react';
 import * as React from 'react';
 
+import Button from '@/components/buttons/Button';
+import IconButton from '@/components/buttons/IconButton';
 import SimpleCard from '@/components/cards/SimpleCard';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import PageHeader from '@/components/layout/dashboard/PageHeader';
 import UnstyledLink from '@/components/links/UnstyledLink';
 import NextImage from '@/components/NextImage';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/popover/Popover';
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
 
@@ -163,7 +171,30 @@ export default function CobapagePage() {
         >
           <PageHeader.Title>Toko Ornamen</PageHeader.Title>
         </PageHeader>
+        <Popover>
+          <PopoverTrigger
+            asChild
+            className='absolute top-1/3 right-60 -translate-x-1/2 -translate-y-1/2'
+          >
+            <IconButton
+              variant='outline'
+              size='sm'
+              className='rounded-full'
+              icon={Info}
+            />
+          </PopoverTrigger>
 
+          <PopoverContent className='w-fit'>
+            <Typography variant='s3' className='text-center grid-flow-col'>
+              <Button variant='outline' size='base'>
+                {'<'}
+              </Button>
+              <Button variant='outline' size='base'>
+                {'>'}
+              </Button>
+            </Typography>
+          </PopoverContent>
+        </Popover>
         <div className='flex dashboard-layout z-10 flex-col gap-4'>
           {OPTIONS.map((option, i) => (
             <div
@@ -179,45 +210,6 @@ export default function CobapagePage() {
               <OrnamentDisplay key={i} {...ornament} />
             ))}
           </div>
-          {/* 
-          <div className=''>
-            <Typography variant='s3' className='text-center grid-flow-col'>
-              <Button variant='outline' size='base'>
-                {'<'}
-              </Button>
-              <Button variant='outline' size='base'>
-                {'>'}
-              </Button>
-            </Typography>
-            <Typography variant='s3' className='text-center'>
-              1 - 10 of 36 <br />
-              Ornament per page:{' '}
-              <b>
-                <u>10</u>
-              </b>
-          
-              <b>15</b> <b>20</b>
-            </Typography>
-          </div> */}
-          {/* <Typography variant='s3' className='text padding-lihat ml-4'>
-            LIHAT LAINNYA
-          </Typography>
-          <ButtonLink
-            href='/coba'
-            variant='ghost'
-            className='shadow rounded-xl w-40 ml-4'
-          >
-            <Typography variant='h3' className='text-center'>
-              <NextImage
-                className='flex'
-                src='/images/ornamen/StoreIcon.png'
-                alt='ornamen'
-                width={25}
-                height={25}
-              />
-              Ornamen Tersedia
-            </Typography>
-          </ButtonLink> */}
         </div>
 
         <div
