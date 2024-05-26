@@ -33,7 +33,7 @@ const initialMap = [
   36, 33, 33, 33, 33, 33, 33, 33, 33, 20, 36, 33, 37, 37, 33, 19, 19, 10, 33,
   20, 21, 33, 4, 7, 33, 19, 19, 10, 33, 20, 21, 33, 6, 8, 33, 10, 10, 10, 33,
   20, 21, 33, 33, 33, 33, 33, 33, 33, 33, 20, 11, 22, 22, 22, 22, 22, 22, 22,
-  22, 12, 0,
+  22, 12,
 ];
 
 const inventory = [
@@ -53,14 +53,32 @@ export default function Surga2pagePage() {
   const [selectedTile, setSelectedTile] = useState(1);
 
   const NUMTILES = map.length;
-  const NUMTILESROW = Math.floor(Math.sqrt(NUMTILES));
+  const NUMTILESROW = Math.ceil(Math.sqrt(map.length));
+  const newMap = [...map];
 
   const handleTileClick = (index: number) => {
-    const newMap = [...map];
     if (inventory[selectedTile - 1] > 0) {
-      if (selectedTile - 1 === 0 || selectedTile - 1 === 1) {
-        // console.log('infinite default tile');
+      //check if inventory is available
+      if (
+        selectedTile - 1 === 0 ||
+        selectedTile - 1 === 1 ||
+        map[index] === 1
+      ) {
+        // check if tile infinite
+        if (selectedTile - 1 === 1) {
+          // logic for storing tile
+          if (map[index] === 1) {
+            newMap[index] = 0;
+          } else {
+            inventory[map[index] - 1]++;
+            newMap[index] = 0;
+          }
+        } else {
+          // logic for changing into infinite tile
+          newMap[index] = selectedTile;
+        }
       } else {
+        // logic for changing tile
         inventory[map[index] - 1]++;
         // console.log('current tile', map[index], 'changed to', selectedTile);
         // console.log('inventory added', inventory[map[index]]);
@@ -68,6 +86,7 @@ export default function Surga2pagePage() {
         inventory[selectedTile - 1]--;
         // console.log('current tile', map[index]);
         // console.log('inventory reduced', inventory[selectedTile - 1]);
+        newMap[index] = selectedTile;
       }
     } else {
       //show pop up lack of item
@@ -76,12 +95,7 @@ export default function Surga2pagePage() {
       <ImWarning />;
       return;
     }
-    if (selectedTile - 1 === 1) {
-      inventory[map[index] - 1]++;
-      newMap[index] = 0;
-    } else {
-      newMap[index] = selectedTile;
-    }
+
     setMap(newMap);
   };
 
@@ -107,6 +121,7 @@ export default function Surga2pagePage() {
                 icon={Info}
               />
             </PopoverTrigger>
+
             <PopoverContent className='w-fit'>
               <div
                 className='gap-4 grid grid-cols-3 justify-items-center'
@@ -141,7 +156,7 @@ export default function Surga2pagePage() {
           <section className='flex justify-center'>
             <TileMap
               NUMTILES={menu.length}
-              NUMTILESROW={Math.floor(Math.sqrt(menu.length))}
+              NUMTILESROW={Math.ceil(Math.sqrt(menu.length))}
               map={menu}
               size={size}
               click={handleTileSelect}
@@ -151,7 +166,7 @@ export default function Surga2pagePage() {
         <section className='absolute flex justify-center bottom-px right-px -translate-x-1/2 -translate-y-1/2'>
           <section className='grid justify-center'>
             <Typography variant='b1' className='content-center text-center'>
-              current tile
+              tile saat ini
             </Typography>
             <NextImage
               className='flex justify-center content-center'
@@ -166,23 +181,57 @@ export default function Surga2pagePage() {
           </Typography>
         </section>
 
-        <div className='flex layout gap-4'>
-          <ButtonLink
-            href='/purchaseornamen'
-            variant='ghost'
-            className='rounded shadow-lg lainnya'
-          >
-            <Typography variant='h3' className='text-center'>
-              <NextImage
-                className='flex'
-                src='/images/ornamen/StoreIcon.png'
-                alt='ornamen'
-                width={size.width / 60}
-                height={25}
-              />
-              Toko Ornamen
-            </Typography>
-          </ButtonLink>
+        <div className='flex bottom-0 z-50 p-4 w-full justify-center'>
+          <div className='flex items-center'>
+            <ButtonLink
+              href='/purchaseornamen'
+              variant='ghost'
+              className='rounded shadow-lg lainnya'
+            >
+              <Typography variant='h3' className='text-center'>
+                <NextImage
+                  className='flex'
+                  src='/images/ornamen/StoreIcon.png'
+                  alt='ornamen'
+                  width={size.width / 60}
+                  height={size.height / 30}
+                />
+                Toko
+              </Typography>
+            </ButtonLink>
+            <Popover>
+              <PopoverTrigger asChild className='flex'>
+                <Button variant='ghost' className='rounded shadow-lg lainnya'>
+                  <Typography variant='h3' className='text-center'>
+                    <NextImage
+                      className='flex'
+                      src='/images/ornamen/save_button.png'
+                      alt='ornamen'
+                      width={size.width / 60}
+                      height={size.height / 30}
+                    />
+                    Simpan
+                  </Typography>
+                </Button>
+              </PopoverTrigger>
+
+              <PopoverContent className='w-fit'>
+                <Typography variant='s1' className='text-center grid-flow-col'>
+                  Apakah anda yakin ingin menyimpan?
+                </Typography>
+                <Button
+                  variant='outline'
+                  size='base'
+                  onClick={() => SaveMap(map, newMap)}
+                >
+                  Ya
+                </Button>
+                <Button variant='outline' size='base'>
+                  Tidak
+                </Button>
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
       </main>
     </DashboardLayout>
@@ -224,7 +273,7 @@ const TileMap = ({
 }: {
   NUMTILES: number;
   NUMTILESROW: number;
-  map: unknown[];
+  map: number[];
   size: { width: number; height: number };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   click?: any;
@@ -285,4 +334,9 @@ const TileMap = ({
       </div>
     </div>
   );
+};
+
+const SaveMap = (_overwrittedtarget: number[], _savetarget: number[]) => {
+  _overwrittedtarget = _savetarget;
+  // console.log(_overwrittedtarget);
 };
