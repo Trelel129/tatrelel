@@ -222,7 +222,7 @@ export default function Surga2pagePage() {
                 <Button
                   variant='outline'
                   size='base'
-                  onClick={() => SaveMap(map, newMap)}
+                  onClick={() => SaveMap(map, newMap, inventory)}
                 >
                   Ya
                 </Button>
@@ -336,7 +336,11 @@ const TileMap = ({
   );
 };
 
-const SaveMap = (_overwrittedtarget: number[], _savetarget: number[]) => {
+const SaveMap = (
+  _overwrittedtarget: number[],
+  _savetarget: number[],
+  _inventory: number[],
+) => {
   _overwrittedtarget = _savetarget;
   // console.log(_overwrittedtarget);
 };
