@@ -1,13 +1,13 @@
 import clsx from 'clsx';
-import { Info } from 'lucide-react';
 import * as React from 'react';
 
+import useWindowDimensions from '@/hooks/useWindowDimensions';
+
 import Button from '@/components/buttons/Button';
-import IconButton from '@/components/buttons/IconButton';
 import SimpleCard from '@/components/cards/SimpleCard';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import PageHeader from '@/components/layout/dashboard/PageHeader';
-import UnstyledLink from '@/components/links/UnstyledLink';
+import ButtonLink from '@/components/links/ButtonLink';
 import NextImage from '@/components/NextImage';
 import {
   Popover,
@@ -70,89 +70,90 @@ const OPTIONS = [
 
 const ORNAMENTS = [
   {
-    image: '/tiles/tile-1.png',
+    image: '/sqtiles/tile-1.png',
     color: 'common',
     name: 'Rumput',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '1',
   },
   {
-    image: '/tiles/tile-43.png',
+    image: '/sqtiles/tile-3.png',
     color: 'rare',
     name: 'Peti',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '2',
   },
   {
-    image: '/tiles/tile-40.png',
+    image: '/sqtiles/tile-4.png',
     color: 'unique',
     name: 'Tong',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '3',
   },
   {
-    image: '/tiles/tile-49.png',
+    image: '/sqtiles/tile-5.png',
     color: 'uncommon',
     name: 'Tangga',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '4',
   },
   {
-    image: '/tiles/tile-42.png',
+    image: '/sqtiles/tile-6.png',
     color: 'legend',
     name: 'Orc',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '5',
   },
   {
-    image: '/tiles/tile-41.png',
+    image: '/sqtiles/tile-7.png',
     color: 'legend',
     name: 'Manusia',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '6',
   },
   {
-    image: '/tiles/tile-52.png',
+    image: '/sqtiles/tile-8.png',
     color: 'rare',
     name: 'Tower',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '7',
   },
   {
-    image: '/tiles/tile-44.png',
+    image: '/sqtiles/tile-9.png',
     color: 'rare',
     name: 'Pilar',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '8',
   },
   {
-    image: '/tiles/tile-39.png',
+    image: '/sqtiles/tile-10.png',
     color: 'unique',
     name: 'Banner',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '9',
   },
   {
-    image: '/tiles/tile-51.png',
+    image: '/sqtiles/tile-11.png',
     color: 'common',
     name: 'Duri',
-    amount: 'x1',
+    amount: '1',
     price: '10',
     id: '10',
   },
 ];
-//#endregion  //*======== Constant ===========
 
-export default function CobapagePage() {
+//#endregion  //*======== Constant ===========
+export default function tokopagePage() {
+  const size = useWindowDimensions;
   // const {data, isLoading} = useQuery(['https://jsonplaceholder.typicode.com/todos/'])
 
   // const onSubmit = () => {
@@ -161,7 +162,7 @@ export default function CobapagePage() {
 
   return (
     <DashboardLayout className='relative'>
-      <Seo templateTitle='Coba.page' />
+      <Seo templateTitle='Toko.page' />
 
       <main className='py-12 flex flex-col'>
         <PageHeader
@@ -171,30 +172,7 @@ export default function CobapagePage() {
         >
           <PageHeader.Title>Toko Ornamen</PageHeader.Title>
         </PageHeader>
-        <Popover>
-          <PopoverTrigger
-            asChild
-            className='absolute top-1/3 right-60 -translate-x-1/2 -translate-y-1/2'
-          >
-            <IconButton
-              variant='outline'
-              size='sm'
-              className='rounded-full'
-              icon={Info}
-            />
-          </PopoverTrigger>
 
-          <PopoverContent className='w-fit'>
-            <Typography variant='s3' className='text-center grid-flow-col'>
-              <Button variant='outline' size='base'>
-                {'<'}
-              </Button>
-              <Button variant='outline' size='base'>
-                {'>'}
-              </Button>
-            </Typography>
-          </PopoverContent>
-        </Popover>
         <div className='flex dashboard-layout z-10 flex-col gap-4'>
           {OPTIONS.map((option, i) => (
             <div
@@ -205,20 +183,37 @@ export default function CobapagePage() {
             </div>
           ))}
 
-          <div className='layout gap-4 grid md:grid-cols-3 lg:grid-cols-5'>
+          <div className='layout gap-4 grid md:grid-cols-3 lg:grid-cols-6'>
             {ORNAMENTS.map((ornament, i) => (
               <OrnamentDisplay key={i} {...ornament} />
             ))}
           </div>
         </div>
-
         <div
           className='absolute inset-0 opacity-50'
           style={{
             backgroundImage: 'url("/images/background/grid.png")',
           }}
         >
-          <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b  bg-repeat' />
+          <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b bg-repeat' />
+        </div>
+        <div className='fixed flex bottom-2 z-20 p-2 w-full justify-center '>
+          <ButtonLink
+            href='/surga'
+            variant='primary'
+            className='rounded shadow-lg w-fit h-fit fixed bottom-2 z-20 p-2 justify-center border-4'
+          >
+            <div className='grid z-10 place-items-center'>
+              <NextImage
+                className='flex justify-center content-center'
+                src='/images/ornamen/StoreIcon.png'
+                alt='ornamen'
+                width={size().width / 60}
+                height={size().height / 30}
+              />
+              Surga
+            </div>
+          </ButtonLink>
         </div>
       </main>
     </DashboardLayout>
@@ -251,35 +246,72 @@ function OrnamentDisplay({
   id: string;
 }) {
   return (
-    <UnstyledLink href={id == '1' ? `/purchaseornamen/${id}` : ``}>
-      <SimpleCard className='flex relative flex-col items-center h-full'>
-        <NextImage src={image} width='100' height='100' alt='ornamen' />
-        <div
-          className={clsx([
-            'w-4 h-4 rounded-full absolute top-3 right-3',
-            color,
-          ])}
-        />
-
-        <div className='flex mt-auto items-center justify-between w-full'>
-          <Typography variant='s1' className='text category numgrid'>
-            {name}
-          </Typography>
-          <div className='flex items-center gap-2'>
-            <div className='p-0.5 bg-white shadow rounded-full'>
-              <NextImage
-                src='/images/icon/koin-sip.png'
-                width={120}
-                height={120}
-                className='w-4'
-                imgClassName='w-full'
-                alt='Koin SIP'
+    <div>
+      <Popover>
+        <PopoverTrigger
+          asChild
+          className='flex relative flex-col items-center h-full z-20'
+        >
+          <button className='rounded-2xl w-fit blue'>
+            <SimpleCard className=''>
+              <NextImage src={image} width='100' height='100' alt='ornamen' />
+              <div
+                className={clsx([
+                  'w-4 h-4 rounded-full absolute top-3 right-3',
+                  color,
+                ])}
               />
+
+              <div className='flex mt-auto items-center justify-between w-full'>
+                <Typography variant='s1' className='text category numgrid'>
+                  {name}
+                </Typography>
+                <div className='flex items-center gap-2'>
+                  <div className='p-0.5 bg-white shadow rounded-full'>
+                    <NextImage
+                      src='/images/icon/koin-sip.png'
+                      width={120}
+                      height={120}
+                      className='w-4'
+                      imgClassName='w-full'
+                      alt='Koin SIP'
+                    />
+                  </div>
+                  <Typography variant='s2'>{price}</Typography>
+                </div>
+              </div>
+            </SimpleCard>
+          </button>
+        </PopoverTrigger>
+
+        <PopoverContent className='w-fit'>
+          <div className='grid w-auto items-center '>
+            <Typography variant='s1' className='text-center grid-flow-col'>
+              Apakah anda yakin ingin membeli item ini?
+            </Typography>
+            <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
+              <Button
+                variant='primary'
+                size='base'
+                onClick={() => ReduceCoin({ id, price })}
+              >
+                Ya
+              </Button>
+              <Button variant='danger' size='base'>
+                Tidak
+              </Button>
             </div>
-            <Typography variant='s2'>{price}</Typography>
           </div>
-        </div>
-      </SimpleCard>
-    </UnstyledLink>
+        </PopoverContent>
+      </Popover>
+    </div>
   );
+}
+
+// eslint-disable-next-line unused-imports/no-unused-vars
+let coins = 1000;
+function ReduceCoin({ price }: { id: string; price: string }) {
+  coins -= parseInt(price);
+  // console.log('inventory[id]', id);
+  // console.log(coins);
 }

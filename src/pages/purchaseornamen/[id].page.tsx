@@ -181,7 +181,7 @@ export default function CobapagePage() {
                   width={25}
                   height={25}
                 />
-                Ornamen Tersedia
+                Surga Kuliner
               </Typography>
             </ButtonLink>
           </div>

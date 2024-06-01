@@ -1,7 +1,6 @@
 import { Info } from 'lucide-react';
 import * as React from 'react';
 import { useState } from 'react';
-import { ImWarning } from 'react-icons/im';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
@@ -19,14 +18,7 @@ import {
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
 
-const INVENTORIES: { image: string; amount: string; id: string }[] = [];
-for (let i = 1; i <= 33; i++) {
-  INVENTORIES.push({
-    image: `/sqtiles/tile-${i}.png`,
-    amount: '10',
-    id: `${i}`,
-  });
-}
+const INVENTORIES: { image: string; amount: number; id: string }[] = [];
 
 const initialMap = [
   14, 23, 23, 23, 23, 35, 23, 23, 23, 13, 21, 33, 33, 33, 33, 33, 33, 33, 33,
@@ -38,9 +30,16 @@ const initialMap = [
 ];
 
 const inventory = [
-  10, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
 ];
+for (let i = 1; i <= 33; i++) {
+  INVENTORIES.push({
+    image: `/sqtiles/tile-${i}.png`,
+    amount: inventory[i - 1],
+    id: `${i}`,
+  });
+}
 
 const menu = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
@@ -93,7 +92,7 @@ export default function Surga2pagePage() {
       //show pop up lack of item
       //warning
       // console.log('lack of item');
-      <ImWarning />;
+
       return;
     }
 
@@ -134,7 +133,11 @@ export default function Surga2pagePage() {
                 id='inventory'
               >
                 {INVENTORIES.map((inventory, i) => (
-                  <InventoryDisplay key={i} {...inventory} />
+                  <InventoryDisplay
+                    key={i}
+                    {...inventory}
+                    amount={inventory.amount.toString()}
+                  />
                 ))}
               </div>
 
@@ -149,7 +152,7 @@ export default function Surga2pagePage() {
             </PopoverContent>
           </Popover>
         </section>
-        <section className='column columns-2 '>
+        <section className='column columns-2'>
           <section className='flex justify-center'>
             <TileMap
               NUMTILES={NUMTILES}
@@ -169,8 +172,8 @@ export default function Surga2pagePage() {
             />
           </section>
         </section>
-        <section className='fixed flex justify-center bottom-px right-px -translate-x-1/2 -translate-y-1/2 z-10'>
-          <section className='grid justify-center'>
+        <section className='fixed flex justify-center bottom-1/4 right-px -translate-x-1/2 -translate-y-1/2 z-10'>
+          <section className='grid justify-center place-items-center'>
             <Typography variant='b1' className='content-center text-center'>
               tile saat ini
             </Typography>
@@ -188,56 +191,57 @@ export default function Surga2pagePage() {
         </section>
 
         <div className='fixed flex bottom-0 z-20 p-4 w-full justify-center'>
-          <div className='flex items-center'>
-            <ButtonLink
-              href='/purchaseornamen'
-              variant='ghost'
-              className='rounded shadow-lg lainnya'
-            >
-              <Typography variant='h3' className='text-center'>
+          <ButtonLink
+            href='/purchaseornamen'
+            variant='primary'
+            className='rounded-lg shadow-lg border-4'
+          >
+            <div className='grid place-items-center'>
+              <NextImage
+                className='flex'
+                src='/images/ornamen/StoreIcon.png'
+                alt='ornamen'
+                width={size.width / 60}
+                height={size.height / 30}
+              />
+              Toko
+            </div>
+          </ButtonLink>
+          <Popover>
+            <PopoverTrigger asChild className='flex'>
+              <Button
+                variant='primary'
+                className='grid rounded-lg shadow-lg lainnya place-items-center border-4'
+              >
                 <NextImage
                   className='flex'
-                  src='/images/ornamen/StoreIcon.png'
+                  src='/images/ornamen/save_button.png'
                   alt='ornamen'
                   width={size.width / 60}
                   height={size.height / 30}
                 />
-                Toko
-              </Typography>
-            </ButtonLink>
-            <Popover>
-              <PopoverTrigger asChild className='flex'>
-                <Button variant='ghost' className='rounded shadow-lg lainnya'>
-                  <Typography variant='h3' className='text-center'>
-                    <NextImage
-                      className='flex'
-                      src='/images/ornamen/save_button.png'
-                      alt='ornamen'
-                      width={size.width / 60}
-                      height={size.height / 30}
-                    />
-                    Simpan
-                  </Typography>
-                </Button>
-              </PopoverTrigger>
+                Simpan
+              </Button>
+            </PopoverTrigger>
 
-              <PopoverContent className='w-fit'>
-                <Typography variant='s1' className='text-center grid-flow-col'>
-                  Apakah anda yakin ingin menyimpan?
-                </Typography>
+            <PopoverContent className='w-fit'>
+              <Typography variant='s1' className='text-center grid-flow-col'>
+                Apakah anda yakin ingin menyimpan?
+              </Typography>
+              <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
                 <Button
-                  variant='outline'
+                  variant='primary'
                   size='base'
                   onClick={() => SaveMap(map, newMap, inventory)}
                 >
                   Ya
                 </Button>
-                <Button variant='outline' size='base'>
+                <Button variant='danger' size='base'>
                   Tidak
                 </Button>
-              </PopoverContent>
-            </Popover>
-          </div>
+              </div>
+            </PopoverContent>
+          </Popover>
         </div>
         <div
           className='absolute inset-0 opacity-50 z-0'
@@ -245,7 +249,7 @@ export default function Surga2pagePage() {
             backgroundImage: 'url("/images/background/grid.png")',
           }}
         >
-          <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b  bg-repeat' />
+          <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b bg-repeat' />
         </div>
       </main>
     </DashboardLayout>
@@ -267,7 +271,7 @@ function InventoryDisplay({
         src={image}
         width='100'
         height='100'
-        alt='ornamen'
+        alt='inventory'
         className='rounded-t-lg'
         id={id}
       />
@@ -324,7 +328,7 @@ const TileMap = ({
           return (
             <a
               key={i}
-              className='absolute cursor-pointer active:scale-90 transform transition-all duration-300 ease-in-out hover:animate-bounce hover:border-4 hover:border-cyan-300 hover:rounded-lg hover:shadow-lg hover:z-50'
+              className='absolute cursor-pointer duration-300 ease-in-out hover:animate-bounce hover:border-4 hover:border-cyan-300 hover:rounded-lg hover:shadow-lg hover:z-20'
               onClick={() => click(i)}
               style={{
                 left: `${x}px`,
