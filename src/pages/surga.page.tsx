@@ -1,4 +1,4 @@
-import { Info } from 'lucide-react';
+import { Info, X } from 'lucide-react';
 import * as React from 'react';
 import { useState } from 'react';
 
@@ -29,9 +29,12 @@ const initialMap = [
   22, 12,
 ];
 
+const coinrate = 1;
+
 const inventory = [
   1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  10, 10, 10,
 ];
 for (let i = 1; i <= 33; i++) {
   INVENTORIES.push({
@@ -43,7 +46,8 @@ for (let i = 1; i <= 33; i++) {
 
 const menu = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,
+  23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
+  42,
 ];
 
 export default function Surga2pagePage() {
@@ -107,6 +111,12 @@ export default function Surga2pagePage() {
   return (
     <DashboardLayout className='relative'>
       <Seo templateTitle='Surga.page' />
+      <InitScreen />
+      {/* <Square className=' bg-black rounded-md h-screen w-screen absolute justify-center z-20'>
+        <Typography variant='b1' className='text-center' color='tertiary'>
+          Surga
+        </Typography>
+      </Square> */}
       <main className='py-12 flex flex-col'>
         <PageHeader
           className='z-10'
@@ -172,14 +182,14 @@ export default function Surga2pagePage() {
             />
           </section>
         </section>
-        <section className='fixed flex justify-center bottom-1/4 right-px -translate-x-1/2 -translate-y-1/2 z-10'>
+        <section className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10'>
           <section className='grid justify-center place-items-center'>
             <Typography variant='b1' className='content-center text-center'>
               tile saat ini
             </Typography>
             <NextImage
               className='flex justify-center content-center'
-              src={`/sqtiles/tile-${savedTile + 1}.png`}
+              src={`/vgtiles/tile-${savedTile + 1}.png`}
               alt='current-tile'
               width={size.width / 30}
               height={size.height / 15}
@@ -228,11 +238,15 @@ export default function Surga2pagePage() {
               <Typography variant='s1' className='text-center grid-flow-col'>
                 Apakah anda yakin ingin menyimpan?
               </Typography>
+              <Typography variant='s1' className='text-center grid-flow-col'>
+                Anda akan mendapatkan{' '}
+                {SaveMap(map, newMap, inventory, coinrate)} Coin/hari
+              </Typography>
               <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
                 <Button
                   variant='primary'
                   size='base'
-                  onClick={() => SaveMap(map, newMap, inventory)}
+                  onClick={() => SaveMap(map, newMap, inventory, coinrate)}
                 >
                   Ya
                 </Button>
@@ -297,7 +311,7 @@ const TileMap = ({
   click?: any;
 }) => {
   const calculateIsoOffsets = (index: number) => {
-    const tileWidth = size.width / 30;
+    const tileWidth = size.width / 33;
     const tileHeight = size.height / 20;
     const row = Math.floor(index / NUMTILESROW);
     const col = index % NUMTILESROW;
@@ -328,22 +342,22 @@ const TileMap = ({
           return (
             <a
               key={i}
-              className='absolute cursor-pointer duration-300 ease-in-out hover:animate-bounce hover:border-4 hover:border-cyan-300 hover:rounded-lg hover:shadow-lg hover:z-20'
+              className='absolute cursor-pointer duration-300 ease-in-out hover:animate-bounce hover:border-4 hover:border-cyan-300 hover:rounded-lg hover:shadow-lg hover:z-100'
               onClick={() => click(i)}
               style={{
                 left: `${x}px`,
                 top: `${y}px`,
-                width: size.width / 30 + 'px',
-                height: size.height / 15 + 'px',
+                width: size.width / 33 + 'px',
+                height: size.height / 14 + 'px',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 zIndex: zIndex,
               }}
             >
               <NextImage
-                src={`/sqtiles/tile-${map[i]}.png`}
-                width={size.width / 30}
-                height={size.height / 15}
+                src={`/vgtiles/tile-${map[i]}.png`}
+                width={size.width / 33}
+                height={size.height / 33}
                 alt={`tile-${map[i]}`}
               />
             </a>
@@ -358,7 +372,69 @@ const SaveMap = (
   _overwrittedtarget: number[],
   _savetarget: number[],
   _inventory: number[],
+  _coinrate: number,
 ) => {
+  _coinrate = coinrate;
+  const area = _savetarget.length;
+  const length = Math.sqrt(area);
+  _savetarget.forEach((tile) => {
+    if (
+      tile === 3 ||
+      tile === 39 ||
+      tile === 40 ||
+      tile === 41 ||
+      tile === 42
+    ) {
+      _coinrate++;
+    }
+  });
+  for (let i = 0; i <= _savetarget.length; i++) {
+    if (_savetarget[i] === 39) {
+      if (
+        _savetarget[i + 1] === 40 &&
+        _savetarget[i + length] === 41 &&
+        _savetarget[i + length + 1] === 42
+      ) {
+        _coinrate = _coinrate * 2;
+      }
+    }
+  }
   _overwrittedtarget = _savetarget;
-  // console.log(_overwrittedtarget);
+  // console.log('coins rate: ', _coinrate, '\n map: ', _overwrittedtarget);
+  return _coinrate;
+};
+
+const InitScreen = () => {
+  const [advice, setAdvice] = useState(false);
+  const handleChange = () => {
+    setAdvice(!advice);
+  };
+  const size = useWindowDimensions();
+  return (
+    <div
+      className='flex flex-col justify-center items-center absolute bg-white z-40'
+      style={{
+        height: size.height * 1.15,
+        width: size.width * 0.85,
+        display: advice ? 'none' : 'flex',
+      }}
+    >
+      <IconButton
+        variant='danger'
+        size='sm'
+        className='rounded-full'
+        icon={X}
+        onClick={handleChange}
+      />
+      <NextImage
+        src='/images/surga/phone.png'
+        width={size.width / 5}
+        height={size.height / 5}
+        alt='ornamen'
+      />
+      <Typography variant='j1' className='text-center'>
+        Putar Layar Untuk Pengalaman Terbaik
+      </Typography>
+    </div>
+  );
 };
