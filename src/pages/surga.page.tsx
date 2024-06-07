@@ -154,7 +154,7 @@ export default function Surga2pagePage() {
             </div>
           </div>
         </section>
-        <section className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10  bg-white'>
+        <section className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10 bg-white opacity-75'>
           <section className='grid justify-center place-items-center'>
             <Typography variant='h1' className='content-center text-center'>
               tile saat ini
@@ -392,7 +392,7 @@ const InitScreen = () => {
   const size = useWindowDimensions();
   return (
     <div
-      className='flex flex-col justify-center items-center absolute bg-white z-40'
+      className='flex flex-col w-full h-full justify-center items-center absolute bg-white z-40'
       style={{
         height: size.height * 1.15,
         width: size.width * 0.85,

@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import * as React from 'react';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
@@ -17,134 +16,134 @@ import {
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
 
-type OptionType = {
-  title: string;
-  color?: string;
-};
+// type OptionType = {
+//   title: string;
+//   color?: string;
+// };
 //#region  //*=========== Constant ===========
-const RARITY_OPTIONS: OptionType[] = [
-  {
-    title: 'Biasa',
-    color: 'bg-black',
-  },
-  {
-    title: 'Tidak Biasa',
-    color: 'bg-green-500',
-  },
-  {
-    title: 'Langka',
-    color: 'bg-cyan-500',
-  },
-  {
-    title: 'Unik',
-    color: 'bg-purple-500',
-  },
-  {
-    title: 'Legenda',
-    color: 'bg-orange-500',
-  },
-  {
-    title: 'Mistik',
-    color: 'bg-red-500',
-  },
-];
+// const RARITY_OPTIONS: OptionType[] = [
+//   {
+//     title: 'Biasa',
+//     color: 'bg-black',
+//   },
+//   {
+//     title: 'Tidak Biasa',
+//     color: 'bg-green-500',
+//   },
+//   {
+//     title: 'Langka',
+//     color: 'bg-cyan-500',
+//   },
+//   {
+//     title: 'Unik',
+//     color: 'bg-purple-500',
+//   },
+//   {
+//     title: 'Legenda',
+//     color: 'bg-orange-500',
+//   },
+//   {
+//     title: 'Mistik',
+//     color: 'bg-red-500',
+//   },
+// ];
 
-const TYPE_OPTIONS: OptionType[] = [
-  {
-    title: 'Lahan',
-  },
-  {
-    title: 'Bangunan',
-  },
-];
+// const TYPE_OPTIONS: OptionType[] = [
+//   {
+//     title: 'Lahan',
+//   },
+//   {
+//     title: 'Bangunan',
+//   },
+// ];
 
-const OPTIONS = [
-  <FilterSelection title='Semua' key='all' />,
+// const OPTIONS = [
+//   <FilterSelection title='Semua' key='all' />,
 
-  RARITY_OPTIONS.map((rarity, i) => (
-    <FilterSelection key={i} title={rarity.title} color={rarity.color} />
-  )),
+//   RARITY_OPTIONS.map((rarity, i) => (
+//     <FilterSelection key={i} title={rarity.title} color={rarity.color} />
+//   )),
 
-  TYPE_OPTIONS.map((type, i) => <FilterSelection key={i} title={type.title} />),
-];
+//   TYPE_OPTIONS.map((type, i) => <FilterSelection key={i} title={type.title} />),
+// ];
 
 const ORNAMENTS = [
   {
-    image: '/vgtiles/tile-3.png',
-    color: 'common',
-    name: 'Paket Bento',
+    image: '/sqtiles/tile-3.png',
+    // color: 'common',
+    name: 'Kios Sayur',
     amount: '1',
     price: '10',
     id: '1',
   },
   {
-    image: '/vgtiles/tile-4.png',
-    color: 'rare',
-    name: 'Daging Giling',
+    image: '/sqtiles/tile-4.png',
+    // color: 'rare',
+    name: 'Kios Daging Potong',
     amount: '1',
     price: '10',
     id: '2',
   },
   {
-    image: '/vgtiles/tile-5.png',
-    color: 'unique',
-    name: 'Kubis',
+    image: '/sqtiles/tile-5.png',
+    // color: 'unique',
+    name: 'Kios Sayur 2',
     amount: '1',
     price: '10',
     id: '3',
   },
   {
-    image: '/vgtiles/tile-6.png',
-    color: 'uncommon',
-    name: 'Ikan',
+    image: '/sqtiles/tile-6.png',
+    // color: 'uncommon',
+    name: 'Kios Daging Olahan',
     amount: '1',
     price: '10',
     id: '4',
   },
   {
-    image: '/vgtiles/tile-7.png',
-    color: 'legend',
-    name: 'Daging Potong',
+    image: '/sqtiles/tile-7.png',
+    // color: 'legend',
+    name: 'Kios Daging Olahan 2',
     amount: '1',
     price: '10',
     id: '5',
   },
   {
-    image: '/vgtiles/tile-8.png',
-    color: 'legend',
-    name: 'Daging Patty',
+    image: '/sqtiles/tile-8.png',
+    // color: 'legend',
+    name: 'Kios Gorengan',
     amount: '1',
     price: '10',
     id: '6',
   },
   {
-    image: '/vgtiles/tile-9.png',
-    color: 'rare',
-    name: 'Cumi Potong',
+    image: '/sqtiles/tile-9.png',
+    // color: 'rare',
+    name: 'Selep Daging',
     amount: '1',
     price: '10',
     id: '7',
   },
   {
-    image: '/vgtiles/tile-10.png',
-    color: 'rare',
-    name: 'Jeruk',
+    image: '/sqtiles/tile-10.png',
+    // color: 'rare',
+    name: 'Kios Sayur',
     amount: '1',
     price: '10',
     id: '8',
   },
   {
-    image: '/vgtiles/tile-11.png',
-    color: 'unique',
-    name: 'Durian',
+    image: '/sqtiles/tile-11.png',
+    // color: 'unique',
+    name: 'Kios Kentang',
     amount: '1',
     price: '10',
     id: '9',
   },
   {
-    image: '/vgtiles/tile-12.png',
-    color: 'common',
-    name: 'Mie',
+    image: '/sqtiles/tile-12.png',
+    // color: 'common',
+    name: 'Kios Daging Panggang',
     amount: '1',
     price: '10',
     id: '10',
@@ -174,16 +173,16 @@ export default function tokopagePage() {
         </PageHeader>
 
         <div className='flex dashboard-layout z-10 flex-col gap-4'>
-          {OPTIONS.map((option, i) => (
+          {/* {OPTIONS.map((option, i) => (
             <div
               key={i}
               className='flex layout items-center justify-center gap-4'
             >
               {option}
             </div>
-          ))}
+          ))} */}
 
-          <div className='layout gap-4 grid md:grid-cols-3 lg:grid-cols-6'>
+          <div className='layout gap-4 grid md:grid-cols-3 lg:grid-cols-4 place-items-center'>
             {ORNAMENTS.map((ornament, i) => (
               <OrnamentDisplay key={i} {...ornament} />
             ))}
@@ -220,26 +219,26 @@ export default function tokopagePage() {
   );
 }
 // 1
-function FilterSelection({ title, color }: { title: string; color?: string }) {
-  return (
-    <div className='flex items-center gap-1'>
-      <input type='checkbox' className='round round shadow-lg' />
-      {color && <div className={clsx(['w-4 h-4 rounded-full', color])}></div>}
-      <Typography variant='s3'>{title}</Typography>
-    </div>
-  );
-}
+// function FilterSelection({ title, color }: { title: string; color?: string }) {
+//   return (
+//     <div className='flex items-center gap-1'>
+//       <input type='checkbox' className='round round shadow-lg' />
+//       {color && <div className={clsx(['w-4 h-4 rounded-full', color])}></div>}
+//       <Typography variant='s3'>{title}</Typography>
+//     </div>
+//   );
+// }
 
 function OrnamentDisplay({
   image,
-  color,
+  // color,
   name,
 
   price,
   id,
 }: {
   image: string;
-  color: string;
+  // color: string;
   name: string;
 
   price: string;
@@ -253,14 +252,14 @@ function OrnamentDisplay({
           className='flex relative flex-col items-center h-full z-20'
         >
           <button className='rounded-2xl w-fit blue'>
-            <SimpleCard className=''>
-              <NextImage src={image} width='100' height='100' alt='ornamen' />
-              <div
+            <SimpleCard className='grid place-items-center'>
+              <NextImage src={image} width='150' height='150' alt='ornamen' />
+              {/* <div
                 className={clsx([
                   'w-4 h-4 rounded-full absolute top-3 right-3',
                   color,
                 ])}
-              />
+              /> */}
 
               <div className='flex mt-auto items-center justify-between w-full'>
                 <Typography variant='s1' className='text category numgrid'>
