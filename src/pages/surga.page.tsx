@@ -1,4 +1,4 @@
-import { Info, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import * as React from 'react';
 import { useState } from 'react';
 
@@ -123,79 +123,51 @@ export default function Surga2pagePage() {
           backHref='/dashboard'
           crumbs={['/dashboard', '/surga']}
         ></PageHeader>
-        <section className='z-10'>
-          <Popover>
-            <PopoverTrigger
-              asChild
-              className='absolute top-1/3 right-60 -translate-x-1/2 -translate-y-1/2'
-            >
-              <IconButton
-                variant='outline'
-                size='sm'
-                className='rounded-full'
-                icon={Info}
-              />
-            </PopoverTrigger>
 
-            <PopoverContent className='w-fit'>
-              <div
-                className='gap-4 grid grid-cols-3 justify-items-center'
-                id='inventory'
-              >
-                {INVENTORIES.map((inventory, i) => (
-                  <InventoryDisplay
-                    key={i}
-                    {...inventory}
-                    amount={inventory.amount.toString()}
-                  />
-                ))}
-              </div>
-
-              <Typography variant='s3' className='text-center grid-flow-col'>
-                <Button variant='outline' size='base'>
-                  {'<'}
-                </Button>
-                <Button variant='outline' size='base'>
-                  {'>'}
-                </Button>
+        <section className='flex flex-wrap overflow-scroll w-full h-screen z-10 p-10'>
+          <div className='flex flex-wrap overflow-scroll w-1/2 h-3/4 z-10'>
+            <div className='grid'>
+              <Typography variant='j2' className='text-center content-center'>
+                Peta Surga Kuliner
               </Typography>
-            </PopoverContent>
-          </Popover>
+              <TileMap
+                NUMTILES={NUMTILES}
+                NUMTILESROW={NUMTILESROW}
+                map={map}
+                size={size}
+                click={handleTileClick}
+              />
+            </div>
+          </div>
+          <div className='flex flex-wrap overflow-scroll w-1/2 h-3/4 z-10'>
+            <div className='grid'>
+              <Typography variant='j2' className='text-center content-center'>
+                Tile Tersedia
+              </Typography>
+              <TileMap
+                NUMTILES={menu.length}
+                NUMTILESROW={Math.ceil(Math.sqrt(menu.length))}
+                map={menu}
+                size={size}
+                click={handleTileSelect}
+              />
+            </div>
+          </div>
         </section>
-        <section className='column columns-2'>
-          <section className='flex justify-center'>
-            <TileMap
-              NUMTILES={NUMTILES}
-              NUMTILESROW={NUMTILESROW}
-              map={map}
-              size={size}
-              click={handleTileClick}
-            />
-          </section>
-          <section className='flex justify-center'>
-            <TileMap
-              NUMTILES={menu.length}
-              NUMTILESROW={Math.ceil(Math.sqrt(menu.length))}
-              map={menu}
-              size={size}
-              click={handleTileSelect}
-            />
-          </section>
-        </section>
-        <section className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10'>
+        <section className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10  bg-white'>
           <section className='grid justify-center place-items-center'>
-            <Typography variant='b1' className='content-center text-center'>
+            <Typography variant='h1' className='content-center text-center'>
               tile saat ini
             </Typography>
             <NextImage
               className='flex justify-center content-center'
-              src={`/vgtiles/tile-${savedTile + 1}.png`}
+              src={`/sqtiles/tile-${savedTile + 1}.png`}
               alt='current-tile'
-              width={size.width / 30}
-              height={size.height / 15}
+              width={size.width / 15}
+              height={size.height / 25}
             />
           </section>
-          <Typography variant='b1' className='text-center content-center'>
+          <Typography variant='h1' className='text-center content-center'>
             {inventory[savedTile]}x
           </Typography>
         </section>
@@ -270,31 +242,31 @@ export default function Surga2pagePage() {
   );
 }
 
-function InventoryDisplay({
-  image,
-  amount,
-  id,
-}: {
-  image: string;
-  amount: string;
-  id: string;
-}) {
-  return (
-    <div className='rounded-xl border border-typo-outline shadow-lg flex flex-col z-10'>
-      <NextImage
-        src={image}
-        width='100'
-        height='100'
-        alt='inventory'
-        className='rounded-t-lg'
-        id={id}
-      />
-      <Typography variant='b1' className='text category numgrid text-center'>
-        x{amount}
-      </Typography>
-    </div>
-  );
-}
+// function InventoryDisplay({
+//   image,
+//   amount,
+//   id,
+// }: {
+//   image: string;
+//   amount: string;
+//   id: string;
+// }) {
+//   return (
+//     <div className='rounded-xl border border-typo-outline shadow-lg flex flex-col z-10'>
+//       <NextImage
+//         src={image}
+//         width='100'
+//         height='100'
+//         alt='inventory'
+//         className='rounded-t-lg'
+//         id={id}
+//       />
+//       <Typography variant='b1' className='text category numgrid text-center'>
+//         x{amount}
+//       </Typography>
+//     </div>
+//   );
+// }
 
 const TileMap = ({
   NUMTILES,
@@ -311,14 +283,16 @@ const TileMap = ({
   click?: any;
 }) => {
   const calculateIsoOffsets = (index: number) => {
-    const tileWidth = size.width / 33;
-    const tileHeight = size.height / 20;
+    // const tileWidth = size.width / 20;
+    // const tileHeight = size.height / 11.5;
+    // resize
+    const tileWidth = 150;
+    const tileHeight = 120;
     const row = Math.floor(index / NUMTILESROW);
     const col = index % NUMTILESROW;
 
-    const x = col * tileWidth - tileWidth * 5;
-    const y = row * tileHeight * 1.25 + tileHeight * 2;
-
+    const x = col * tileWidth;
+    const y = row * tileHeight * 1.25 + tileHeight / 2;
     return { x, y };
   };
 
@@ -347,17 +321,23 @@ const TileMap = ({
               style={{
                 left: `${x}px`,
                 top: `${y}px`,
-                width: size.width / 33 + 'px',
-                height: size.height / 14 + 'px',
+                // width: size.width / 33 + 'px',
+                // height: size.height / 14 + 'px',
+                //resize
+                width: '160px',
+                height: '160px',
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 zIndex: zIndex,
               }}
             >
               <NextImage
-                src={`/vgtiles/tile-${map[i]}.png`}
-                width={size.width / 33}
-                height={size.height / 33}
+                src={`/sqtiles/tile-${map[i]}.png`}
+                // width={size.width / 20}
+                // height={size.height / 20}
+                //resize
+                width={150}
+                height={150}
                 alt={`tile-${map[i]}`}
               />
             </a>
