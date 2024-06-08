@@ -1,12 +1,9 @@
 import * as React from 'react';
 
-import useWindowDimensions from '@/hooks/useWindowDimensions';
-
 import Button from '@/components/buttons/Button';
 import SimpleCard from '@/components/cards/SimpleCard';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import PageHeader from '@/components/layout/dashboard/PageHeader';
-import ButtonLink from '@/components/links/ButtonLink';
 import NextImage from '@/components/NextImage';
 import {
   Popover,
@@ -148,11 +145,19 @@ const ORNAMENTS = [
     price: '10',
     id: '10',
   },
+  {
+    image: '/sqtiles/tile-13.png',
+    // color: 'common',
+    name: 'Kios Sayur 3',
+    amount: '1',
+    price: '10',
+    id: '11',
+  },
 ];
 
 //#endregion  //*======== Constant ===========
 export default function tokopagePage() {
-  const size = useWindowDimensions;
+  // const size = useWindowDimensions;
   // const {data, isLoading} = useQuery(['https://jsonplaceholder.typicode.com/todos/'])
 
   // const onSubmit = () => {
@@ -196,7 +201,7 @@ export default function tokopagePage() {
         >
           <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b bg-repeat' />
         </div>
-        <div className='fixed flex bottom-2 z-20 p-2 w-full justify-center '>
+        {/* <div className='fixed flex bottom-2 z-20 p-2 w-full justify-center '>
           <ButtonLink
             href='/surga'
             variant='primary'
@@ -213,7 +218,7 @@ export default function tokopagePage() {
               Surga
             </div>
           </ButtonLink>
-        </div>
+        </div> */}
       </main>
     </DashboardLayout>
   );

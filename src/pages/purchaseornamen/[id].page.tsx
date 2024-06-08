@@ -62,6 +62,26 @@ const ORNAMENTS = [
     amount: '10',
     id: '11',
   },
+  {
+    image: '/tiles/tile-12.png',
+    amount: '10',
+    id: '12',
+  },
+  {
+    image: '/tiles/tile-13.png',
+    amount: '10',
+    id: '13',
+  },
+  {
+    image: '/tiles/tile-14.png',
+    amount: '10',
+    id: '14',
+  },
+  {
+    image: '/tiles/tile-15.png',
+    amount: '10',
+    id: '15',
+  },
 ];
 
 export default function CobapagePage() {
