@@ -106,12 +106,18 @@ export default function Surga2pagePage() {
   const handleTileSelect = (index: number) => {
     setSelectedTile(menu[index]);
     setSavedTile(index);
+    handleInvDisp();
   };
 
+  const [invDisp, setInvDisp] = useState(true);
+  const handleInvDisp = () => {
+    setInvDisp(!invDisp);
+  };
   return (
     <DashboardLayout className='relative'>
-      <Seo templateTitle='Surga.page' />
       <InitScreen />
+      <Seo templateTitle='Surga.page' />
+
       {/* <Square className=' bg-black rounded-md h-screen w-screen absolute justify-center z-20'>
         <Typography variant='b1' className='text-center' color='tertiary'>
           Surga
@@ -124,10 +130,10 @@ export default function Surga2pagePage() {
           crumbs={['/dashboard', '/surga']}
         ></PageHeader>
 
-        <section className='flex flex-wrap overflow-scroll w-full h-screen z-10 p-10'>
-          <div className='flex flex-wrap overflow-scroll w-1/2 h-3/4 z-10'>
-            <div className='grid'>
-              <Typography variant='j2' className='text-center content-center'>
+        <section className='flex flex-wrap overflow-scroll z-10 p-10'>
+          <div className='flex flex-wrap overflow-scroll w-3/4 h-3/4 z-10'>
+            <div className='grid place-items-center'>
+              <Typography variant='j2' className=''>
                 Peta Surga Kuliner
               </Typography>
               <TileMap
@@ -139,10 +145,36 @@ export default function Surga2pagePage() {
               />
             </div>
           </div>
-          <div className='flex flex-wrap overflow-scroll w-1/2 h-3/4 z-10'>
+          <div className='grid fixed right-0'>
+            <Typography variant='j2' className='text-center content-center p-4'>
+              Tile Tersedia <br></br>
+              <Button
+                variant='primary'
+                className='rounded-lg shadow-lg border-4 w-fit h-fit'
+                size='lg'
+                onClick={handleInvDisp}
+              >
+                Buka
+              </Button>
+            </Typography>
+          </div>
+          <div
+            className='absolute flex-wrap overflow-scroll w-1/2 h-1/2 z-10 bg-white right-0 p-4'
+            style={{
+              display: invDisp ? 'none' : 'flex',
+            }}
+          >
             <div className='grid'>
               <Typography variant='j2' className='text-center content-center'>
-                Tile Tersedia
+                Tile Tersedia<br></br>
+                <Button
+                  variant='danger'
+                  className='rounded-lg shadow-lg border-4 w-fit h-fit'
+                  size='lg'
+                  onClick={handleInvDisp}
+                >
+                  Tutup
+                </Button>
               </Typography>
               <TileMap
                 NUMTILES={menu.length}
@@ -150,13 +182,14 @@ export default function Surga2pagePage() {
                 map={menu}
                 size={size}
                 click={handleTileSelect}
+                zoom={1}
               />
             </div>
           </div>
         </section>
         <section className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10 bg-white opacity-75'>
-          <section className='grid justify-center place-items-center'>
-            <Typography variant='h1' className='content-center text-center'>
+          <section className='grid place-items-center'>
+            <Typography variant='h1' className=''>
               tile saat ini
             </Typography>
             <NextImage
@@ -273,12 +306,14 @@ const TileMap = ({
   NUMTILESROW,
   map,
   size,
+  zoom = 1,
   click,
 }: {
   NUMTILES: number;
   NUMTILESROW: number;
   map: number[];
   size: { width: number; height: number };
+  zoom?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   click?: any;
 }) => {
@@ -286,8 +321,8 @@ const TileMap = ({
     // const tileWidth = size.width / 20;
     // const tileHeight = size.height / 11.5;
     // resize
-    const tileWidth = 150;
-    const tileHeight = 120;
+    const tileWidth = 150 * zoom;
+    const tileHeight = 120 * zoom;
     const row = Math.floor(index / NUMTILESROW);
     const col = index % NUMTILESROW;
 
@@ -324,8 +359,8 @@ const TileMap = ({
                 // width: size.width / 33 + 'px',
                 // height: size.height / 14 + 'px',
                 //resize
-                width: '160px',
-                height: '160px',
+                width: `${zoom * 160}px`,
+                height: `${zoom * 160}px`,
                 backgroundPosition: 'center',
                 backgroundSize: 'cover',
                 zIndex: zIndex,
@@ -336,8 +371,8 @@ const TileMap = ({
                 // width={size.width / 20}
                 // height={size.height / 20}
                 //resize
-                width={150}
-                height={150}
+                width={150 * zoom}
+                height={150 * zoom}
                 alt={`tile-${map[i]}`}
               />
             </a>
