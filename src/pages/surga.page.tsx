@@ -53,7 +53,7 @@ const menu = [
 export default function Surga2pagePage() {
   const size = useWindowDimensions();
   const [map, setMap] = useState(initialMap);
-  const [savedTile, setSavedTile] = useState(1);
+  const [savedTile, setSavedTile] = useState(0);
   const [selectedTile, setSelectedTile] = useState(1);
 
   const NUMTILES = map.length;
@@ -187,7 +187,12 @@ export default function Surga2pagePage() {
             </div>
           </div>
         </section>
-        <section className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10 bg-white opacity-75'>
+        <div
+          className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10 bg-white'
+          style={{
+            display: invDisp ? 'flex' : 'none',
+          }}
+        >
           <section className='grid place-items-center'>
             <Typography variant='h1' className=''>
               tile saat ini
@@ -203,7 +208,7 @@ export default function Surga2pagePage() {
           <Typography variant='h1' className='text-center content-center'>
             {inventory[savedTile]}x
           </Typography>
-        </section>
+        </div>
 
         <div className='fixed flex bottom-0 z-20 p-4 w-full justify-center'>
           <ButtonLink
