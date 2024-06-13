@@ -14,7 +14,7 @@ const breadcrumbs = {
   '/ajuan': 'Ajuan Pendampingan',
   '/pendampingan': 'Pendampingan Sertifikasi',
   '/status': 'Status Ajuan',
-  '/surga': 'Surga Kuline',
+  '/surga': 'Surga Kuliner',
   '/toko': 'Toko Ornamen',
 };
 type BreadcrumbProps = {
