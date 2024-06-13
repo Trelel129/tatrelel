@@ -1,6 +1,7 @@
 import { X } from 'lucide-react';
 import * as React from 'react';
 import { useState } from 'react';
+import { IconBase } from 'react-icons';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
@@ -32,9 +33,9 @@ const initialMap = [
 const coinrate = 1;
 
 const inventory = [
-  1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10,
+  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  10, 10, 10, 10,
 ];
 for (let i = 1; i <= 33; i++) {
   INVENTORIES.push({
@@ -61,37 +62,20 @@ export default function Surga2pagePage() {
   const newMap = [...map];
 
   const handleTileClick = (index: number) => {
-    if (inventory[selectedTile - 1] > 0) {
+    // eslint-disable-next-line no-console
+    console.log('Selected Tile: ', selectedTile, '\n Saved Tile: ', savedTile);
+    if (selectedTile === -1) {
+      inventory[map[index] - 1]++;
+
+      newMap[index] = 0;
+    } else if (inventory[selectedTile - 1] > 0) {
       //check if inventory is available
-      if (
-        selectedTile - 1 === 0 ||
-        selectedTile - 1 === 1 ||
-        map[index] === 1
-      ) {
-        // check if tile infinite
-        if (selectedTile - 1 === 1) {
-          // logic for storing tile
-          if (map[index] === 1) {
-            newMap[index] = 0;
-          } else {
-            inventory[map[index] - 1]++;
-            newMap[index] = 0;
-          }
-        } else {
-          // logic for changing into infinite tile
-          newMap[index] = selectedTile;
-        }
-      } else {
-        // logic for changing tile
-        inventory[map[index] - 1]++;
-        // console.log('current tile', map[index], 'changed to', selectedTile);
-        // console.log('inventory added', inventory[map[index]]);
-        // console.log('current item added ', map[index]);
-        inventory[selectedTile - 1]--;
-        // console.log('current tile', map[index]);
-        // console.log('inventory reduced', inventory[selectedTile - 1]);
-        newMap[index] = selectedTile;
-      }
+
+      inventory[map[index] - 1]++;
+
+      inventory[selectedTile - 1]--;
+
+      newMap[index] = selectedTile;
     } else {
       //show pop up lack of item
       //warning
@@ -109,9 +93,19 @@ export default function Surga2pagePage() {
     handleInvDisp();
   };
 
+  const destroyTile = () => {
+    setSelectedTile(-1);
+  };
   const [invDisp, setInvDisp] = useState(true);
   const handleInvDisp = () => {
     setInvDisp(!invDisp);
+  };
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  const coins = 1000;
+  const ReduceCoin = () => {
+    // eslint-disable-next-line no-console
+    console.log('inventory: ', inventory);
+    inventory[selectedTile - 1]++;
   };
   return (
     <DashboardLayout className='relative'>
@@ -131,7 +125,7 @@ export default function Surga2pagePage() {
         ></PageHeader>
 
         <section className='flex flex-wrap overflow-scroll z-10 p-10'>
-          <div className='flex flex-wrap overflow-scroll w-3/4 h-3/4 z-10'>
+          <div className='flex flex-wrap overflow-scroll w-10/12 h-3/4 z-10'>
             <div className='grid place-items-center'>
               <Typography variant='j2' className=''>
                 Peta Surga Kuliner
@@ -146,27 +140,85 @@ export default function Surga2pagePage() {
             </div>
           </div>
           <div className='grid fixed right-0'>
-            <Typography variant='j2' className='text-center content-center p-4'>
-              Tile Tersedia <br></br>
+            <Typography variant='h2' className='text-center content-center p-4'>
+              Bangun <br></br>
+              <Popover>
+                <PopoverTrigger>
+                  <IconBase> </IconBase>
+                </PopoverTrigger>
+                <PopoverContent>
+                  <div className='grid w-auto items-center '>
+                    <Typography
+                      variant='s1'
+                      className='text-center grid-flow-col'
+                    >
+                      Apakah anda yakin ingin membeli item ini? <br></br>1 Koin
+                      SIP
+                    </Typography>
+                    <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
+                      <Button
+                        variant='primary'
+                        size='base'
+                        onClick={ReduceCoin}
+                      >
+                        Ya
+                      </Button>
+                      <Button variant='danger' size='base'>
+                        Tidak
+                      </Button>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
               <Button
                 variant='primary'
-                className='rounded-lg shadow-lg border-4 w-fit h-fit'
+                className='rounded-lg shadow-lg border-4 w-fit h-fit p-2 focus:border-4 focus:bg-gray-500'
                 size='lg'
                 onClick={handleInvDisp}
               >
-                Buka
+                <NextImage
+                  className='flex justify-center content-center p-1'
+                  src={`/sqtiles/tile-${savedTile + 1}.png`}
+                  alt='current-tile'
+                  width={size.width / 15}
+                  height={size.height / 25}
+                />
+                <Typography variant='h1' className='text-center content-center'>
+                  {inventory[savedTile]}x
+                </Typography>
+              </Button>
+            </Typography>
+
+            <Typography variant='h2' className='text-center content-center p-4'>
+              Hancurkan <br></br>
+              <Button
+                variant='danger'
+                className='rounded-lg shadow-lg border-4 w-fit h-fit p-2 focus:bg-gray-500'
+                size='lg'
+                onClick={destroyTile}
+              >
+                <NextImage
+                  className='flex justify-center content-center'
+                  src='/sqtiles/destroyer.png'
+                  alt='current-tile'
+                  width={size.width / 15}
+                  height={size.height / 25}
+                />
               </Button>
             </Typography>
           </div>
           <div
-            className='absolute flex-wrap overflow-scroll w-1/2 h-1/2 z-10 bg-white right-0 p-4'
+            className='fixed flex-wrap overflow-scroll w-1/2 h-1/2 z-10 bg-white right-0 p-4 border-8 border-teal-600'
             style={{
               display: invDisp ? 'none' : 'flex',
             }}
           >
             <div className='grid'>
-              <Typography variant='j2' className='text-center content-center'>
-                Tile Tersedia<br></br>
+              <Typography
+                variant='h2'
+                className='fixed text-center content-center'
+              >
+                Pilih Ubin<br></br>
                 <Button
                   variant='danger'
                   className='rounded-lg shadow-lg border-4 w-fit h-fit'
@@ -331,8 +383,8 @@ const TileMap = ({
     const row = Math.floor(index / NUMTILESROW);
     const col = index % NUMTILESROW;
 
-    const x = col * tileWidth;
-    const y = row * tileHeight * 1.25 + tileHeight / 2;
+    const x = col * tileWidth * 1.05;
+    const y = row * tileHeight * 1.33 + tileHeight / 2;
     return { x, y };
   };
 
@@ -423,16 +475,22 @@ const SaveMap = (
   // console.log('coins rate: ', _coinrate, '\n map: ', _overwrittedtarget);
   return _coinrate;
 };
-
+// eslint-disable-next-line unused-imports/no-unused-vars
+const isAndroid = () => {
+  return (
+    typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent)
+  );
+};
 const InitScreen = () => {
   const [advice, setAdvice] = useState(false);
   const handleChange = () => {
     setAdvice(!advice);
   };
   const size = useWindowDimensions();
+  // console.log('size: ', size);
   return (
     <div
-      className='flex flex-col w-full h-full justify-center items-center absolute bg-white z-40'
+      className='flex flex-col w-full h-full justify-center items-center absolute bg-white z-40 '
       style={{
         height: size.height * 1.15,
         width: size.width * 0.85,
@@ -441,7 +499,7 @@ const InitScreen = () => {
     >
       <IconButton
         variant='danger'
-        size='sm'
+        size='lg'
         className='rounded-full'
         icon={X}
         onClick={handleChange}
