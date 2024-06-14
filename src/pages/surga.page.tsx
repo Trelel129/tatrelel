@@ -19,6 +19,8 @@ import {
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
 
+import CursorImage from '@/pages/surga/CursorImage';
+
 const INVENTORIES: { image: string; amount: number; id: string }[] = [];
 
 const initialMap = [
@@ -55,7 +57,7 @@ export default function Surga2pagePage() {
   const size = useWindowDimensions();
   const [map, setMap] = useState(initialMap);
   const [savedTile, setSavedTile] = useState(0);
-  const [selectedTile, setSelectedTile] = useState(1);
+  const [selectedTile, setSelectedTile] = useState(0);
 
   const NUMTILES = map.length;
   const NUMTILESROW = Math.ceil(Math.sqrt(map.length));
@@ -64,7 +66,7 @@ export default function Surga2pagePage() {
   const handleTileClick = (index: number) => {
     // eslint-disable-next-line no-console
     console.log('Selected Tile: ', selectedTile, '\n Saved Tile: ', savedTile);
-    if (selectedTile === -1) {
+    if (selectedTile === 0) {
       inventory[map[index] - 1]++;
 
       newMap[index] = 0;
@@ -94,7 +96,7 @@ export default function Surga2pagePage() {
   };
 
   const destroyTile = () => {
-    setSelectedTile(-1);
+    setSelectedTile(0);
   };
   const [invDisp, setInvDisp] = useState(true);
   const handleInvDisp = () => {
@@ -110,6 +112,7 @@ export default function Surga2pagePage() {
   return (
     <DashboardLayout className='relative'>
       <InitScreen />
+      <CursorImage imageStringLink={`/sqtiles/tile-${selectedTile}.png`} />
       <Seo templateTitle='Surga.page' />
 
       {/* <Square className=' bg-black rounded-md h-screen w-screen absolute justify-center z-20'>
@@ -213,10 +216,10 @@ export default function Surga2pagePage() {
               display: invDisp ? 'none' : 'flex',
             }}
           >
-            <div className='grid'>
+            <div className='grid space-y-7'>
               <Typography
                 variant='h2'
-                className='fixed text-center content-center'
+                className='fixed text-center content-center z-40'
               >
                 Pilih Ubin<br></br>
                 <Button
@@ -239,28 +242,6 @@ export default function Surga2pagePage() {
             </div>
           </div>
         </section>
-        <div
-          className='fixed flex justify-center top-3/4 right-px -translate-x-1/2 -translate-y-1/2 z-10 bg-white'
-          style={{
-            display: invDisp ? 'flex' : 'none',
-          }}
-        >
-          <section className='grid place-items-center'>
-            <Typography variant='h1' className=''>
-              tile saat ini
-            </Typography>
-            <NextImage
-              className='flex justify-center content-center'
-              src={`/sqtiles/tile-${savedTile + 1}.png`}
-              alt='current-tile'
-              width={size.width / 15}
-              height={size.height / 25}
-            />
-          </section>
-          <Typography variant='h1' className='text-center content-center'>
-            {inventory[savedTile]}x
-          </Typography>
-        </div>
 
         <div className='fixed flex bottom-0 z-20 p-4 w-full justify-center'>
           <ButtonLink
@@ -279,6 +260,12 @@ export default function Surga2pagePage() {
               Toko
             </div>
           </ButtonLink>
+          {/* <IconButton
+            variant='primary'
+            className='rounded-lg shadow-lg border-4'
+            icon={X}
+            onClick={handleInvDisp}
+          /> */}
           <Popover>
             <PopoverTrigger asChild className='flex'>
               <Button
@@ -312,7 +299,12 @@ export default function Surga2pagePage() {
                 >
                   Ya
                 </Button>
-                <Button variant='danger' size='base'>
+                <Button
+                  variant='danger'
+                  size='base'
+                  //onclick close popover
+                  onClick={handleInvDisp}
+                >
                   Tidak
                 </Button>
               </div>
@@ -384,7 +376,7 @@ const TileMap = ({
     const col = index % NUMTILESROW;
 
     const x = col * tileWidth * 1.05;
-    const y = row * tileHeight * 1.33 + tileHeight / 2;
+    const y = row * tileHeight * 1.33;
     return { x, y };
   };
 
@@ -398,7 +390,7 @@ const TileMap = ({
       <div
         className='relative z-10'
         style={{
-          width: 'fit-content',
+          width: size.width * 0.75,
           height: size.height,
         }}
       >
