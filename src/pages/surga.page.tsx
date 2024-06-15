@@ -1,7 +1,6 @@
-import { X } from 'lucide-react';
+import { PlusIcon, X } from 'lucide-react';
 import * as React from 'react';
 import { useState } from 'react';
-import { IconBase } from 'react-icons';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
@@ -34,19 +33,6 @@ const initialMap = [
 
 const coinrate = 1;
 
-const inventory = [
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-  10, 10, 10, 10,
-];
-for (let i = 1; i <= 33; i++) {
-  INVENTORIES.push({
-    image: `/sqtiles/tile-${i}.png`,
-    amount: inventory[i - 1],
-    id: `${i}`,
-  });
-}
-
 const menu = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
@@ -54,10 +40,26 @@ const menu = [
 ];
 
 export default function Surga2pagePage() {
+  interface PopoverStates {
+    [key: string]: boolean;
+  }
+  const [inventory, setInventory] = useState([
+    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+    10, 10, 10, 10,
+  ]);
+  for (let i = 1; i <= 33; i++) {
+    INVENTORIES.push({
+      image: `/sqtiles/tile-${i}.png`,
+      amount: inventory[i - 1],
+      id: `${i}`,
+    });
+  }
   const size = useWindowDimensions();
   const [map, setMap] = useState(initialMap);
   const [savedTile, setSavedTile] = useState(0);
   const [selectedTile, setSelectedTile] = useState(0);
+  const [popoverStates, setPopoverStates] = useState<PopoverStates>({});
 
   const NUMTILES = map.length;
   const NUMTILESROW = Math.ceil(Math.sqrt(map.length));
@@ -101,14 +103,43 @@ export default function Surga2pagePage() {
   const [invDisp, setInvDisp] = useState(true);
   const handleInvDisp = () => {
     setInvDisp(!invDisp);
+    if (invDisp) {
+      setSelectedTile(0);
+    }
   };
   // eslint-disable-next-line unused-imports/no-unused-vars
   const coins = 1000;
   const ReduceCoin = () => {
-    // eslint-disable-next-line no-console
-    console.log('inventory: ', inventory);
-    inventory[selectedTile - 1]++;
+    if (selectedTile - 1 === 0) {
+      // eslint-disable-next-line no-console
+      console.log('inventory: ', inventory);
+      closePopover;
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('inventory: ', inventory);
+      setInventory((prevInventory) => {
+        const newInventory = [...prevInventory];
+        newInventory[selectedTile - 1]++;
+        return newInventory;
+      });
+    }
   };
+
+  const openPopover = (popoverId: string) => {
+    setPopoverStates((prevState) => ({
+      ...prevState,
+      [popoverId]: true,
+    }));
+  };
+
+  const closePopover = (popoverId: string) => {
+    setPopoverStates((prevState) => ({
+      ...prevState,
+      [popoverId]: false,
+    }));
+  };
+  //init setSelectedTile(1)
+  // setSelectedTile(1);
   return (
     <DashboardLayout className='relative'>
       <InitScreen />
@@ -145,9 +176,13 @@ export default function Surga2pagePage() {
           <div className='grid fixed right-0'>
             <Typography variant='h2' className='text-center content-center p-4'>
               Bangun <br></br>
-              <Popover>
+              <Popover open={popoverStates['popover1'] || false}>
                 <PopoverTrigger>
-                  <IconBase> </IconBase>
+                  <PlusIcon
+                    size={30}
+                    className='bg-white rounded border-4 border-blue-400'
+                    onClick={openPopover.bind(null, 'popover1')}
+                  ></PlusIcon>
                 </PopoverTrigger>
                 <PopoverContent>
                   <div className='grid w-auto items-center '>
@@ -166,7 +201,11 @@ export default function Surga2pagePage() {
                       >
                         Ya
                       </Button>
-                      <Button variant='danger' size='base'>
+                      <Button
+                        variant='danger'
+                        size='base'
+                        onClick={closePopover.bind(null, 'popover1')}
+                      >
                         Tidak
                       </Button>
                     </div>
@@ -266,11 +305,12 @@ export default function Surga2pagePage() {
             icon={X}
             onClick={handleInvDisp}
           /> */}
-          <Popover>
+          <Popover open={popoverStates['popover2'] || false}>
             <PopoverTrigger asChild className='flex'>
               <Button
                 variant='primary'
                 className='grid rounded-lg shadow-lg lainnya place-items-center border-4'
+                onClick={openPopover.bind(null, 'popover2')}
               >
                 <NextImage
                   className='flex'
@@ -303,7 +343,7 @@ export default function Surga2pagePage() {
                   variant='danger'
                   size='base'
                   //onclick close popover
-                  onClick={handleInvDisp}
+                  onClick={closePopover.bind(null, 'popover2')}
                 >
                   Tidak
                 </Button>
