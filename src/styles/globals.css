@@ -407,3 +407,22 @@ html {
 .ctext {
   color: #f7f7f7;
 }
+
+@keyframes purchase-animation {
+  0% {
+    opacity: 0;
+    transform: translateY(30%) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-10%) scale(1.1);
+  }
+  90% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.purchase-animation {
+  animation: purchase-animation 1s ease-in-out;
+}

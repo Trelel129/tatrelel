@@ -58,6 +58,7 @@ export default function Surga2pagePage() {
   const [map, setMap] = useState(initialMap);
   const [savedTile, setSavedTile] = useState(0);
   const [selectedTile, setSelectedTile] = useState(0);
+  const [showAnimation, setShowAnimation] = useState(false);
   const [popoverStates, setPopoverStates] = useState<PopoverStates>({});
 
   const NUMTILES = map.length;
@@ -108,7 +109,26 @@ export default function Surga2pagePage() {
   };
   // eslint-disable-next-line unused-imports/no-unused-vars
   const coins = 1000;
+  const playSound = () => {
+    const audio = new Audio('https://trelel129.github.io/sfx/shcoin.mp3'); // URL YouTube sebagai placeholder
+    audio.volume = 0.3;
+    // eslint-disable-next-line no-console
+    audio.play().catch((error) => console.error('Error playing sound:', error));
+    return (
+      <audio
+        src='https://trelel129.github.io/sfx/shcoin.mp3'
+        autoPlay
+        controls
+      />
+    );
+  };
   const ReduceCoin = () => {
+    if (selectedTile - 1 != -1) {
+      setShowAnimation(true);
+      playSound();
+      setTimeout(() => setShowAnimation(false), 800);
+    }
+
     if (selectedTile - 1 === 0) {
       // eslint-disable-next-line no-console
       console.log('inventory: ', inventory);
@@ -125,10 +145,12 @@ export default function Surga2pagePage() {
   };
 
   const openPopover = (popoverId: string) => {
-    setPopoverStates((prevState) => ({
-      ...prevState,
-      [popoverId]: true,
-    }));
+    if (selectedTile - 1 != -1) {
+      setPopoverStates((prevState) => ({
+        ...prevState,
+        [popoverId]: true,
+      }));
+    }
   };
 
   const closePopover = (popoverId: string) => {
@@ -179,7 +201,7 @@ export default function Surga2pagePage() {
                 className='text-center content-center p-4'
               >
                 Bangun <br></br>
-                <Popover open={popoverStates['popover1'] || false}>
+                <Popover open={popoverStates['popover1']}>
                   <PopoverTrigger>
                     <PlusIcon
                       size={30}
@@ -194,7 +216,7 @@ export default function Surga2pagePage() {
                         className='text-center grid-flow-col'
                       >
                         Apakah anda yakin ingin membeli item ini? <br></br>1
-                        Koin SIAR
+                        SIAR Koin
                       </Typography>
                       <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
                         <Button
@@ -204,6 +226,7 @@ export default function Surga2pagePage() {
                         >
                           Ya
                         </Button>
+
                         <Button
                           variant='danger'
                           size='base'
@@ -213,6 +236,13 @@ export default function Surga2pagePage() {
                         </Button>
                       </div>
                     </div>
+                    {showAnimation && (
+                      <div className='purchase-animation absolute flex items-center justify-start p-2'>
+                        <Typography variant='h4' color='warn'>
+                          -1 SIAR KOIN
+                        </Typography>
+                      </div>
+                    )}
                   </PopoverContent>
                 </Popover>
                 <Button

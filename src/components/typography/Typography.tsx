@@ -29,6 +29,7 @@ const TypographyColor = [
   'secondary',
   'tertiary',
   'danger',
+  'warn',
   'black',
   'purple-gradient',
 ] as const;
@@ -121,6 +122,7 @@ const Typography: TypographyComponent = React.forwardRef(
             color === 'secondary' && ['text-typo-secondary'],
             color === 'tertiary' && ['text-typo-tertiary'],
             color === 'danger' && ['text-red-500'],
+            color === 'warn' && ['text-yellow-500'],
             color === 'black' && ['text-black'],
             color === 'purple-gradient' && [
               'bg-gradient-to-r bg-clip-text text-transparent',
