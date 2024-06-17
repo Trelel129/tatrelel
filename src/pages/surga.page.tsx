@@ -1,11 +1,10 @@
-import { PlusIcon, X } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import useWindowDimensions from '@/hooks/useWindowDimensions';
 
 import Button from '@/components/buttons/Button';
-import IconButton from '@/components/buttons/IconButton';
 import DashboardLayout from '@/components/layout/dashboard/DashboardLayout';
 import PageHeader from '@/components/layout/dashboard/PageHeader';
 import ButtonLink from '@/components/links/ButtonLink';
@@ -141,125 +140,133 @@ export default function Surga2pagePage() {
   //init setSelectedTile(1)
   // setSelectedTile(1);
   return (
-    <DashboardLayout className='relative'>
+    <div>
       <InitScreen />
-      <CursorImage imageStringLink={`/sqtiles/tile-${selectedTile}.png`} />
-      <Seo templateTitle='Surga.page' />
+      <DashboardLayout className='relative'>
+        <CursorImage imageStringLink={`/sqtiles/tile-${selectedTile}.png`} />
+        <Seo templateTitle='Surga.page' />
 
-      {/* <Square className=' bg-black rounded-md h-screen w-screen absolute justify-center z-20'>
+        {/* <Square className=' bg-black rounded-md h-screen w-screen absolute justify-center z-20'>
         <Typography variant='b1' className='text-center' color='tertiary'>
           Surga
         </Typography>
       </Square> */}
-      <main className='py-12 flex flex-col'>
-        <PageHeader
-          className='z-10'
-          backHref='/dashboard'
-          crumbs={['/dashboard', '/surga']}
-        ></PageHeader>
+        <main className='py-12 flex flex-col'>
+          <PageHeader
+            className='z-10'
+            backHref='/dashboard'
+            crumbs={['/dashboard', '/surga']}
+          ></PageHeader>
 
-        <section className='flex flex-wrap overflow-scroll z-10 p-10'>
-          <div className='flex flex-wrap overflow-scroll w-10/12 h-3/4 z-10'>
-            <div className='grid place-items-center'>
-              <Typography variant='j2' className=''>
-                Peta Surga Kuliner
-              </Typography>
-              <TileMap
-                NUMTILES={NUMTILES}
-                NUMTILESROW={NUMTILESROW}
-                map={map}
-                size={size}
-                click={handleTileClick}
-              />
-            </div>
-          </div>
-          <div className='grid fixed right-0'>
-            <Typography variant='h2' className='text-center content-center p-4'>
-              Bangun <br></br>
-              <Popover open={popoverStates['popover1'] || false}>
-                <PopoverTrigger>
-                  <PlusIcon
-                    size={30}
-                    className='bg-white rounded border-4 border-blue-400'
-                    onClick={openPopover.bind(null, 'popover1')}
-                  ></PlusIcon>
-                </PopoverTrigger>
-                <PopoverContent>
-                  <div className='grid w-auto items-center '>
-                    <Typography
-                      variant='s1'
-                      className='text-center grid-flow-col'
-                    >
-                      Apakah anda yakin ingin membeli item ini? <br></br>1 Koin
-                      SIP
-                    </Typography>
-                    <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
-                      <Button
-                        variant='primary'
-                        size='base'
-                        onClick={ReduceCoin}
-                      >
-                        Ya
-                      </Button>
-                      <Button
-                        variant='danger'
-                        size='base'
-                        onClick={closePopover.bind(null, 'popover1')}
-                      >
-                        Tidak
-                      </Button>
-                    </div>
-                  </div>
-                </PopoverContent>
-              </Popover>
-              <Button
-                variant='primary'
-                className='rounded-lg shadow-lg border-4 w-fit h-fit p-2 focus:border-4 focus:bg-gray-500'
-                size='lg'
-                onClick={handleInvDisp}
-              >
-                <NextImage
-                  className='flex justify-center content-center p-1'
-                  src={`/sqtiles/tile-${savedTile + 1}.png`}
-                  alt='current-tile'
-                  width={size.width / 15}
-                  height={size.height / 25}
-                />
-                <Typography variant='h1' className='text-center content-center'>
-                  {inventory[savedTile]}x
+          <section className='flex flex-wrap overflow-scroll z-10 p-10'>
+            <div className='flex flex-wrap overflow-scroll w-10/12 h-3/4 z-10'>
+              <div className='grid place-items-center'>
+                <Typography variant='j2' className=''>
+                  Peta Surga Kuliner
                 </Typography>
-              </Button>
-            </Typography>
-
-            <Typography variant='h2' className='text-center content-center p-4'>
-              Hancurkan <br></br>
-              <Button
-                variant='danger'
-                className='rounded-lg shadow-lg border-4 w-fit h-fit p-2 focus:bg-gray-500'
-                size='lg'
-                onClick={destroyTile}
-              >
-                <NextImage
-                  className='flex justify-center content-center'
-                  src='/sqtiles/destroyer.png'
-                  alt='current-tile'
-                  width={size.width / 15}
-                  height={size.height / 25}
+                <TileMap
+                  NUMTILES={NUMTILES}
+                  NUMTILESROW={NUMTILESROW}
+                  map={map}
+                  size={size}
+                  click={handleTileClick}
                 />
-              </Button>
-            </Typography>
-          </div>
+              </div>
+            </div>
+            <div className='lg:grid sm:columns-2 fixed right-0 z-20 sm:content-between'>
+              <Typography
+                variant='h2'
+                className='text-center content-center p-4'
+              >
+                Bangun <br></br>
+                <Popover open={popoverStates['popover1'] || false}>
+                  <PopoverTrigger>
+                    <PlusIcon
+                      size={30}
+                      className='bg-white rounded border-4 border-blue-400'
+                      onClick={openPopover.bind(null, 'popover1')}
+                    ></PlusIcon>
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <div className='grid w-auto items-center '>
+                      <Typography
+                        variant='s1'
+                        className='text-center grid-flow-col'
+                      >
+                        Apakah anda yakin ingin membeli item ini? <br></br>1
+                        Koin SIAR
+                      </Typography>
+                      <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
+                        <Button
+                          variant='primary'
+                          size='base'
+                          onClick={ReduceCoin}
+                        >
+                          Ya
+                        </Button>
+                        <Button
+                          variant='danger'
+                          size='base'
+                          onClick={closePopover.bind(null, 'popover1')}
+                        >
+                          Tidak
+                        </Button>
+                      </div>
+                    </div>
+                  </PopoverContent>
+                </Popover>
+                <Button
+                  variant='primary'
+                  className='rounded-lg shadow-lg border-4 w-fit h-fit p-2 focus:border-4 focus:bg-gray-500'
+                  size='lg'
+                  onClick={handleInvDisp}
+                >
+                  <NextImage
+                    className='flex justify-center content-center p-1'
+                    src={`/sqtiles/tile-${savedTile + 1}.png`}
+                    alt='current-tile'
+                    width={size.width / 15}
+                    height={size.height / 25}
+                  />
+                  <Typography
+                    variant='h1'
+                    className='text-center content-center'
+                  >
+                    {inventory[savedTile]}x
+                  </Typography>
+                </Button>
+              </Typography>
+
+              <Typography
+                variant='h2'
+                className='text-center content-center p-4'
+              >
+                Hancurkan <br></br>
+                <Button
+                  variant='danger'
+                  className='rounded-lg shadow-lg border-4 w-fit h-fit p-2 focus:bg-gray-500'
+                  size='lg'
+                  onClick={destroyTile}
+                >
+                  <NextImage
+                    className='flex justify-center content-center'
+                    src='/sqtiles/destroyer.png'
+                    alt='current-tile'
+                    width={size.width / 15}
+                    height={size.height / 25}
+                  />
+                </Button>
+              </Typography>
+            </div>
+          </section>
           <div
-            className='fixed flex-wrap overflow-scroll w-1/2 h-1/2 z-10 bg-white right-0 p-4 border-8 border-teal-600'
+            className='fixed flex-wrap overflow-scroll lg:w-1/2 lg:h-1/2 sm:w-10/12 sm:h-5/6 bg-white right-0 lg:top-1/4 sm:top-10 p-4 border-8 border-teal-600 z-20'
             style={{
               display: invDisp ? 'none' : 'flex',
             }}
           >
             <div className='grid space-y-7'>
-              <Typography
-                variant='h2'
-                className='fixed text-center content-center z-40'
-              >
+              <Typography variant='h2' className='z-40'>
                 Pilih Ubin<br></br>
                 <Button
                   variant='danger'
@@ -280,87 +287,86 @@ export default function Surga2pagePage() {
               />
             </div>
           </div>
-        </section>
-
-        <div className='fixed flex bottom-0 z-20 p-4 w-full justify-center'>
-          <ButtonLink
-            href='/purchaseornamen'
-            variant='primary'
-            className='rounded-lg shadow-lg border-4'
-          >
-            <div className='grid place-items-center'>
-              <NextImage
-                className='flex'
-                src='/images/ornamen/StoreIcon.png'
-                alt='ornamen'
-                width={size.width / 60}
-                height={size.height / 30}
-              />
-              Toko
-            </div>
-          </ButtonLink>
-          {/* <IconButton
+          <div className='fixed flex bottom-0 z-10 p-4 w-full justify-center'>
+            <ButtonLink
+              href='/purchaseornamen'
+              variant='primary'
+              className='rounded-lg shadow-lg border-4'
+            >
+              <div className='grid place-items-center'>
+                <NextImage
+                  className='flex'
+                  src='/images/ornamen/StoreIcon.png'
+                  alt='ornamen'
+                  width={size.width / 60}
+                  height={size.height / 30}
+                />
+                Toko
+              </div>
+            </ButtonLink>
+            {/* <IconButton
             variant='primary'
             className='rounded-lg shadow-lg border-4'
             icon={X}
             onClick={handleInvDisp}
           /> */}
-          <Popover open={popoverStates['popover2'] || false}>
-            <PopoverTrigger asChild className='flex'>
-              <Button
-                variant='primary'
-                className='grid rounded-lg shadow-lg lainnya place-items-center border-4'
-                onClick={openPopover.bind(null, 'popover2')}
-              >
-                <NextImage
-                  className='flex'
-                  src='/images/ornamen/save_button.png'
-                  alt='ornamen'
-                  width={size.width / 60}
-                  height={size.height / 30}
-                />
-                Simpan
-              </Button>
-            </PopoverTrigger>
-
-            <PopoverContent className='w-fit'>
-              <Typography variant='s1' className='text-center grid-flow-col'>
-                Apakah anda yakin ingin menyimpan?
-              </Typography>
-              <Typography variant='s1' className='text-center grid-flow-col'>
-                Anda akan mendapatkan{' '}
-                {SaveMap(map, newMap, inventory, coinrate)} Coin/hari
-              </Typography>
-              <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
+            <Popover open={popoverStates['popover2'] || false}>
+              <PopoverTrigger asChild className='flex '>
                 <Button
                   variant='primary'
-                  size='base'
-                  onClick={() => SaveMap(map, newMap, inventory, coinrate)}
+                  className='grid rounded-lg shadow-lg lainnya place-items-center border-4 '
+                  onClick={openPopover.bind(null, 'popover2')}
                 >
-                  Ya
+                  <NextImage
+                    className='flex'
+                    src='/images/ornamen/save_button.png'
+                    alt='ornamen'
+                    width={size.width / 60}
+                    height={size.height / 30}
+                  />
+                  Simpan
                 </Button>
-                <Button
-                  variant='danger'
-                  size='base'
-                  //onclick close popover
-                  onClick={closePopover.bind(null, 'popover2')}
-                >
-                  Tidak
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
-        <div
-          className='absolute inset-0 opacity-50 z-0'
-          style={{
-            backgroundImage: 'url("/images/background/grid.png")',
-          }}
-        >
-          <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b bg-repeat' />
-        </div>
-      </main>
-    </DashboardLayout>
+              </PopoverTrigger>
+
+              <PopoverContent className='w-fit'>
+                <Typography variant='s1' className='text-center grid-flow-col'>
+                  Apakah anda yakin ingin menyimpan?
+                </Typography>
+                <Typography variant='s1' className='text-center grid-flow-col'>
+                  Anda akan mendapatkan{' '}
+                  {SaveMap(map, newMap, inventory, coinrate)} Coin/hari
+                </Typography>
+                <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
+                  <Button
+                    variant='primary'
+                    size='base'
+                    onClick={() => SaveMap(map, newMap, inventory, coinrate)}
+                  >
+                    Ya
+                  </Button>
+                  <Button
+                    variant='danger'
+                    size='base'
+                    //onclick close popover
+                    onClick={closePopover.bind(null, 'popover2')}
+                  >
+                    Tidak
+                  </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
+          <div
+            className='absolute inset-0 opacity-50 z-0'
+            style={{
+              backgroundImage: 'url("/images/background/grid.png")',
+            }}
+          >
+            <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b bg-repeat' />
+          </div>
+        </main>
+      </DashboardLayout>
+    </div>
   );
 }
 
@@ -428,7 +434,7 @@ const TileMap = ({
   return (
     <div>
       <div
-        className='relative z-10'
+        className='relative z-10 w-screen'
         style={{
           width: size.width * 0.75,
           height: size.height,
@@ -508,43 +514,45 @@ const SaveMap = (
   return _coinrate;
 };
 // eslint-disable-next-line unused-imports/no-unused-vars
-const isAndroid = () => {
-  return (
-    typeof navigator !== 'undefined' && /Android/i.test(navigator.userAgent)
-  );
-};
 const InitScreen = () => {
   const [advice, setAdvice] = useState(false);
   const handleChange = () => {
     setAdvice(!advice);
   };
   const size = useWindowDimensions();
+  const [shouldDisplay, setShouldDisplay] = useState(true);
+  useEffect(() => {
+    // Perform client-specific logic after component mounts
+    const isAndroidClient = /Android/i.test(navigator.userAgent);
+    const isiOSClient = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    setShouldDisplay(!(isAndroidClient || isiOSClient));
+  }, []);
   // console.log('size: ', size);
   return (
-    <div
-      className='flex flex-col w-full h-full justify-center items-center absolute bg-white z-40 '
+    <Button
+      variant='outline'
+      className='justify-center items-center bg-white z-40 w-full h-screen rounded fixed'
       style={{
-        height: size.height * 1.15,
-        width: size.width * 0.85,
-        display: advice ? 'none' : 'flex',
+        height: size.height,
+        width: size.width,
+        display: shouldDisplay ? 'none' : advice ? 'none' : 'flex',
       }}
+      onClick={handleChange}
     >
-      <IconButton
-        variant='danger'
-        size='lg'
-        className='rounded-full'
-        icon={X}
-        onClick={handleChange}
-      />
       <NextImage
         src='/images/surga/phone.png'
-        width={size.width / 5}
-        height={size.height / 5}
+        width={400}
+        height={400}
         alt='ornamen'
       />
-      <Typography variant='j1' className='text-center'>
-        Putar Layar Untuk Pengalaman Terbaik
-      </Typography>
-    </div>
+      <div className='grid place-items-center'>
+        <Typography variant='j1' className='text-center'>
+          Putar Layar Untuk Pengalaman Terbaik <br></br>
+        </Typography>
+        <Typography variant='h1' className='text-center'>
+          ketuk untuk melanjutkan
+        </Typography>
+      </div>
+    </Button>
   );
 };

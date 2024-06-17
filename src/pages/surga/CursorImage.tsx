@@ -24,7 +24,7 @@ const CursorImage = ({ imageStringLink }: CursorImageProps) => {
     <Image
       src={imageStringLink}
       alt='cursor'
-      className='pointer-events-none fixed z-50 opacity-80'
+      className='pointer-events-none fixed z-50 lg:opacity-80 sm:opacity-0'
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,
