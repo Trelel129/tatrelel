@@ -192,7 +192,7 @@ export default function Surga2pagePage() {
                 />
               </div>
             </div>
-            <div className='lg:grid sm:columns-2 fixed right-0 z-20 sm:content-between'>
+            <div className='lg:grid content-center lg:fixed sm:absolute right-0 z-20 sm:content-between'>
               <Typography
                 variant='h2'
                 className='text-center content-center p-4'
