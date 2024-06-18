@@ -49,7 +49,8 @@ export default function Surga2pagePage() {
   ]);
   for (let i = 1; i <= 33; i++) {
     INVENTORIES.push({
-      image: `/sqtiles/tile-${i}.png`,
+      // image: `/sqtiles/tile-${i}.png`,
+      image: `https://trelel129.github.io/asset/tile/tile-${i}.png`,
       amount: inventory[i - 1],
       id: `${i}`,
     });
@@ -110,17 +111,10 @@ export default function Surga2pagePage() {
   // eslint-disable-next-line unused-imports/no-unused-vars
   const coins = 1000;
   const playSound = () => {
-    const audio = new Audio('https://trelel129.github.io/sfx/shcoin.mp3'); // URL YouTube sebagai placeholder
+    const audio = new Audio('https://trelel129.github.io/asset/sfx/shcoin.mp3'); // URL YouTube sebagai placeholder
     audio.volume = 0.3;
     // eslint-disable-next-line no-console
     audio.play().catch((error) => console.error('Error playing sound:', error));
-    return (
-      <audio
-        src='https://trelel129.github.io/sfx/shcoin.mp3'
-        autoPlay
-        controls
-      />
-    );
   };
   const ReduceCoin = () => {
     if (selectedTile - 1 != -1) {
@@ -165,7 +159,10 @@ export default function Surga2pagePage() {
     <div>
       <InitScreen />
       <DashboardLayout className='relative'>
-        <CursorImage imageStringLink={`/sqtiles/tile-${selectedTile}.png`} />
+        {/* <CursorImage imageStringLink={`/sqtiles/tile-${selectedTile}.png`} /> */}
+        <CursorImage
+          imageStringLink={`https://trelel129.github.io/asset/tile/tile-${selectedTile}.png`}
+        />
         <Seo templateTitle='Surga.page' />
 
         {/* <Square className=' bg-black rounded-md h-screen w-screen absolute justify-center z-20'>
@@ -253,7 +250,10 @@ export default function Surga2pagePage() {
                 >
                   <NextImage
                     className='flex justify-center content-center p-1'
-                    src={`/sqtiles/tile-${savedTile + 1}.png`}
+                    // src={`/sqtiles/tile-${savedTile + 1}.png`}
+                    src={`https://trelel129.github.io/asset/tile/tile-${
+                      savedTile + 1
+                    }.png`}
                     alt='current-tile'
                     width={size.width / 15}
                     height={size.height / 25}
@@ -492,7 +492,8 @@ const TileMap = ({
               }}
             >
               <NextImage
-                src={`/sqtiles/tile-${map[i]}.png`}
+                // src={`/sqtiles/tile-${map[i]}.png`}
+                src={`https://trelel129.github.io/asset/tile/tile-${map[i]}.png`}
                 // width={size.width / 20}
                 // height={size.height / 20}
                 //resize

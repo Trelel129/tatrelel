@@ -13,6 +13,10 @@ module.exports = withMDX({
 
   // Uncoment to add domain whitelist
   images: {
-    domains: ['res.cloudinary.com', 'images.unsplash.com'],
+    domains: [
+      'trelel129.github.io',
+      'res.cloudinary.com',
+      'images.unsplash.com',
+    ],
   },
 });
