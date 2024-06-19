@@ -60,12 +60,18 @@ export default function Surga2pagePage() {
   const [savedTile, setSavedTile] = useState(0);
   const [selectedTile, setSelectedTile] = useState(0);
   const [showAnimation, setShowAnimation] = useState(false);
+  const [showEmpty, setShowEmpty] = useState(false);
   const [popoverStates, setPopoverStates] = useState<PopoverStates>({});
 
   const NUMTILES = map.length;
   const NUMTILESROW = Math.ceil(Math.sqrt(map.length));
   const newMap = [...map];
 
+  const handleTileInfo = (index: number) => {
+    <Typography variant='h1' className='text-center'>
+      {index}
+    </Typography>;
+  };
   const handleTileClick = (index: number) => {
     // eslint-disable-next-line no-console
     console.log('Selected Tile: ', selectedTile, '\n Saved Tile: ', savedTile);
@@ -73,6 +79,7 @@ export default function Surga2pagePage() {
       inventory[map[index] - 1]++;
 
       newMap[index] = 0;
+      destroySfx();
     } else if (inventory[selectedTile - 1] > 0) {
       //check if inventory is available
 
@@ -81,10 +88,12 @@ export default function Surga2pagePage() {
       inventory[selectedTile - 1]--;
 
       newMap[index] = selectedTile;
+      createSfx();
     } else {
       //show pop up lack of item
       //warning
-      // console.log('lack of item');
+      setShowEmpty(true);
+      setTimeout(() => setShowEmpty(false), 500);
 
       return;
     }
@@ -110,17 +119,33 @@ export default function Surga2pagePage() {
   };
   // eslint-disable-next-line unused-imports/no-unused-vars
   const coins = 1000;
-  const playSound = () => {
-    const audio = new Audio('https://trelel129.github.io/asset/sfx/shcoin.mp3'); // URL YouTube sebagai placeholder
-    audio.volume = 0.3;
+  const createSfx = () => {
+    const crSfx = new Audio(
+      'https://trelel129.github.io/asset/sfx/hammercreate.mp3',
+    ); // URL Github pages as placeholder
+    crSfx.volume = 1;
     // eslint-disable-next-line no-console
-    audio.play().catch((error) => console.error('Error playing sound:', error));
+    crSfx.play().catch((error) => console.error('Error playing sound:', error));
+  };
+  const destroySfx = () => {
+    const dSfx = new Audio(
+      'https://trelel129.github.io/asset/sfx/hammerdestroy.mp3',
+    ); // URL Github pages as placeholder
+    dSfx.volume = 1;
+    // eslint-disable-next-line no-console
+    dSfx.play().catch((error) => console.error('Error playing sound:', error));
+  };
+  const coinSfx = () => {
+    const coSfx = new Audio('https://trelel129.github.io/asset/sfx/shcoin.mp3'); // URL Github pages as placeholder
+    coSfx.volume = 0.3;
+    // eslint-disable-next-line no-console
+    coSfx.play().catch((error) => console.error('Error playing sound:', error));
   };
   const ReduceCoin = () => {
     if (selectedTile - 1 != -1) {
       setShowAnimation(true);
-      playSound();
-      setTimeout(() => setShowAnimation(false), 800);
+      coinSfx();
+      setTimeout(() => setShowAnimation(false), 500);
     }
 
     if (selectedTile - 1 === 0) {
@@ -163,6 +188,13 @@ export default function Surga2pagePage() {
         <CursorImage
           imageStringLink={`https://trelel129.github.io/asset/tile/tile-${selectedTile}.png`}
         />
+        {showEmpty && (
+          <div className='purchase-animation fixed items-center justify-center p-2 left-1/2 top-1/2 z-50'>
+            <Typography variant='j2' color='danger'>
+              Tile anda habis
+            </Typography>
+          </div>
+        )}
         <Seo templateTitle='Surga.page' />
 
         {/* <Square className=' bg-black rounded-md h-screen w-screen absolute justify-center z-20'>
@@ -189,6 +221,7 @@ export default function Surga2pagePage() {
                   map={map}
                   size={size}
                   click={handleTileClick}
+                  info={handleTileInfo}
                 />
               </div>
             </div>
@@ -213,7 +246,7 @@ export default function Surga2pagePage() {
                         className='text-center grid-flow-col'
                       >
                         Apakah anda yakin ingin membeli item ini? <br></br>1
-                        SIAR Koin
+                        SIAR Coin
                       </Typography>
                       <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
                         <Button
@@ -235,8 +268,8 @@ export default function Surga2pagePage() {
                     </div>
                     {showAnimation && (
                       <div className='purchase-animation absolute flex items-center justify-start p-2'>
-                        <Typography variant='h4' color='warn'>
-                          -1 SIAR KOIN
+                        <Typography variant='h4' color='danger'>
+                          -1 SIAR Coin
                         </Typography>
                       </div>
                     )}
@@ -433,6 +466,7 @@ const TileMap = ({
   size,
   zoom = 1,
   click,
+  info,
 }: {
   NUMTILES: number;
   NUMTILESROW: number;
@@ -441,6 +475,8 @@ const TileMap = ({
   zoom?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   click?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  info?: any;
 }) => {
   const calculateIsoOffsets = (index: number) => {
     // const tileWidth = size.width / 20;
@@ -477,6 +513,7 @@ const TileMap = ({
             <a
               key={i}
               className='absolute cursor-pointer duration-300 ease-in-out hover:animate-bounce hover:border-4 hover:border-cyan-300 hover:rounded-lg hover:shadow-lg hover:z-100'
+              onMouseEnter={() => info}
               onClick={() => click(i)}
               style={{
                 left: `${x}px`,
