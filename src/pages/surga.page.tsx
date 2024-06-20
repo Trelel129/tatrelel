@@ -57,8 +57,9 @@ export default function Surga2pagePage() {
   }
   const size = useWindowDimensions();
   const [map, setMap] = useState(initialMap);
-  const [savedTile, setSavedTile] = useState(0);
-  const [selectedTile, setSelectedTile] = useState(0);
+  const [mapTile, setMapTile] = useState(0);
+
+  const [menuTile, setMenuTile] = useState(-1);
   const [showAnimation, setShowAnimation] = useState(false);
   const [showEmpty, setShowEmpty] = useState(false);
   const [popoverStates, setPopoverStates] = useState<PopoverStates>({});
@@ -73,21 +74,19 @@ export default function Surga2pagePage() {
     </Typography>;
   };
   const handleTileClick = (index: number) => {
-    // eslint-disable-next-line no-console
-    console.log('Selected Tile: ', selectedTile, '\n Saved Tile: ', savedTile);
-    if (selectedTile === 0) {
+    if (menuTile === -1 || menuTile === 0) {
       inventory[map[index] - 1]++;
 
       newMap[index] = 0;
       destroySfx();
-    } else if (inventory[selectedTile - 1] > 0) {
+    } else if (inventory[mapTile] > 0) {
       //check if inventory is available
 
       inventory[map[index] - 1]++;
 
-      inventory[selectedTile - 1]--;
+      inventory[mapTile]--;
 
-      newMap[index] = selectedTile;
+      newMap[index] = menuTile;
       createSfx();
     } else {
       //show pop up lack of item
@@ -99,22 +98,32 @@ export default function Surga2pagePage() {
     }
 
     setMap(newMap);
+    // eslint-disable-next-line no-console
+    console.log(
+      'Selected Tile: ',
+      menuTile,
+      '\n Saved Tile: ',
+      mapTile,
+      '\n Inventory: ',
+      inventory,
+    );
   };
 
   const handleTileSelect = (index: number) => {
-    setSelectedTile(menu[index]);
-    setSavedTile(index);
+    setMenuTile(menu[index]);
+    setMapTile(index);
     handleInvDisp();
   };
 
   const destroyTile = () => {
-    setSelectedTile(0);
+    // setMapTile(-1);
+    setMenuTile(-1);
   };
   const [invDisp, setInvDisp] = useState(true);
   const handleInvDisp = () => {
     setInvDisp(!invDisp);
     if (invDisp) {
-      setSelectedTile(0);
+      setMenuTile(0);
     }
   };
   // eslint-disable-next-line unused-imports/no-unused-vars
@@ -142,29 +151,20 @@ export default function Surga2pagePage() {
     coSfx.play().catch((error) => console.error('Error playing sound:', error));
   };
   const ReduceCoin = () => {
-    if (selectedTile - 1 != -1) {
+    if (menuTile != -1) {
       setShowAnimation(true);
       coinSfx();
       setTimeout(() => setShowAnimation(false), 500);
-    }
-
-    if (selectedTile - 1 === 0) {
-      // eslint-disable-next-line no-console
-      console.log('inventory: ', inventory);
-      closePopover;
-    } else {
-      // eslint-disable-next-line no-console
-      console.log('inventory: ', inventory);
       setInventory((prevInventory) => {
         const newInventory = [...prevInventory];
-        newInventory[selectedTile - 1]++;
+        newInventory[menuTile - 1]++;
         return newInventory;
       });
     }
   };
 
   const openPopover = (popoverId: string) => {
-    if (selectedTile - 1 != -1) {
+    if (menuTile - 1 != -1) {
       setPopoverStates((prevState) => ({
         ...prevState,
         [popoverId]: true,
@@ -178,15 +178,15 @@ export default function Surga2pagePage() {
       [popoverId]: false,
     }));
   };
-  //init setSelectedTile(1)
-  // setSelectedTile(1);
+  //init setMenuTile(1)
+  // setMenuTile(1);
   return (
     <div>
       <InitScreen />
       <DashboardLayout className='relative'>
-        {/* <CursorImage imageStringLink={`/sqtiles/tile-${selectedTile}.png`} /> */}
+        {/* <CursorImage imageStringLink={`/sqtiles/tile-${menuTile}.png`} /> */}
         <CursorImage
-          imageStringLink={`https://trelel129.github.io/asset/tile/tile-${selectedTile}.png`}
+          imageStringLink={`https://trelel129.github.io/asset/tile/tile-${menuTile}.png`}
         />
         {showEmpty && (
           <div className='purchase-animation fixed items-center justify-center p-2 left-1/2 top-1/2 z-50'>
@@ -207,7 +207,9 @@ export default function Surga2pagePage() {
             className='z-10'
             backHref='/dashboard'
             crumbs={['/dashboard', '/surga']}
-          ></PageHeader>
+          >
+            <PageHeader.Title>Surga</PageHeader.Title>
+          </PageHeader>
 
           <section className='flex flex-wrap overflow-scroll z-10 p-10'>
             <div className='flex flex-wrap overflow-scroll w-10/12 h-3/4 z-10'>
@@ -283,9 +285,9 @@ export default function Surga2pagePage() {
                 >
                   <NextImage
                     className='flex justify-center content-center p-1'
-                    // src={`/sqtiles/tile-${savedTile + 1}.png`}
+                    // src={`/sqtiles/tile-${mapTile + 1}.png`}
                     src={`https://trelel129.github.io/asset/tile/tile-${
-                      savedTile + 1
+                      mapTile + 1
                     }.png`}
                     alt='current-tile'
                     width={size.width / 15}
@@ -295,7 +297,7 @@ export default function Surga2pagePage() {
                     variant='h1'
                     className='text-center content-center'
                   >
-                    {inventory[savedTile]}x
+                    {inventory[mapTile]}x
                   </Typography>
                 </Button>
               </Typography>
@@ -624,3 +626,52 @@ const InitScreen = () => {
     </Button>
   );
 };
+
+// eslint-disable-next-line unused-imports/no-unused-vars
+const ORNAMENTS = [
+  {
+    image: 'https://trelel129.github.io/asset/tile/tile-1.png',
+    // color: 'common',
+    name: 'Kios Sayur',
+    amount: '1',
+    price: '10',
+    coinproduce: '1',
+    id: '1',
+  },
+  {
+    image: 'https://trelel129.github.io/asset/tile/tile-2.png',
+    // color: 'common',
+    name: 'Kios Buah',
+    amount: '1',
+    price: '10',
+    coinproduce: '1',
+    id: '2',
+  },
+  {
+    image: 'https://trelel129.github.io/asset/tile/tile-3.png',
+    // color: 'common',
+    name: 'Kios Makanan',
+    amount: '1',
+    price: '10',
+    coinproduce: '1',
+    id: '3',
+  },
+  {
+    image: 'https://trelel129.github.io/asset/tile/tile-4.png',
+    // color: 'common',
+    name: 'Kios Minuman',
+    amount: '1',
+    price: '10',
+    coinproduce: '1',
+    id: '4',
+  },
+  {
+    image: 'https://trelel129.github.io/asset/tile/tile-5.png',
+    // color: 'common',
+    name: 'Kios Pakaian',
+    amount: '1',
+    price: '10',
+    coinproduce: '1',
+    id: '5',
+  },
+];

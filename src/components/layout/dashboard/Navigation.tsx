@@ -109,8 +109,8 @@ const groupNavs: GroupedNavigation[] = [
         exactMatch: true,
       },
       {
-        name: 'Toko Ornamen',
-        href: '/purchaseornamen',
+        name: 'Toko',
+        href: '/toko',
         icon: Store,
         exactMatch: true,
       },
