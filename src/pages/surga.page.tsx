@@ -18,19 +18,22 @@ import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
 
 import CursorImage from '@/pages/surga/CursorImage';
+import { TILEDATA, TileData } from '@/pages/surga/tiledata';
+import { InventoryItem, USERDATA } from '@/pages/surga/userdata';
 
-const INVENTORIES: { image: string; amount: number; id: string }[] = [];
+// const initialMap = [
+//   14, 23, 23, 23, 23, 35, 23, 23, 23, 13, 21, 33, 33, 33, 33, 33, 33, 33, 33,
+//   20, 21, 33, 0, 0, 33, 33, 33, 1, 33, 20, 21, 33, 0, 0, 33, 1, 1, 10, 33, 20,
+//   36, 33, 33, 33, 33, 33, 33, 33, 33, 20, 36, 33, 37, 37, 33, 19, 19, 10, 33,
+//   20, 21, 33, 4, 7, 33, 19, 19, 10, 33, 20, 21, 33, 6, 8, 33, 10, 10, 10, 33,
+//   20, 21, 33, 33, 33, 33, 33, 33, 33, 33, 20, 11, 22, 22, 22, 22, 22, 22, 22,
+//   22, 12,
+// ];
 
-const initialMap = [
-  14, 23, 23, 23, 23, 35, 23, 23, 23, 13, 21, 33, 33, 33, 33, 33, 33, 33, 33,
-  20, 21, 33, 0, 0, 33, 33, 33, 1, 33, 20, 21, 33, 0, 0, 33, 1, 1, 10, 33, 20,
-  36, 33, 33, 33, 33, 33, 33, 33, 33, 20, 36, 33, 37, 37, 33, 19, 19, 10, 33,
-  20, 21, 33, 4, 7, 33, 19, 19, 10, 33, 20, 21, 33, 6, 8, 33, 10, 10, 10, 33,
-  20, 21, 33, 33, 33, 33, 33, 33, 33, 33, 20, 11, 22, 22, 22, 22, 22, 22, 22,
-  22, 12,
-];
+const initialMap = USERDATA[0].map;
 
-const coinrate = 1;
+// const coinrate = 1;
+const coinrate = USERDATA[0].coinrate;
 
 const menu = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
@@ -42,11 +45,13 @@ export default function Surga2pagePage() {
   interface PopoverStates {
     [key: string]: boolean;
   }
-  const [inventory, setInventory] = useState([
-    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-    10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
-    10, 10, 10, 10,
-  ]);
+  // const [inventory, setInventory] = useState([
+  //   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  //   10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
+  //   10, 10, 10, 10,
+  // ]);
+  const [inventory, setInventory] = useState<number[]>(USERDATA[0].inventory);
+  const INVENTORIES: InventoryItem[] = [];
   for (let i = 1; i <= 33; i++) {
     INVENTORIES.push({
       // image: `/sqtiles/tile-${i}.png`,
@@ -64,8 +69,6 @@ export default function Surga2pagePage() {
   const [showEmpty, setShowEmpty] = useState(false);
   const [popoverStates, setPopoverStates] = useState<PopoverStates>({});
 
-  const NUMTILES = map.length;
-  const NUMTILESROW = Math.ceil(Math.sqrt(map.length));
   const newMap = [...map];
 
   const handleTileInfo = (index: number) => {
@@ -218,8 +221,6 @@ export default function Surga2pagePage() {
                   Peta Surga Kuliner
                 </Typography>
                 <TileMap
-                  NUMTILES={NUMTILES}
-                  NUMTILESROW={NUMTILESROW}
                   map={map}
                   size={size}
                   click={handleTileClick}
@@ -343,8 +344,6 @@ export default function Surga2pagePage() {
                 </Button>
               </Typography>
               <TileMap
-                NUMTILES={menu.length}
-                NUMTILESROW={Math.ceil(Math.sqrt(menu.length))}
                 map={menu}
                 size={size}
                 click={handleTileSelect}
@@ -399,13 +398,16 @@ export default function Surga2pagePage() {
                 </Typography>
                 <Typography variant='s1' className='text-center grid-flow-col'>
                   Anda akan mendapatkan{' '}
-                  {SaveMap(map, newMap, inventory, coinrate)} Coin/hari
+                  {SaveMap(map, newMap, inventory, coinrate, TILEDATA)}{' '}
+                  Coin/hari
                 </Typography>
                 <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
                   <Button
                     variant='primary'
                     size='base'
-                    onClick={() => SaveMap(map, newMap, inventory, coinrate)}
+                    onClick={() =>
+                      SaveMap(map, newMap, inventory, coinrate, TILEDATA)
+                    }
                   >
                     Ya
                   </Button>
@@ -462,16 +464,12 @@ export default function Surga2pagePage() {
 // }
 
 const TileMap = ({
-  NUMTILES,
-  NUMTILESROW,
   map,
   size,
   zoom = 1,
   click,
   info,
 }: {
-  NUMTILES: number;
-  NUMTILESROW: number;
   map: number[];
   size: { width: number; height: number };
   zoom?: number;
@@ -480,6 +478,8 @@ const TileMap = ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   info?: any;
 }) => {
+  const NUMTILES = map.length;
+  const NUMTILESROW = Math.ceil(Math.sqrt(NUMTILES));
   const calculateIsoOffsets = (index: number) => {
     // const tileWidth = size.width / 20;
     // const tileHeight = size.height / 11.5;
@@ -553,35 +553,40 @@ const SaveMap = (
   _savetarget: number[],
   _inventory: number[],
   _coinrate: number,
+  TILEDATA: TileData[],
 ) => {
-  _coinrate = coinrate;
+  let coinrate = _coinrate;
   const area = _savetarget.length;
   const length = Math.sqrt(area);
-  _savetarget.forEach((tile) => {
-    if (
-      tile === 3 ||
-      tile === 39 ||
-      tile === 40 ||
-      tile === 41 ||
-      tile === 42
-    ) {
-      _coinrate++;
+
+  // Iterate over the _savetarget array and update coinrate based on the tile IDs
+  _savetarget.forEach((tileId) => {
+    const tile = TILEDATA.find((t) => t.id == tileId.toString());
+    if (tile) {
+      coinrate += parseInt(tile.coinproduce, 10);
+    }
+
+    if ([3, 39, 40, 41, 42].includes(tileId)) {
+      coinrate++;
     }
   });
-  for (let i = 0; i <= _savetarget.length; i++) {
+
+  // Additional condition for specific tile combination
+  for (let i = 0; i < _savetarget.length; i++) {
     if (_savetarget[i] === 39) {
       if (
         _savetarget[i + 1] === 40 &&
         _savetarget[i + length] === 41 &&
         _savetarget[i + length + 1] === 42
       ) {
-        _coinrate = _coinrate * 2;
+        coinrate *= 2;
       }
     }
   }
-  _overwrittedtarget = _savetarget;
-  // console.log('coins rate: ', _coinrate, '\n map: ', _overwrittedtarget);
-  return _coinrate;
+
+  _overwrittedtarget = [..._savetarget];
+  // console.log('coins rate: ', coinrate, '\n map: ', _overwrittedtarget);
+  return coinrate;
 };
 // eslint-disable-next-line unused-imports/no-unused-vars
 const InitScreen = () => {
@@ -626,52 +631,3 @@ const InitScreen = () => {
     </Button>
   );
 };
-
-// eslint-disable-next-line unused-imports/no-unused-vars
-const ORNAMENTS = [
-  {
-    image: 'https://trelel129.github.io/asset/tile/tile-1.png',
-    // color: 'common',
-    name: 'Kios Sayur',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '1',
-  },
-  {
-    image: 'https://trelel129.github.io/asset/tile/tile-2.png',
-    // color: 'common',
-    name: 'Kios Buah',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '2',
-  },
-  {
-    image: 'https://trelel129.github.io/asset/tile/tile-3.png',
-    // color: 'common',
-    name: 'Kios Makanan',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '3',
-  },
-  {
-    image: 'https://trelel129.github.io/asset/tile/tile-4.png',
-    // color: 'common',
-    name: 'Kios Minuman',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '4',
-  },
-  {
-    image: 'https://trelel129.github.io/asset/tile/tile-5.png',
-    // color: 'common',
-    name: 'Kios Pakaian',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '5',
-  },
-];
