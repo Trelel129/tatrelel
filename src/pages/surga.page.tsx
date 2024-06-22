@@ -316,7 +316,7 @@ export default function Surga2pagePage() {
                 >
                   <NextImage
                     className='flex justify-center content-center'
-                    src='/sqtiles/destroyer.png'
+                    src='https://trelel129.github.io/asset/tile/destroyer.png'
                     alt='current-tile'
                     width={size.width / 15}
                     height={size.height / 25}
