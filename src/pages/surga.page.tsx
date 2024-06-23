@@ -183,14 +183,28 @@ export default function Surga2pagePage() {
   };
   //init setMenuTile(1)
   // setMenuTile(1);
+  const [shouldDisplay, setShouldDisplay] = useState(true);
+  useEffect(() => {
+    // Perform client-specific logic after component mounts
+    const isAndroidClient = /Android/i.test(navigator.userAgent);
+    const isiOSClient = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    setShouldDisplay(!(isAndroidClient || isiOSClient));
+  }, []);
   return (
     <div>
       <InitScreen />
       <DashboardLayout className='relative'>
         {/* <CursorImage imageStringLink={`/sqtiles/tile-${menuTile}.png`} /> */}
-        <CursorImage
-          imageStringLink={`https://trelel129.github.io/asset/tile/tile-${menuTile}.png`}
-        />
+        <div
+          className='fixed z-50'
+          style={{
+            display: shouldDisplay ? 'flex' : 'none',
+          }}
+        >
+          <CursorImage
+            imageStringLink={`https://trelel129.github.io/asset/tile/tile-${menuTile}.png`}
+          />
+        </div>
         {showEmpty && (
           <div className='purchase-animation fixed items-center justify-center p-2 left-1/2 top-1/2 z-50'>
             <Typography variant='j2' color='danger'>
