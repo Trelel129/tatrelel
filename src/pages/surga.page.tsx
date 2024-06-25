@@ -545,8 +545,8 @@ const TileMap = ({
               }}
             >
               <NextImage
-                src={`/tiles/tile-${map[i]}.png`}
-                // src={`https://trelel129.github.io/asset/tile/tile-${map[i]}.png`}
+                // src={`/tiles/tile-${map[i]}.png`}
+                src={`https://trelel129.github.io/asset/tiles/tile-${map[i]}.png`}
                 // width={size.width / 20}
                 // height={size.height / 20}
                 //resize
