@@ -9,6 +9,7 @@ export interface TileData {
 export const TILEDATA: TileData[] = [
   {
     image: 'https://trelel129.github.io/asset/tile/tile--1.png',
+    // image: 'tiles/tile-0.png',
     // color: 'common',
     name: 'Kios Sayur',
     amount: '1',
@@ -26,7 +27,8 @@ export const TILEDATA: TileData[] = [
     id: '1',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-1.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-1.png',
+    image: 'tiles/tile-1.png',
     // color: 'common',
     name: 'Kios Sayur',
     amount: '1',
@@ -35,7 +37,8 @@ export const TILEDATA: TileData[] = [
     id: '1',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-2.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-2.png',
+    image: 'tiles/tile-2.png',
     // color: 'common',
     name: 'Kios Buah',
     amount: '1',
@@ -44,7 +47,8 @@ export const TILEDATA: TileData[] = [
     id: '2',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-3.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-3.png',
+    image: 'tiles/tile-3.png',
     // color: 'common',
     name: 'Kios Makanan',
     amount: '1',
@@ -53,7 +57,8 @@ export const TILEDATA: TileData[] = [
     id: '3',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-4.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-4.png',
+    image: 'tiles/tile-4.png',
     // color: 'common',
     name: 'Kios Minuman',
     amount: '1',
@@ -62,7 +67,8 @@ export const TILEDATA: TileData[] = [
     id: '4',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-5.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-5.png',
+    image: 'tiles/tile-5.png',
     // color: 'common',
     name: 'Kios Pakaian',
     amount: '1',
@@ -71,7 +77,8 @@ export const TILEDATA: TileData[] = [
     id: '5',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-6.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-6.png',
+    image: 'tiles/tile-6.png',
     // color: 'common',
     name: 'Kios Sepatu',
     amount: '1',
@@ -80,7 +87,8 @@ export const TILEDATA: TileData[] = [
     id: '6',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-7.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-7.png',
+    image: 'tiles/tile-7.png',
     // color: 'common',
     name: 'Kios Elektronik',
     amount: '1',
@@ -89,7 +97,8 @@ export const TILEDATA: TileData[] = [
     id: '7',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-8.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-8.png',
+    image: 'tiles/tile-8.png',
     // color: 'common',
     name: 'Kios Buku',
     amount: '1',
@@ -98,7 +107,8 @@ export const TILEDATA: TileData[] = [
     id: '8',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-9.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-9.png',
+    image: 'tiles/tile-9.png',
     // color: 'common',
     name: 'Kios Perhiasan',
     amount: '1',
@@ -107,7 +117,8 @@ export const TILEDATA: TileData[] = [
     id: '9',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-10.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-10.png',
+    image: 'tiles/tile-10.png',
     // color: 'common',
     name: 'Kios Mainan',
     amount: '1',
@@ -116,7 +127,8 @@ export const TILEDATA: TileData[] = [
     id: '10',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-11.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-11.png',
+    image: 'tiles/tile-11.png',
     // color: 'common',
     name: 'Kios Alat Tulis',
     amount: '1',
@@ -125,7 +137,8 @@ export const TILEDATA: TileData[] = [
     id: '11',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-12.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-12.png',
+    image: 'tiles/tile-12.png',
     // color: 'common',
     name: 'Kios Sepeda',
     amount: '1',
@@ -134,7 +147,8 @@ export const TILEDATA: TileData[] = [
     id: '12',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-13.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-13.png',
+    image: 'tiles/tile-13.png',
     // color: 'common',
     name: 'Kios Motor',
     amount: '1',
@@ -143,7 +157,8 @@ export const TILEDATA: TileData[] = [
     id: '13',
   },
   {
-    image: 'https://trelel129.github.io/asset/tile/tile-14.png',
+    // image: 'https://trelel129.github.io/asset/tile/tile-14.png',
+    image: 'tiles/tile-14.png',
     // color: 'common',
     name: 'Kios Mobil',
     amount: '1',

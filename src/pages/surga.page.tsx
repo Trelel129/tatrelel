@@ -503,8 +503,8 @@ const TileMap = ({
     const row = Math.floor(index / NUMTILESROW);
     const col = index % NUMTILESROW;
 
-    const x = col * tileWidth * 1.05;
-    const y = row * tileHeight * 1.33;
+    const x = col * tileWidth * 1;
+    const y = row * tileHeight * 1.23;
     return { x, y };
   };
 
@@ -545,8 +545,8 @@ const TileMap = ({
               }}
             >
               <NextImage
-                // src={`/sqtiles/tile-${map[i]}.png`}
-                src={`https://trelel129.github.io/asset/tile/tile-${map[i]}.png`}
+                src={`/tiles/tile-${map[i]}.png`}
+                // src={`https://trelel129.github.io/asset/tile/tile-${map[i]}.png`}
                 // width={size.width / 20}
                 // height={size.height / 20}
                 //resize
