@@ -13,6 +13,8 @@ import {
 import Seo from '@/components/Seo';
 import Typography from '@/components/typography/Typography';
 
+import { TILEDATA } from '@/pages/surga/tiledata';
+
 // type OptionType = {
 //   title: string;
 //   color?: string;
@@ -64,107 +66,7 @@ import Typography from '@/components/typography/Typography';
 //   TYPE_OPTIONS.map((type, i) => <FilterSelection key={i} title={type.title} />),
 // ];
 
-const ORNAMENTS = [
-  {
-    image: '/sqtiles/tile-3.png',
-    // color: 'common',
-    name: 'Kios Sayur',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '1',
-  },
-  {
-    image: '/sqtiles/tile-4.png',
-    // color: 'rare',
-    name: 'Kios Daging Potong',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '2',
-  },
-  {
-    image: '/sqtiles/tile-5.png',
-    // color: 'unique',
-    name: 'Kios Sayur 2',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '3',
-  },
-  {
-    image: '/sqtiles/tile-6.png',
-    // color: 'uncommon',
-    name: 'Kios Daging Olahan',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '4',
-  },
-  {
-    image: '/sqtiles/tile-7.png',
-    // color: 'legend',
-    name: 'Kios Daging Olahan 2',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '5',
-  },
-  {
-    image: '/sqtiles/tile-8.png',
-    // color: 'legend',
-    name: 'Kios Gorengan',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '6',
-  },
-  {
-    image: '/sqtiles/tile-9.png',
-    // color: 'rare',
-    name: 'Selep Daging',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '7',
-  },
-  {
-    image: '/sqtiles/tile-10.png',
-    // color: 'rare',
-    name: 'Kios Sayur',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '8',
-  },
-  {
-    image: '/sqtiles/tile-11.png',
-    // color: 'unique',
-    name: 'Kios Kentang',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '9',
-  },
-  {
-    image: '/sqtiles/tile-12.png',
-    // color: 'common',
-    name: 'Kios Daging Panggang',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '10',
-  },
-  {
-    image: '/sqtiles/tile-13.png',
-    // color: 'common',
-    name: 'Kios Sayur 3',
-    amount: '1',
-    price: '10',
-    coinproduce: '1',
-    id: '11',
-  },
-];
+const ORNAMENTS = TILEDATA;
 
 //#endregion  //*======== Constant ===========
 export default function tokopagePage() {

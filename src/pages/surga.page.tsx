@@ -55,7 +55,7 @@ export default function Surga2pagePage() {
   for (let i = 1; i <= 33; i++) {
     INVENTORIES.push({
       // image: `/sqtiles/tile-${i}.png`,
-      image: `https://trelel129.github.io/asset/tile/tile-${i}.png`,
+      image: `https://trelel129.github.io/asset/tiles/tile-${i}.png`,
       amount: inventory[i - 1],
       id: `${i}`,
     });
@@ -202,7 +202,7 @@ export default function Surga2pagePage() {
           }}
         >
           <CursorImage
-            imageStringLink={`https://trelel129.github.io/asset/tile/tile-${menuTile}.png`}
+            imageStringLink={`https://trelel129.github.io/asset/tiles/tile-${menuTile}.png`}
           />
         </div>
         {showEmpty && (
@@ -301,7 +301,7 @@ export default function Surga2pagePage() {
                   <NextImage
                     className='flex justify-center content-center p-1'
                     // src={`/sqtiles/tile-${mapTile + 1}.png`}
-                    src={`https://trelel129.github.io/asset/tile/tile-${
+                    src={`https://trelel129.github.io/asset/tiles/tile-${
                       mapTile + 1
                     }.png`}
                     alt='current-tile'
