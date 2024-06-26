@@ -66,7 +66,7 @@ import { TILEDATA } from '@/pages/surga/tiledata';
 //   TYPE_OPTIONS.map((type, i) => <FilterSelection key={i} title={type.title} />),
 // ];
 
-const ORNAMENTS = TILEDATA;
+const ORNAMENTS = TILEDATA.slice(2);
 
 //#endregion  //*======== Constant ===========
 export default function tokopagePage() {
@@ -148,19 +148,19 @@ export default function tokopagePage() {
 // }
 
 function OrnamentDisplay({
-  image,
+  imageLink,
   // color,
-  name,
-
-  price,
-  id,
+  description,
+  coinproduce,
+  coinCost,
+  indexId,
 }: {
-  image: string;
+  imageLink: string;
   // color: string;
-  name: string;
-
-  price: string;
-  id: string;
+  description: string;
+  coinproduce: string;
+  coinCost: string;
+  indexId: string;
 }) {
   return (
     <div>
@@ -171,7 +171,12 @@ function OrnamentDisplay({
         >
           <button className='rounded-2xl w-fit blue'>
             <SimpleCard className='grid place-items-center'>
-              <NextImage src={image} width='150' height='150' alt='ornamen' />
+              <NextImage
+                src={imageLink}
+                width='150'
+                height='150'
+                alt='ornamen'
+              />
               {/* <div
                 className={clsx([
                   'w-4 h-4 rounded-full absolute top-3 right-3',
@@ -181,7 +186,7 @@ function OrnamentDisplay({
 
               <div className='flex mt-auto items-center justify-between w-full'>
                 <Typography variant='s1' className='text category numgrid'>
-                  {name}
+                  {description}
                 </Typography>
                 <div className='flex items-center gap-2'>
                   <div className='p-0.5 bg-white shadow rounded-full'>
@@ -194,8 +199,24 @@ function OrnamentDisplay({
                       alt='Koin SIP'
                     />
                   </div>
-                  <Typography variant='s2'>{price}</Typography>
+                  <Typography variant='s2'>{coinCost}</Typography>
                 </div>
+              </div>
+              <div className='flex mt-auto items-center justify-center w-full'>
+                <Typography variant='s1' className='text category numgrid'>
+                  {coinproduce} <br></br>
+                </Typography>
+                <NextImage
+                  src='/images/icon/koin-siar.png'
+                  width={120}
+                  height={120}
+                  className='w-4'
+                  imgClassName='w-full'
+                  alt='Koin SIP'
+                />
+                <Typography variant='s1' className='text category numgrid'>
+                  /hari
+                </Typography>
               </div>
             </SimpleCard>
           </button>
@@ -210,7 +231,7 @@ function OrnamentDisplay({
               <Button
                 variant='primary'
                 size='base'
-                onClick={() => ReduceCoin({ id, price })}
+                onClick={() => ReduceCoin({ indexId, coinCost })}
               >
                 Ya
               </Button>
@@ -227,8 +248,15 @@ function OrnamentDisplay({
 
 // eslint-disable-next-line unused-imports/no-unused-vars
 let coins = 1000;
-function ReduceCoin({ price }: { id: string; price: string }) {
-  coins -= parseInt(price);
+function ReduceCoin({
+  // eslint-disable-next-line unused-imports/no-unused-vars
+  indexId,
+  coinCost,
+}: {
+  indexId: string;
+  coinCost: string;
+}) {
+  coins -= parseInt(coinCost);
   // console.log('inventory[id]', id);
   // console.log(coins);
 }

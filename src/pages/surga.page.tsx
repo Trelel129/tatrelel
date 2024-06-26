@@ -109,6 +109,8 @@ export default function Surga2pagePage() {
       mapTile,
       '\n Inventory: ',
       inventory,
+      // '\n tiledata: ',
+      // TILEDATA[map[1]].image,
     );
   };
 
@@ -202,7 +204,8 @@ export default function Surga2pagePage() {
           }}
         >
           <CursorImage
-            imageStringLink={`https://trelel129.github.io/asset/tiles/tile-${menuTile}.png`}
+            // imageStringLink={`https://trelel129.github.io/asset/tiles/tile-${menuTile}.png`}
+            imageStringLink={TILEDATA[menuTile + 1].imageLink}
           />
         </div>
         {showEmpty && (
@@ -218,7 +221,7 @@ export default function Surga2pagePage() {
         <Typography variant='b1' className='text-center' color='tertiary'>
           Surga
         </Typography>
-      </Square> */}
+        </Square> */}
         <main className='py-12 flex flex-col'>
           <PageHeader
             className='z-10'
@@ -239,15 +242,15 @@ export default function Surga2pagePage() {
                   size={size}
                   click={handleTileClick}
                   info={handleTileInfo}
+                  // tiledata={TILEDATA}
                 />
               </div>
             </div>
             <div className='lg:grid content-center lg:fixed sm:absolute right-0 z-20 sm:content-between'>
-              <Typography
-                variant='h2'
-                className='text-center content-center p-4'
-              >
+              <Typography variant='h2' className='text-center content-center'>
                 Bangun <br></br>
+              </Typography>
+              <div className='flex'>
                 <Popover open={popoverStates['popover1']}>
                   <PopoverTrigger>
                     <PlusIcon
@@ -292,6 +295,7 @@ export default function Surga2pagePage() {
                     )}
                   </PopoverContent>
                 </Popover>
+
                 <Button
                   variant='primary'
                   className='rounded-lg shadow-lg border-4 w-fit h-fit p-2 focus:border-4 focus:bg-gray-500'
@@ -301,9 +305,11 @@ export default function Surga2pagePage() {
                   <NextImage
                     className='flex justify-center content-center p-1'
                     // src={`/sqtiles/tile-${mapTile + 1}.png`}
-                    src={`https://trelel129.github.io/asset/tiles/tile-${
-                      mapTile + 1
-                    }.png`}
+                    src={
+                      menuTile + 1 === 0
+                        ? `https://trelel129.github.io/asset/tiles/tile-1.png`
+                        : TILEDATA[menuTile + 1].imageLink
+                    }
                     alt='current-tile'
                     width={size.width / 15}
                     height={size.height / 25}
@@ -312,11 +318,29 @@ export default function Surga2pagePage() {
                     variant='h1'
                     className='text-center content-center'
                   >
+                    {/* {inventory[mapTile]}x */}
                     {inventory[mapTile]}x
+                    {/* {USERDATA[0].inventory[mapTile]}x */}
                   </Typography>
                 </Button>
-              </Typography>
-
+              </div>
+              <div className='flex justify-center'>
+                <Typography variant='s1' className='text-center content-center'>
+                  {/* {TILEDATA[mapTile].description} */}
+                  {TILEDATA[mapTile + 1].coinproduce}
+                </Typography>
+                <NextImage
+                  src='/images/icon/koin-siar.png'
+                  width={120}
+                  height={120}
+                  className='w-4 content-center'
+                  imgClassName='w-full'
+                  alt='Koin SIP'
+                />
+                <Typography variant='s1' className='text category numgrid'>
+                  /hari
+                </Typography>
+              </div>
               <Typography
                 variant='h2'
                 className='text-center content-center p-4'
@@ -362,6 +386,7 @@ export default function Surga2pagePage() {
                 size={size}
                 click={handleTileSelect}
                 zoom={1}
+                // tiledata={TILEDATA}
               />
             </div>
           </div>
@@ -482,7 +507,7 @@ const TileMap = ({
   size,
   zoom = 1,
   click,
-  info,
+  info, // tiledata,
 }: {
   map: number[];
   size: { width: number; height: number };
@@ -491,9 +516,11 @@ const TileMap = ({
   click?: any;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   info?: any;
+  // tiledata: TileData[];
 }) => {
   const NUMTILES = map.length;
   const NUMTILESROW = Math.ceil(Math.sqrt(NUMTILES));
+
   const calculateIsoOffsets = (index: number) => {
     // const tileWidth = size.width / 20;
     // const tileHeight = size.height / 11.5;
@@ -525,6 +552,7 @@ const TileMap = ({
         {Array.from({ length: NUMTILES }).map((_, i) => {
           const { x, y } = calculateIsoOffsets(i);
           const zIndex = calculateZOffset(i);
+          // const tile = TILEDATA.find((t) => t.id == tileId.toString());
           return (
             <a
               key={i}
@@ -546,7 +574,8 @@ const TileMap = ({
             >
               <NextImage
                 // src={`/tiles/tile-${map[i]}.png`}
-                src={`https://trelel129.github.io/asset/tiles/tile-${map[i]}.png`}
+                // src={`https://trelel129.github.io/asset/tiles/tile-${map[i]}.png`}
+                src={TILEDATA[map[i] + 1].imageLink}
                 // width={size.width / 20}
                 // height={size.height / 20}
                 //resize
@@ -575,9 +604,11 @@ const SaveMap = (
 
   // Iterate over the _savetarget array and update coinrate based on the tile IDs
   _savetarget.forEach((tileId) => {
-    const tile = TILEDATA.find((t) => t.id == tileId.toString());
+    const tile = TILEDATA.find((t) => t.indexId == tileId.toString());
     if (tile) {
-      coinrate += parseInt(tile.coinproduce, 10);
+      if (tileId != 0) {
+        coinrate += parseInt(tile.coinproduce, 10);
+      }
     }
 
     if ([3, 39, 40, 41, 42].includes(tileId)) {

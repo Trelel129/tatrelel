@@ -4,3 +4,7 @@ export const isLocal = process.env.NODE_ENV === 'development';
 export const showLogger = isLocal
   ? true
   : process.env.NEXT_PUBLIC_SHOW_LOGGER === 'true' ?? false;
+
+// MONGO_URI: 'localhost:27017/';
+
+export const MONGO_URI = process.env.MONGO_URI ?? 'localhost:27017/';
