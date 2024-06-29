@@ -169,7 +169,8 @@ export default function Surga2pagePage() {
   };
 
   const openPopover = (popoverId: string) => {
-    if (menuTile - 1 != -1) {
+    // if (menuTile - 1 != -1)
+    {
       setPopoverStates((prevState) => ({
         ...prevState,
         [popoverId]: true,
@@ -195,6 +196,8 @@ export default function Surga2pagePage() {
   return (
     <div>
       <InitScreen />
+      {/* count coinproduce in initialMap */}
+
       <DashboardLayout className='relative'>
         {/* <CursorImage imageStringLink={`/sqtiles/tile-${menuTile}.png`} /> */}
         <div
@@ -392,7 +395,7 @@ export default function Surga2pagePage() {
           </div>
           <div className='fixed flex bottom-0 z-10 p-4 w-full justify-center'>
             <ButtonLink
-              href='/purchaseornamen'
+              href='/toko'
               variant='primary'
               className='rounded-lg shadow-lg border-4'
             >
@@ -431,15 +434,31 @@ export default function Surga2pagePage() {
                 </Button>
               </PopoverTrigger>
 
-              <PopoverContent className='w-fit'>
+              <PopoverContent className='grid w-fit'>
                 <Typography variant='s1' className='text-center grid-flow-col'>
                   Apakah anda yakin ingin menyimpan?
                 </Typography>
-                <Typography variant='s1' className='text-center grid-flow-col'>
-                  Anda akan mendapatkan{' '}
-                  {SaveMap(map, newMap, inventory, coinrate, TILEDATA)}{' '}
-                  Coin/hari
-                </Typography>
+                <div className='flex justify-center'>
+                  <Typography
+                    variant='s1'
+                    className='text-center grid-flow-col'
+                  >
+                    Anda akan mendapatkan{' '}
+                    {SaveMap(map, newMap, inventory, coinrate, TILEDATA)}{' '}
+                  </Typography>
+                  <NextImage
+                    src='/images/icon/koin-siar.png'
+                    width={120}
+                    height={120}
+                    className='w-4 content-center'
+                    imgClassName='w-full'
+                    alt='Koin SIP'
+                  />
+                  <Typography variant='s1' className='text'>
+                    /hari
+                  </Typography>
+                </div>
+
                 <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
                   <Button
                     variant='primary'
@@ -469,6 +488,23 @@ export default function Surga2pagePage() {
             }}
           >
             <div className='from-transparent to-light absolute inset-0 bg-gradient-to-b bg-repeat' />
+          </div>
+          <div className='absolute flex justify-center right-10'>
+            <Typography variant='s1' className='text-center grid-flow-col'>
+              SIAR Coin rate:{' '}
+              {SaveMap(map, initialMap, inventory, coinrate, TILEDATA)}{' '}
+            </Typography>
+            <NextImage
+              src='/images/icon/koin-siar.png'
+              width={120}
+              height={120}
+              className='w-4 content-center'
+              imgClassName='w-full'
+              alt='Koin SIP'
+            />
+            <Typography variant='s1' className='text'>
+              /hari
+            </Typography>
           </div>
         </main>
       </DashboardLayout>
@@ -611,9 +647,9 @@ const SaveMap = (
       }
     }
 
-    if ([3, 39, 40, 41, 42].includes(tileId)) {
-      coinrate++;
-    }
+    // if ([39, 40, 41, 42].includes(tileId)) {
+    //   coinrate++;
+    // }
   });
 
   // Additional condition for specific tile combination
