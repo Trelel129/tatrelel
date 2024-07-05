@@ -66,7 +66,7 @@ import { TILEDATA } from '@/pages/surga/tiledata';
 //   TYPE_OPTIONS.map((type, i) => <FilterSelection key={i} title={type.title} />),
 // ];
 
-const ORNAMENTS = TILEDATA.slice(2);
+const ORNAMENTS = TILEDATA.slice(1);
 
 //#endregion  //*======== Constant ===========
 export default function tokopagePage() {
