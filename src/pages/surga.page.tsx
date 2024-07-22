@@ -40,7 +40,6 @@ const menu = [
   23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41,
   42,
 ];
-
 export default function Surga2pagePage() {
   interface PopoverStates {
     [key: string]: boolean;
@@ -68,7 +67,7 @@ export default function Surga2pagePage() {
   const [showAnimation, setShowAnimation] = useState(false);
   const [showEmpty, setShowEmpty] = useState(false);
   const [popoverStates, setPopoverStates] = useState<PopoverStates>({});
-
+  const [input, setInput] = useState(1);
   const newMap = [...map];
 
   const handleTileInfo = (index: number) => {
@@ -162,7 +161,7 @@ export default function Surga2pagePage() {
       setTimeout(() => setShowAnimation(false), 500);
       setInventory((prevInventory) => {
         const newInventory = [...prevInventory];
-        newInventory[menuTile - 1]++;
+        newInventory[menuTile - 1] += 1 * input;
         return newInventory;
       });
     }
@@ -259,7 +258,11 @@ export default function Surga2pagePage() {
                     <PlusIcon
                       size={30}
                       className='bg-white rounded border-4 border-blue-400'
-                      onClick={openPopover.bind(null, 'popover1')}
+                      onClick={() => {
+                        openPopover('popover1');
+                        // Call your other functions here
+                        setInput(1);
+                      }}
                     ></PlusIcon>
                   </PopoverTrigger>
                   <PopoverContent>
@@ -268,16 +271,63 @@ export default function Surga2pagePage() {
                         variant='s1'
                         className='text-center grid-flow-col'
                       >
-                        Apakah anda yakin ingin membeli item ini? <br></br>1
-                        SIAR Coin
+                        Berapa banyak ubin yang ingin anda beli?
                       </Typography>
+                      <div className='grid grid-cols-5 place-content-center text-center'>
+                        <Button
+                          variant='outline'
+                          size='base'
+                          onClick={
+                            input > 5
+                              ? setInput.bind(null, input - 5)
+                              : setInput.bind(null, 1)
+                          }
+                        >
+                          -5
+                        </Button>
+                        <Button
+                          variant='outline'
+                          size='base'
+                          onClick={
+                            input > 1
+                              ? setInput.bind(null, input - 1)
+                              : setInput.bind(null, 1)
+                          }
+                        >
+                          -1
+                        </Button>
+                        <Typography
+                          variant='s1'
+                          className='text-center content-center'
+                        >
+                          {input}
+
+                          {/* {USERDATA[0].inventory[menuTile]} */}
+                        </Typography>
+                        <Button
+                          variant='outline'
+                          size='base'
+                          onClick={setInput.bind(null, input + 1)}
+                        >
+                          +1
+                        </Button>
+                        <Button
+                          variant='outline'
+                          size='base'
+                          onClick={setInput.bind(null, input + 5)}
+                        >
+                          +5
+                        </Button>
+                      </div>
+                      {/* step up button */}
+
                       <div className='grid grid-cols-2 place-items-center text-center content-center gap-2'>
                         <Button
                           variant='primary'
                           size='base'
                           onClick={ReduceCoin}
                         >
-                          Ya
+                          Beli
                         </Button>
 
                         <Button
@@ -285,14 +335,14 @@ export default function Surga2pagePage() {
                           size='base'
                           onClick={closePopover.bind(null, 'popover1')}
                         >
-                          Tidak
+                          Batal
                         </Button>
                       </div>
                     </div>
                     {showAnimation && (
                       <div className='purchase-animation absolute flex items-center justify-start p-2'>
                         <Typography variant='h4' color='danger'>
-                          -1 SIAR Coin
+                          -{input} SIAR Coin
                         </Typography>
                       </div>
                     )}
@@ -322,16 +372,12 @@ export default function Surga2pagePage() {
                     className='text-center content-center'
                   >
                     {/* {inventory[mapTile]}x */}
-                    {inventory[mapTile]}x
+                    {inventory[mapTile]}
                     {/* {USERDATA[0].inventory[mapTile]}x */}
                   </Typography>
                 </Button>
               </div>
               <div className='flex justify-center'>
-                <Typography variant='s1' className='text-center content-center'>
-                  {/* {TILEDATA[mapTile].description} */}
-                  {TILEDATA[mapTile + 1].coinproduce}
-                </Typography>
                 <NextImage
                   src='/images/icon/koin-siar.png'
                   width={120}
@@ -340,6 +386,10 @@ export default function Surga2pagePage() {
                   imgClassName='w-full'
                   alt='Koin SIP'
                 />
+                <Typography variant='s1' className='text-center content-center'>
+                  {/* {TILEDATA[mapTile].description} */}
+                  {TILEDATA[mapTile + 1].coinproduce}
+                </Typography>
                 <Typography variant='s1' className='text category numgrid'>
                   /hari
                 </Typography>
@@ -444,7 +494,6 @@ export default function Surga2pagePage() {
                     className='text-center grid-flow-col'
                   >
                     Anda akan mendapatkan{' '}
-                    {SaveMap(map, newMap, inventory, coinrate, TILEDATA)}{' '}
                   </Typography>
                   <NextImage
                     src='/images/icon/koin-siar.png'
@@ -454,6 +503,13 @@ export default function Surga2pagePage() {
                     imgClassName='w-full'
                     alt='Koin SIP'
                   />
+                  <Typography
+                    variant='s1'
+                    className='text-center grid-flow-col'
+                  >
+                    {SaveMap(map, newMap, inventory, coinrate, TILEDATA)}{' '}
+                  </Typography>
+
                   <Typography variant='s1' className='text'>
                     /hari
                   </Typography>
@@ -492,7 +548,6 @@ export default function Surga2pagePage() {
           <div className='absolute flex justify-center right-10'>
             <Typography variant='s1' className='text-center grid-flow-col'>
               SIAR Coin rate:{' '}
-              {SaveMap(map, initialMap, inventory, coinrate, TILEDATA)}{' '}
             </Typography>
             <NextImage
               src='/images/icon/koin-siar.png'
@@ -502,6 +557,9 @@ export default function Surga2pagePage() {
               imgClassName='w-full'
               alt='Koin SIP'
             />
+            <Typography variant='s1' className='text-center grid-flow-col'>
+              {SaveMap(map, initialMap, inventory, coinrate, TILEDATA)}{' '}
+            </Typography>
             <Typography variant='s1' className='text'>
               /hari
             </Typography>

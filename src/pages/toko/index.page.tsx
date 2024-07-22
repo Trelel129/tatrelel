@@ -199,13 +199,12 @@ function OrnamentDisplay({
                       alt='Koin SIP'
                     />
                   </div>
-                  <Typography variant='s2'>{coinCost}</Typography>
+                  <Typography variant='s2'>
+                    {parseInt(coinCost) * 10}
+                  </Typography>
                 </div>
               </div>
               <div className='flex mt-auto items-center justify-center w-full'>
-                <Typography variant='s1' className='text category numgrid'>
-                  {coinproduce} <br></br>
-                </Typography>
                 <NextImage
                   src='/images/icon/koin-siar.png'
                   width={120}
@@ -214,6 +213,10 @@ function OrnamentDisplay({
                   imgClassName='w-full'
                   alt='Koin SIP'
                 />
+                <Typography variant='s1' className='text category numgrid'>
+                  {coinproduce} <br></br>
+                </Typography>
+
                 <Typography variant='s1' className='text category numgrid'>
                   /hari
                 </Typography>
@@ -256,7 +259,7 @@ function ReduceCoin({
   indexId: string;
   coinCost: string;
 }) {
-  coins -= parseInt(coinCost);
+  coins -= parseInt(coinCost) * 10;
   // console.log('inventory[id]', id);
   // console.log(coins);
 }
