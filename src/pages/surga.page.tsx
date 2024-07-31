@@ -54,7 +54,7 @@ export default function Surga2pagePage() {
   for (let i = 1; i <= 33; i++) {
     INVENTORIES.push({
       // image: `/sqtiles/tile-${i}.png`,
-      image: `https://trelel129.github.io/asset/tiles/tile-${i}.png`,
+      image: `https://trelel129.github.io/asset/simplifiedtiles/tile-${i}.png`,
       amount: inventory[i - 1],
       id: `${i}`,
     });
@@ -206,7 +206,7 @@ export default function Surga2pagePage() {
           }}
         >
           <CursorImage
-            // imageStringLink={`https://trelel129.github.io/asset/tiles/tile-${menuTile}.png`}
+            // imageStringLink={`https://trelel129.github.io/asset/simplifiedtiles/tile-${menuTile}.png`}
             imageStringLink={TILEDATA[menuTile + 1].imageLink}
           />
         </div>
@@ -273,18 +273,7 @@ export default function Surga2pagePage() {
                       >
                         Berapa banyak ubin yang ingin anda beli?
                       </Typography>
-                      <div className='grid grid-cols-5 place-content-center text-center'>
-                        <Button
-                          variant='outline'
-                          size='base'
-                          onClick={
-                            input > 5
-                              ? setInput.bind(null, input - 5)
-                              : setInput.bind(null, 1)
-                          }
-                        >
-                          -5
-                        </Button>
+                      <div className='grid grid-cols-3 place-items-center'>
                         <Button
                           variant='outline'
                           size='base'
@@ -296,27 +285,19 @@ export default function Surga2pagePage() {
                         >
                           -1
                         </Button>
-                        <Typography
-                          variant='s1'
-                          className='text-center content-center'
-                        >
-                          {input}
-
-                          {/* {USERDATA[0].inventory[menuTile]} */}
-                        </Typography>
+                        <input
+                          type='number'
+                          className='text-center w-10/12'
+                          value={input}
+                          min={1}
+                          onChange={(e) => setInput(Number(e.target.value))}
+                        />
                         <Button
                           variant='outline'
                           size='base'
                           onClick={setInput.bind(null, input + 1)}
                         >
                           +1
-                        </Button>
-                        <Button
-                          variant='outline'
-                          size='base'
-                          onClick={setInput.bind(null, input + 5)}
-                        >
-                          +5
                         </Button>
                       </div>
                       {/* step up button */}
@@ -360,7 +341,7 @@ export default function Surga2pagePage() {
                     // src={`/sqtiles/tile-${mapTile + 1}.png`}
                     src={
                       menuTile + 1 === 0
-                        ? `https://trelel129.github.io/asset/tiles/tile-1.png`
+                        ? `https://trelel129.github.io/asset/simplifiedtiles/tile-1.png`
                         : TILEDATA[menuTile + 1].imageLink
                     }
                     alt='current-tile'
@@ -668,7 +649,7 @@ const TileMap = ({
             >
               <NextImage
                 // src={`/tiles/tile-${map[i]}.png`}
-                // src={`https://trelel129.github.io/asset/tiles/tile-${map[i]}.png`}
+                // src={`https://trelel129.github.io/asset/simplifiedtiles/tile-${map[i]}.png`}
                 src={TILEDATA[map[i] + 1].imageLink}
                 // width={size.width / 20}
                 // height={size.height / 20}

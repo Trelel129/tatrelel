@@ -212,6 +212,13 @@
   .min-h-main {
     @apply min-h-[calc(100vh-4rem)];
   }
+
+  /* Remove step up arrow for number input */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }
 
 @layer utilities {
